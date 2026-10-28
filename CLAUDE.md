@@ -18,6 +18,7 @@ Um agente que faz uma pergunta em vez de vinte e nunca promete o que a apólice 
 - Chaves só em .env; nunca no código.
 - Cada função nova vem com teste em testes/.
 - Modelo do LLM lido de MODELO_LLM no .env (padrão: claude-haiku-5-5; o plano original previa Sonnet, a equipe escolheu Haiku).
+- Jev: POST https://api.typesafe.ai/v1/systemone, model jev-latest, chave JEV_API_KEY; tipos de pergunta choice, score e noul (ver testes/test_conexoes.py).
 - Sem chave do Jev, o Decisor usa ClaudeDecisor (Haiku com tool use e enum).
 
 ## Comandos
