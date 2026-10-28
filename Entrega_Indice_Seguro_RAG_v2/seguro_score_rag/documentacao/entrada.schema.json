@@ -1,0 +1,92 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Perfil de entrada v2",
+  "type": "object",
+  "properties": {
+    "funcionarios_estimados_empresa": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "minimum": 0
+    },
+    "estoque_medio_estimado": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "minimum": 0
+    },
+    "valor_bens_ponderado_estabelecimento": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "minimum": 0
+    },
+    "faturamento_mensal_empresa": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "minimum": 0
+    },
+    "quantidade_estabelecimentos_empresa": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "minimum": 0
+    },
+    "area_m2": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "minimum": 0
+    },
+    "grupo_atividade": {
+      "type": "string",
+      "enum": [
+        "BELEZA",
+        "CLINICA",
+        "ELETRONICOS",
+        "ESCOLA_CURSO",
+        "ESCRITORIO",
+        "FARMACIA",
+        "MERCADO",
+        "OFICINA",
+        "RESTAURANTE",
+        "VAREJO_MODA"
+      ]
+    },
+    "tipo_unidade": {
+      "type": "string",
+      "enum": [
+        "FILIAL",
+        "MATRIZ"
+      ]
+    },
+    "empresa_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "imovel_id": {
+      "type": "string",
+      "minLength": 1
+    }
+  },
+  "required": [
+    "funcionarios_estimados_empresa",
+    "estoque_medio_estimado",
+    "valor_bens_ponderado_estabelecimento",
+    "faturamento_mensal_empresa",
+    "quantidade_estabelecimentos_empresa",
+    "area_m2",
+    "grupo_atividade",
+    "tipo_unidade",
+    "empresa_id",
+    "imovel_id"
+  ],
+  "additionalProperties": true
+}

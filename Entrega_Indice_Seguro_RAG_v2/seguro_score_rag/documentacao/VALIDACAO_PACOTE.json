@@ -1,0 +1,11 @@
+{
+  "status": "APROVADO",
+  "registros_comparados": 3122,
+  "erro_maximo_score": 2.220446049250313e-16,
+  "probabilidades_e_planos": "REPRODUZIDOS",
+  "casos_limite": "APROVADOS",
+  "dependencias_externas": 0,
+  "portabilidade": "Caminhos independentes do computador de origem; inferência sem bibliotecas externas",
+  "ambiente_verificado": "Python local Linux; Windows/macOS não executados, código utiliza biblioteca padrão multiplataforma",
+  "referencia": "Modelo ordinal v2 congelado; não houve retreino no empacotamento"
+}

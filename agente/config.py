@@ -25,6 +25,12 @@ MODELO_LLM = os.getenv("MODELO_LLM", "claude-haiku-5-5")
 MODELO_DECISOR = os.getenv("MODELO_DECISOR", "claude-haiku-5-5")
 LIMIAR_CONFIANCA = float(os.getenv("LIMIAR_CONFIANCA", "0.70"))
 
+# Pacote do motor de score entregue pela equipe; só score_empresa é usado.
+DIR_MOTOR = RAIZ / "Entrega_Indice_Seguro_RAG_v2" / "seguro_score_rag"
+BASE_CLIENTES = DIR_MOTOR / "dados" / "preparados" / "base_teste_comum.csv"
+# Pergunta-se uma variável quando o corte de plano está a até esta fração do valor estimado.
+MARGEM_PERGUNTA = float(os.getenv("MARGEM_PERGUNTA", "0.30"))
+
 
 def cliente_anthropic():
     import anthropic

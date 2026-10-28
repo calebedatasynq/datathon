@@ -1,0 +1,26 @@
+{
+  "funcionarios_estimados_empresa": {
+    "min": 2.0,
+    "max": 75.0
+  },
+  "estoque_medio_estimado": {
+    "min": 50.0,
+    "max": 1968900.0
+  },
+  "valor_bens_ponderado_estabelecimento": {
+    "min": 1200.0,
+    "max": 2545500.0
+  },
+  "faturamento_mensal_empresa": {
+    "min": 30000.0,
+    "max": 1392850.0
+  },
+  "quantidade_estabelecimentos_empresa": {
+    "min": 1.0,
+    "max": 2.0
+  },
+  "area_m2": {
+    "min": 35.0,
+    "max": 750.0
+  }
+}

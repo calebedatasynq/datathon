@@ -5,10 +5,10 @@ from enum import StrEnum
 from pydantic import BaseModel, Field
 
 
-class NivelIPU(StrEnum):
-    ALTO = "ALTO"
-    FRONTEIRA = "FRONTEIRA"
-    BAIXO = "BAIXO"
+class Plano(StrEnum):
+    ESSENCIAL = "ESSENCIAL"
+    PRATICO = "PRATICO"
+    TOTAL = "TOTAL"
 
 
 class TipoClausula(StrEnum):
@@ -18,33 +18,35 @@ class TipoClausula(StrEnum):
     CARENCIA = "carencia"
 
 
-class Faixa(BaseModel):
-    """Faixa de valor em reais (ex.: estoque entre 40 e 150 mil)."""
-
-    nome: str
-    minimo: float | None = None
-    maximo: float | None = None
-
-
 class Pergunta(BaseModel):
-    """Pergunta que ainda decide o plano, com as respostas possíveis."""
+    """Pergunta que ainda decide o plano: "variavel passa de limiar?"."""
 
     id: str
     texto: str
-    opcoes: list[str]
+    opcoes: list[str] = Field(default_factory=lambda: ["sim", "nao", "nao_sei"])
+    variavel: str
+    valor_estimado: float
+    limiar: float
+    plano_se_sim: Plano
+    plano_se_nao: Plano
 
 
 class Perfil(BaseModel):
-    """Escrito por perfil.py."""
+    """Escrito por perfil.py a partir de score_empresa, sem LLM."""
 
     cliente_id: str
+    empresa_id: str
     segmento: str
-    plano_provavel: str
-    ipu: NivelIPU
-    ipu_valor: float | None = None
-    faixas: list[Faixa] = Field(default_factory=list)
-    confianca: float = Field(ge=0, le=1)
+    status: str
+    plano: Plano | None
+    score: float | None
+    cortes: list[float]
+    probabilidades: dict[Plano, float] | None = None
+    distancia_ao_corte: float | None = None
+    avisos: list[str] = Field(default_factory=list)
     perguntas_pendentes: list[Pergunta] = Field(default_factory=list)
+    entrada: dict
+    """Entrada exata do motor; regras.py altera e chama score_empresa de novo."""
 
 
 class Decisao(BaseModel):
@@ -70,8 +72,8 @@ class Decisoes(BaseModel):
 class PerfilAtualizado(BaseModel):
     """Escrito por regras.py. Plano recalculado por regra, nunca por LLM."""
 
-    plano_anterior: str
-    plano: str
+    plano_anterior: Plano | None
+    plano: Plano | None
     proxima_pergunta: Pergunta | None = None
 
 

@@ -1,0 +1,4 @@
+empresa_id,imovel_id,funcionarios_estimados_empresa,estoque_medio_estimado,valor_bens_ponderado_estabelecimento,faturamento_mensal_empresa,quantidade_estabelecimentos_empresa,area_m2,grupo_atividade,tipo_unidade
+CASO_00001,IMO_CASO_00001_01,29,48950,612300,1307850,1,,RESTAURANTE,MATRIZ
+CASO_00002,IMO_CASO_00002_01,40,43500,694150,1110350,1,,CLINICA,MATRIZ
+CASO_00003,IMO_CASO_00003_01,14,182200,69450,600550,1,,VAREJO_MODA,MATRIZ

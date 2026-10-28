@@ -1,0 +1,12 @@
+{
+  "empresa_id": "CASO_00001",
+  "imovel_id": "IMO_CASO_00001_01",
+  "funcionarios_estimados_empresa": 29.0,
+  "estoque_medio_estimado": 48950.0,
+  "valor_bens_ponderado_estabelecimento": 612300.0,
+  "faturamento_mensal_empresa": 1307850.0,
+  "quantidade_estabelecimentos_empresa": 1.0,
+  "area_m2": null,
+  "grupo_atividade": "RESTAURANTE",
+  "tipo_unidade": "MATRIZ"
+}

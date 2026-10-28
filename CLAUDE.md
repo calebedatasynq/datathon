@@ -21,6 +21,12 @@ Um agente que faz uma pergunta em vez de vinte e nunca promete o que a apólice 
 - Jev: POST https://api.typesafe.ai/v1/systemone, model jev-latest, chave JEV_API_KEY; tipos de pergunta choice, score e noul (ver testes/test_conexoes.py).
 - Sem chave do Jev, o Decisor usa ClaudeDecisor (Haiku com tool use e enum).
 
+## Perfil (camada A)
+- Score e plano vêm só de score_empresa em Entrega_Indice_Seguro_RAG_v2/seguro_score_rag/score.py (não alterar o pacote).
+- Planos: ESSENCIAL, PRATICO, TOTAL. cliente_id = imovel_id da base_teste_comum.csv.
+- Pergunta pendente: contrafactual em score_empresa (estoque, bens, funcionários); no máximo uma, se o corte estiver a até MARGEM_PERGUNTA (0,30) do valor estimado.
+- Personas em dados/fixtures/personas.json (gerar com scripts/selecionar_personas.py).
+
 ## Comandos
 - Instalar: `.venv/Scripts/python -m pip install -r requirements.txt`
 - Testes: `.venv/Scripts/python -m pytest`

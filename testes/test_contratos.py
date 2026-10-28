@@ -1,7 +1,7 @@
 import pytest
 from pydantic import ValidationError
 
-from agente.contratos import Confirmacao, Decisoes, EstadoTurno, NivelIPU, Perfil
+from agente.contratos import Confirmacao, Decisoes, EstadoTurno, Perfil, Plano
 
 
 def test_estado_turno_minimo():
@@ -15,11 +15,14 @@ def test_estado_turno_roundtrip_json():
         cliente_id="EST_0042",
         mensagem="tenho uns 50 mil em mercadoria",
         perfil=Perfil(
-            cliente_id="EST_0042",
-            segmento="varejo",
-            plano_provavel="intermediario",
-            ipu=NivelIPU.FRONTEIRA,
-            confianca=0.8,
+            cliente_id="IMO_0042",
+            empresa_id="EMP_0042",
+            segmento="VAREJO_MODA",
+            status="EXPERIMENTAL_BASE_MOCK",
+            plano=Plano.PRATICO,
+            score=0.5,
+            cortes=[0.28, 0.99],
+            entrada={"imovel_id": "IMO_0042"},
         ),
         decisoes=Decisoes(
             confirmacao=Confirmacao(pergunta_id="estoque_40k", valor="sim", probabilidade=0.92)
