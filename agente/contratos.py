@@ -119,6 +119,8 @@ class ResultadoGuardrail(BaseModel):
     aprovado: bool
     motivo: str | None = None
     tentativas: int = 1
+    verificacoes: dict[str, float] = Field(default_factory=dict)
+    """Probabilidades das checagens feitas pelo Decisor (última tentativa)."""
 
 
 class EstadoTurno(BaseModel):
