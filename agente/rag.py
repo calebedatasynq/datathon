@@ -192,6 +192,22 @@ def buscar(
     return resultado
 
 
+def buscar_para_turno(mensagem: str, plano: Plano | None, segmento: str | None, k: int = 5) -> list[ClausulaRecuperada]:
+    """Busca do turno + o resumo do plano recomendado (catálogo), para a resposta poder citá-lo."""
+    resultado = buscar(mensagem, plano, segmento, k)
+    if plano is not None and f"PLANO-{plano}" not in {c.id for c in resultado}:
+        resumo = por_id()[f"PLANO-{plano}"]
+        resultado.append(ClausulaRecuperada(**resumo.model_dump(), pontuacao=0.0, no_plano=True))
+    return resultado
+
+
+@cache
+def objecoes() -> dict[str, dict]:
+    caminho = config.RAIZ / "conhecimento" / "objecoes.jsonl"
+    with open(caminho, encoding="utf-8") as f:
+        return {o["id"]: o for o in map(json.loads, f)}
+
+
 # ---------- catálogo (consulta estruturada) ----------
 
 

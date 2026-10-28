@@ -34,6 +34,8 @@ VARIAVEIS_PERGUNTA = [
     "funcionarios_estimados_empresa",
 ]
 VARIAVEIS_INTEIRAS = {"funcionarios_estimados_empresa"}
+# Meta do MVP: de 0 a 1 pergunta até a recomendação.
+MAX_PERGUNTAS = 1
 
 
 def _carregar_motor():
@@ -100,13 +102,15 @@ def _texto(variavel: str, limiar: float) -> str:
     raise ValueError(variavel)
 
 
-def pergunta_decisiva(entrada: dict) -> Pergunta | None:
+def pergunta_decisiva(entrada: dict, confirmadas: tuple[str, ...] = ()) -> Pergunta | None:
     """A variável cujo corte de plano está mais perto do valor estimado, se dentro da margem."""
     plano = plano_de(entrada)
-    if plano is None:
+    if plano is None or len(confirmadas) >= MAX_PERGUNTAS:
         return None
     melhor = None
     for variavel in VARIAVEIS_PERGUNTA:
+        if variavel in confirmadas:
+            continue
         atual = entrada.get(variavel)
         if not atual:
             continue
@@ -139,9 +143,9 @@ def pergunta_decisiva(entrada: dict) -> Pergunta | None:
     )
 
 
-def perfil_de_entrada(entrada: dict) -> Perfil:
+def perfil_de_entrada(entrada: dict, confirmadas: tuple[str, ...] = ()) -> Perfil:
     saida = score_empresa(entrada)
-    pergunta = pergunta_decisiva(entrada)
+    pergunta = pergunta_decisiva(entrada, confirmadas)
     return Perfil(
         cliente_id=saida["imovel_id"],
         empresa_id=saida["empresa_id"],
@@ -154,6 +158,7 @@ def perfil_de_entrada(entrada: dict) -> Perfil:
         distancia_ao_corte=saida.get("distancia_ao_corte_mais_proximo"),
         avisos=saida["avisos"],
         perguntas_pendentes=[pergunta] if pergunta else [],
+        confirmadas=list(confirmadas),
         entrada=entrada,
     )
 

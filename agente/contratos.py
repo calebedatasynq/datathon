@@ -48,6 +48,8 @@ class Perfil(BaseModel):
     distancia_ao_corte: float | None = None
     avisos: list[str] = Field(default_factory=list)
     perguntas_pendentes: list[Pergunta] = Field(default_factory=list)
+    confirmadas: list[str] = Field(default_factory=list)
+    """Variáveis já confirmadas pelo cliente; não voltam a ser perguntadas."""
     entrada: dict
     """Entrada exata do motor; regras.py altera e chama score_empresa de novo."""
 

@@ -43,6 +43,12 @@ Um agente que faz uma pergunta em vez de vinte e nunca promete o que a apólice 
 - Gerente (regra fixa em motivo_para_humano): rota gerente, nao_sabe, ou sim/não abaixo de LIMIAR_CONFIANCA. Só sim/não acima do limiar vão para regras.py (confirmacao_aplicavel).
 - Avaliação: python scripts/avaliar_decisor.py (20 respostas em dados/fixtures/respostas_confirmacao.json).
 
+## Regras, enriquecimento e redação (Fase 4)
+- regras.py: aplica sim/não na entrada do motor (sim → no mínimo o limiar; não → logo abaixo) e chama score_empresa de novo. Depois de 1 confirmação não há nova pergunta (MAX_PERGUNTAS em perfil.py).
+- enriquecimento.py: CNPJ pela BrasilAPI com cache em dados/fixtures/cnpj_cache.json; CNAE → segmento pelo Decisor (com opção OUTRO).
+- redator.py: Haiku com regras de redação no SISTEMA; cita [cl. ID] só da lista recebida; variável confirmada não aparece como número (na entrada ela vale o limiar). rag.buscar_para_turno sempre inclui o resumo PLANO-<plano>.
+- Ver respostas: python scripts/rodar_personas.py
+
 ## Comandos
 - Instalar: `.venv/Scripts/python -m pip install -r requirements.txt`
 - Testes: `.venv/Scripts/python -m pytest`
