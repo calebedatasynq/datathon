@@ -1,0 +1,37 @@
+{
+  "_descricao": "Perguntas de cliente com as cláusulas aceitas (qualquer uma no top 5 conta como acerto). 'ajuste' foi usado para calibrar a busca; 'validacao' foi escrito depois e não foi usado para calibrar.",
+  "ajuste": [
+    {"pergunta": "Um raio queimou meus computadores, o seguro paga?", "esperadas": ["DANOS_ELETRICOS-1.1"]},
+    {"pergunta": "Se pegar fogo na loja vocês cobrem?", "esperadas": ["INCENDIO_RAIO_EXPLOSAO_FUMACA-1.1.a", "INCENDIO_RAIO_EXPLOSAO_FUMACA-1.1.b", "INCENDIO_RAIO_EXPLOSAO_FUMACA-1.1.c", "INCENDIO_RAIO_EXPLOSAO_FUMACA-1.1.d", "TT-INCENDIO"]},
+    {"pergunta": "Arrombaram a loja e levaram a mercadoria", "esperadas": ["ROUBO_FURTO_ARROMBAMENTO-1.1"]},
+    {"pergunta": "Se a loja ficar fechada depois de um incêndio, quem paga o aluguel?", "esperadas": ["PERDA_PAGAMENTO_ALUGUEL-1.1"]},
+    {"pergunta": "Um funcionário se machucou trabalhando, tem cobertura?", "esperadas": ["RESPONSABILIDADE_CIVIL_EMPREGADOR-1.1"]},
+    {"pergunta": "Um cliente escorregou dentro da loja e quer indenização", "esperadas": ["RESPONSABILIDADE_CIVIL_ESTABELECIMENTO-1.1.a", "RESPONSABILIDADE_CIVIL_DISPOSICOES_GERAIS-1.1.a"]},
+    {"pergunta": "Quebraram a vitrine de vidro", "esperadas": ["QUEBRA_DE_VIDROS-1.1.a", "QUEBRA_DE_VIDROS-1.1.b", "QUEBRA_DE_VIDROS-1.1.c"]},
+    {"pergunta": "O vendaval destelhou o galpão", "esperadas": ["VENDAVAL_EVENTOS_CORRELATOS-1.1"]},
+    {"pergunta": "Se a loja parar por causa de um incêndio, como pago os salários e as contas?", "esperadas": ["DESPESAS_FIXAS-1.1", "DESPESAS_FIXAS-1.3.a", "DESPESAS_FIXAS-1.3.b"]},
+    {"pergunta": "Qual é a franquia do seguro?", "esperadas": ["CG-9.1", "CG-9.2", "CG-9.3", "CG-9.4"]},
+    {"pergunta": "Fui vítima de ransomware, os hackers travaram meus sistemas", "esperadas": ["CG-8.2.a"]},
+    {"pergunta": "Sumiu mercadoria do estoque sem sinal de arrombamento", "esperadas": ["CG-8.1.i", "TT-FURTO_SIMPLES", "ROUBO_FURTO_ARROMBAMENTO-3.1.c"], "nota": "ROUBO 3.1.c (desaparecimento inexplicável) incluída depois da primeira medição: também é a exclusão correta."},
+    {"pergunta": "A enchente alagou a loja", "esperadas": ["CG-8.1.l"]},
+    {"pergunta": "Caí num golpe de PIX", "esperadas": ["ROUBO_FURTO_ARROMBAMENTO-3.1.c", "CG-8.1.i", "TT-ESTELIONATO"]},
+    {"pergunta": "Quanto tempo tenho para avisar o sinistro?", "esperadas": ["CG-22.1"]},
+    {"pergunta": "O que o plano PRATICO cobre?", "esperadas": ["PLANO-PRATICO"]}
+  ],
+  "validacao": [
+    {"pergunta": "Deu um curto-circuito e a geladeira queimou", "esperadas": ["DANOS_ELETRICOS-1.1"]},
+    {"pergunta": "Teve uma explosão no botijão de gás da cozinha", "esperadas": ["INCENDIO_RAIO_EXPLOSAO_FUMACA-1.1.a", "INCENDIO_RAIO_EXPLOSAO_FUMACA-1.1.b", "INCENDIO_RAIO_EXPLOSAO_FUMACA-1.1.c", "INCENDIO_RAIO_EXPLOSAO_FUMACA-1.1.d"]},
+    {"pergunta": "Uns ladrões quebraram o cadeado e roubaram os equipamentos", "esperadas": ["ROUBO_FURTO_ARROMBAMENTO-1.1"]},
+    {"pergunta": "Granizo destruiu o letreiro e parte do telhado", "esperadas": ["VENDAVAL_EVENTOS_CORRELATOS-1.1"]},
+    {"pergunta": "Um empregado meu sofreu um acidente indo para o trabalho", "esperadas": ["RESPONSABILIDADE_CIVIL_EMPREGADOR-1.1"]},
+    {"pergunta": "Meu ponto ficou interditado depois do incêndio, o seguro ajuda com o aluguel?", "esperadas": ["PERDA_PAGAMENTO_ALUGUEL-1.1"]},
+    {"pergunta": "Um vírus de computador apagou os dados da empresa", "esperadas": ["CG-8.2.a"]},
+    {"pergunta": "Uma inundação causada pelo rio entrou no depósito", "esperadas": ["CG-8.1.l"]},
+    {"pergunta": "Quais documentos preciso apresentar para receber a indenização?", "esperadas": ["CG-23.*"]},
+    {"pergunta": "Em quantos dias a seguradora paga a indenização?", "esperadas": ["CG-26.1"]},
+    {"pergunta": "O espelho do salão rachou com uma batida", "esperadas": ["QUEBRA_DE_VIDROS-1.1.a", "QUEBRA_DE_VIDROS-1.1.b", "QUEBRA_DE_VIDROS-1.1.c"]},
+    {"pergunta": "O que está incluso no plano TOTAL?", "esperadas": ["PLANO-TOTAL"]},
+    {"pergunta": "Um cliente se machucou com uma prateleira que caiu", "esperadas": ["RESPONSABILIDADE_CIVIL_ESTABELECIMENTO-1.1.a", "RESPONSABILIDADE_CIVIL_DISPOSICOES_GERAIS-1.1.a"]},
+    {"pergunta": "Fecharam a loja por causa de um incêndio e não consigo pagar as despesas do mês", "esperadas": ["DESPESAS_FIXAS-1.1", "DESPESAS_FIXAS-1.3.a", "DESPESAS_FIXAS-1.3.b"]}
+  ]
+}

@@ -6,3 +6,7 @@ pypdf>=5.0
 requests>=2.32
 streamlit>=1.40
 pytest>=8.3
+# Busca vetorial (opcional: sem ela, rag.py cai para BM25). Torch CPU:
+#   pip install --index-url https://download.pytorch.org/whl/cpu torch
+chromadb>=1.0
+sentence-transformers>=3.0

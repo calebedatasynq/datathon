@@ -16,6 +16,9 @@ class TipoClausula(StrEnum):
     EXCLUSAO = "exclusao"
     OBRIGACAO = "obrigacao"
     CARENCIA = "carencia"
+    FRANQUIA = "franquia"
+    CONDICAO = "condicao"
+    DEFINICAO = "definicao"
 
 
 class Pergunta(BaseModel):
@@ -78,16 +81,34 @@ class PerfilAtualizado(BaseModel):
 
 
 class Clausula(BaseModel):
-    """Um chunk das Condições Gerais. Escrito por rag.py."""
+    """Um chunk das Condições Gerais (conhecimento/clausulas.jsonl). O id é o que se cita."""
 
     id: str
     produto: str
-    plano: str | None = None
+    parte: str
+    """CG (condições gerais), TT (termos técnicos), CE (condições especiais) ou CATALOGO."""
+    planos: list[Plano]
+    """Planos que incluem esta cláusula, segundo o catálogo do desafio."""
     cobertura: str | None = None
+    no_catalogo: bool
+    """False para coberturas adicionais que não estão em nenhum dos três planos."""
+    secao: str
     tipo: TipoClausula
-    segmento: str | None = None
+    segmentos: list[str] | None = None
+    """None vale para todos; senão só para esses grupos de atividade."""
     clausula: str
+    pagina: int | None = None
     texto: str
+    nucleo: str
+    """Conteúdo próprio do chunk (a alínea, sem o caput); usado à frente na indexação."""
+
+
+class ClausulaRecuperada(Clausula):
+    """Escrito por rag.py."""
+
+    pontuacao: float
+    no_plano: bool | None = None
+    """Se a cláusula vale para o plano do cliente; None quando a busca não recebeu plano."""
 
 
 class ResultadoGuardrail(BaseModel):
@@ -106,7 +127,7 @@ class EstadoTurno(BaseModel):
     perfil: Perfil | None = None
     decisoes: Decisoes = Field(default_factory=Decisoes)
     perfil_atualizado: PerfilAtualizado | None = None
-    clausulas: list[Clausula] = Field(default_factory=list)
+    clausulas: list[ClausulaRecuperada] = Field(default_factory=list)
     resposta: str | None = None
     guardrail: ResultadoGuardrail | None = None
     requer_humano: bool = False

@@ -31,6 +31,17 @@ BASE_CLIENTES = DIR_MOTOR / "dados" / "preparados" / "base_teste_comum.csv"
 # Pergunta-se uma variável quando o corte de plano está a até esta fração do valor estimado.
 MARGEM_PERGUNTA = float(os.getenv("MARGEM_PERGUNTA", "0.30"))
 
+# Base de conhecimento (RAG)
+CLAUSULAS = RAIZ / "conhecimento" / "clausulas.jsonl"
+CATALOGO = RAIZ / "Seguro_Empresarial_Teste_Comum" / "catalogo_coberturas_fixas_planos.csv"
+DIR_BANCO_VETORIAL = RAIZ / "conhecimento" / "banco_vetorial"
+COLECAO_VETORIAL = "clausulas_cg"
+# O RAG do BB Radar usava paraphrase-multilingual-MiniLM-L12-v2; em 30 perguntas de teste o
+# híbrido com ele acertou 25/30 (pior que BM25, 28/30) e com o e5-small, 29/30.
+MODELO_EMBEDDINGS = "intfloat/multilingual-e5-small"
+# "hibrido" (BM25 + vetorial) ou "bm25"; sem o índice vetorial, cai para BM25.
+MODO_BUSCA = os.getenv("MODO_BUSCA", "hibrido")
+
 
 def cliente_anthropic():
     import anthropic

@@ -1,0 +1,216 @@
+"""Camada B: recuperação de cláusulas das Condições Gerais.
+
+Busca híbrida: BM25 (palavras) + vetorial (Chroma, como no RAG do BB Radar, com e5-small),
+combinadas por Reciprocal Rank Fusion. Filtro por segmento é rígido; o plano só etiqueta
+cada resultado (no_plano), para o redator poder dizer "isso não está no seu plano".
+Fatos objetivos (qual plano tem qual cobertura) vêm do catálogo, não da busca: é a lição
+registrada na documentação do RAG do BB Radar.
+Sem o índice vetorial (ou com ele desatualizado), a busca cai para BM25 e avisa.
+"""
+
+import csv
+import hashlib
+import json
+import re
+import unicodedata
+import warnings
+from collections import defaultdict
+from functools import cache
+
+from rank_bm25 import BM25Okapi
+
+from agente import config
+from agente.contratos import Clausula, ClausulaRecuperada, Plano
+
+K_RRF = 60
+CANDIDATOS = 50
+# No máximo este número de cláusulas da mesma cobertura e tipo no resultado: sem isso,
+# as alíneas de exclusão de uma cobertura tomam o top 5 e escondem o que ela cobre.
+MAX_POR_GRUPO = 2
+
+STOPWORDS = set(
+    """a o e de da do das dos em no na nos nas um uma uns umas para por pelo pela pelos pelas com sem
+    se que ou ao aos as os é ser foi são como mais menos já não sim meu minha meus minhas seu sua
+    seus suas eu ele ela eles elas isso esse essa este esta aquele aquela tem ter tenho vocês você
+    me te lhe nos qual quais quando onde quem muito pouco também até sobre entre""".split()
+)
+
+
+def _sem_acento(texto: str) -> str:
+    return "".join(c for c in unicodedata.normalize("NFD", texto) if unicodedata.category(c) != "Mn")
+
+
+def tokenizar(texto: str) -> list[str]:
+    """Minúsculas, sem acento, sem stopwords; radical = sem plural, truncado em 6 letras."""
+    tokens = []
+    for palavra in re.findall(r"[a-z0-9]+", _sem_acento(texto.lower())):
+        if palavra in STOPWORDS or len(palavra) < 2:
+            continue
+        if len(palavra) > 3 and palavra.endswith("s"):
+            palavra = palavra[:-1]
+        tokens.append(palavra[:6])
+    return tokens
+
+
+# Glossário curado: vocabulário do cliente → vocabulário das Condições Gerais.
+# Só acrescenta termos à pergunta; nunca troca nem remove o que o cliente escreveu.
+EXPANSOES = [
+    (r"\bfogo\b|queimou tudo|incendi", "incêndio"),
+    (r"\braio\b.*(queim|estrag)|(queim|estrag).*\braio\b|curto|pico de (luz|energia)|oscila", "danos elétricos variações de tensão"),
+    (r"hacker|ransomware|v[ií]rus|ciber|invad\w* (o )?sistema|sistema travad", "ataques cibernéticos tecnologia panes"),
+    (r"\bpix\b|golpe|engan", "estelionato fraude"),
+    (r"enchente|alag|inund|transbord", "alagamento inundação"),
+    (r"funcion[aá]ri|empregad|colaborador", "empregados"),
+    (r"machuc|acident|feriu|ferid", "acidentes danos corporais"),
+    (r"cliente|visitante|terceir", "terceiros"),
+    (r"escorreg|trope[cç]|caiu", "danos corporais terceiros estabelecimento"),
+    (r"vitrine|janela|espelho|vidra[cç]", "vidros"),
+    (r"sal[aá]rio|folha de pagamento|contas|despesas", "despesas fixas"),
+    (r"assalt|roub|levaram|arromb", "roubo furto mediante arrombamento"),
+    (r"sumiu|sumir|desapare|sem (sinal|vest[ií]gio)", "desaparecimento furto simples sem vestígio"),
+    (r"avisar|comunicar|acionar", "aviso de sinistro"),
+    (r"telhado|destelh|ventania", "vendaval"),
+    (r"franquia|participa[cç][aã]o obrigat", "franquia dedutível participação obrigatória"),
+]
+
+
+def expandir(pergunta: str) -> str:
+    extras = [termos for padrao, termos in EXPANSOES if re.search(padrao, pergunta, re.I)]
+    return " ".join([pergunta, *extras])
+
+
+def texto_indexado(c: Clausula) -> str:
+    # O conteúdo próprio vem antes: o MiniLM lê só os primeiros ~128 tokens.
+    cobertura = (c.cobertura or "").replace("_", " ").lower()
+    contexto = c.texto if c.texto != c.nucleo else ""  # caput do item pai, quando há
+    return f"{c.nucleo} | {cobertura} | {c.secao} | {contexto}"
+
+
+@cache
+def clausulas() -> list[Clausula]:
+    with open(config.CLAUSULAS, encoding="utf-8") as f:
+        return [Clausula.model_validate_json(linha) for linha in f]
+
+
+@cache
+def por_id() -> dict[str, Clausula]:
+    return {c.id: c for c in clausulas()}
+
+
+def hash_clausulas() -> str:
+    return hashlib.sha256(config.CLAUSULAS.read_bytes()).hexdigest()
+
+
+@cache
+def _bm25() -> BM25Okapi:
+    return BM25Okapi([tokenizar(texto_indexado(c)) for c in clausulas()])
+
+
+# ---------- vetorial ----------
+
+
+@cache
+def _modelo():
+    from sentence_transformers import SentenceTransformer
+
+    return SentenceTransformer(config.MODELO_EMBEDDINGS)
+
+
+def embeddings(textos: list[str], tipo: str) -> list[list[float]]:
+    """tipo é "query" (pergunta) ou "passage" (cláusula): o e5 exige o prefixo."""
+    return _modelo().encode([f"{tipo}: {t}" for t in textos], normalize_embeddings=True).tolist()
+
+
+@cache
+def _colecao():
+    """Coleção Chroma, ou None (com aviso) se não existe ou não bate com clausulas.jsonl."""
+    try:
+        import chromadb
+
+        cliente = chromadb.PersistentClient(path=str(config.DIR_BANCO_VETORIAL))
+        colecao = cliente.get_collection(config.COLECAO_VETORIAL)
+    except Exception as erro:  # pacote ausente, pasta ausente ou coleção ausente
+        warnings.warn(f"Busca vetorial indisponível ({erro}); usando só BM25. Rode scripts/indexar_rag.py")
+        return None
+    metadados = colecao.metadata or {}
+    if metadados.get("hash_clausulas") != hash_clausulas() or metadados.get("modelo") != config.MODELO_EMBEDDINGS:
+        warnings.warn("Índice vetorial desatualizado; usando só BM25. Rode scripts/indexar_rag.py")
+        return None
+    return colecao
+
+
+def modo_efetivo() -> str:
+    if config.MODO_BUSCA == "bm25" or _colecao() is None:
+        return "bm25"
+    return "hibrido"
+
+
+def _ranking_vetorial(pergunta: str) -> list[str]:
+    resultado = _colecao().query(query_embeddings=embeddings([pergunta], "query"), n_results=CANDIDATOS)
+    return resultado["ids"][0]
+
+
+def _ranking_bm25(pergunta: str) -> list[str]:
+    notas = _bm25().get_scores(tokenizar(pergunta))
+    ordem = sorted(range(len(notas)), key=lambda i: notas[i], reverse=True)[:CANDIDATOS]
+    return [clausulas()[i].id for i in ordem if notas[i] > 0]
+
+
+# ---------- busca ----------
+
+
+def _vale_para_segmento(c: Clausula, segmento: str | None) -> bool:
+    return c.segmentos is None or (segmento is not None and segmento in c.segmentos)
+
+
+def buscar(
+    pergunta: str, plano: Plano | None = None, segmento: str | None = None, k: int = 5
+) -> list[ClausulaRecuperada]:
+    """As k cláusulas mais relevantes para a pergunta, válidas para o segmento do cliente."""
+    pergunta = expandir(pergunta)
+    rankings = [_ranking_bm25(pergunta)]
+    if modo_efetivo() == "hibrido":
+        rankings.append(_ranking_vetorial(pergunta))
+    notas: dict[str, float] = defaultdict(float)
+    for ranking in rankings:
+        for posicao, id_ in enumerate(ranking):
+            notas[id_] += 1 / (K_RRF + posicao + 1)
+    resultado = []
+    por_grupo: dict[tuple, int] = defaultdict(int)
+    for id_, nota in sorted(notas.items(), key=lambda item: item[1], reverse=True):
+        c = por_id()[id_]
+        if not _vale_para_segmento(c, segmento):
+            continue
+        grupo = (c.parte, c.cobertura, c.tipo)
+        if por_grupo[grupo] >= MAX_POR_GRUPO:
+            continue
+        por_grupo[grupo] += 1
+        no_plano = None if plano is None else plano in c.planos
+        resultado.append(ClausulaRecuperada(**c.model_dump(), pontuacao=nota, no_plano=no_plano))
+        if len(resultado) == k:
+            break
+    return resultado
+
+
+# ---------- catálogo (consulta estruturada) ----------
+
+
+@cache
+def _catalogo() -> dict[str, list[Plano]]:
+    planos = defaultdict(list)
+    with open(config.CATALOGO, encoding="utf-8-sig", newline="") as f:
+        for linha in csv.DictReader(f):
+            planos[linha["cobertura_fixa"].strip()].append(Plano(linha["plano"].strip()))
+    return dict(planos)
+
+
+def coberturas_do_plano(plano: Plano) -> list[str]:
+    return [cobertura for cobertura, planos in _catalogo().items() if plano in planos]
+
+
+def planos_com_cobertura(cobertura: str) -> list[Plano]:
+    return _catalogo().get(cobertura, [])
+
+
+def exportar_amostra(ids: list[str]) -> str:
+    return json.dumps([por_id()[i].model_dump() for i in ids], ensure_ascii=False, indent=1)

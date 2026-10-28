@@ -4,3 +4,6 @@ __pycache__/
 *.pyc
 .pytest_cache/
 logs/
+# Índices vetoriais são gerados: python scripts/indexar_rag.py
+conhecimento/banco_vetorial/
+rag/rag/banco_vetorial/
