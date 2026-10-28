@@ -37,6 +37,12 @@ Um agente que faz uma pergunta em vez de vinte e nunca promete o que a apólice 
 - Depois de mudar clausulas.jsonl ou o modelo: python scripts/indexar_rag.py (senão a busca cai para BM25 com aviso).
 - Fatos plano↔cobertura: rag.coberturas_do_plano / rag.planos_com_cobertura (catálogo), não a busca.
 
+## Camada de decisão (Fase 3)
+- agente/decisor.py: interface Decisor (escolher, pontuar, probabilidade, avaliar em lote); JevDecisor (TypeSafe /v1/systemone: choice, score, noul), ClaudeDecisor (Haiku, tool forçada com enum), DecisorComReserva (Jev → Claude se falhar). criar_decisor() escolhe.
+- Perguntas do turno: intencao, confirmacao (sim / nao / nao_sabe / nao_respondeu, comparando com pergunta_pendente.limite), prontidao (score), rota (agente / gerente).
+- Gerente (regra fixa em motivo_para_humano): rota gerente, nao_sabe, ou sim/não abaixo de LIMIAR_CONFIANCA. Só sim/não acima do limiar vão para regras.py (confirmacao_aplicavel).
+- Avaliação: python scripts/avaliar_decisor.py (20 respostas em dados/fixtures/respostas_confirmacao.json).
+
 ## Comandos
 - Instalar: `.venv/Scripts/python -m pip install -r requirements.txt`
 - Testes: `.venv/Scripts/python -m pytest`

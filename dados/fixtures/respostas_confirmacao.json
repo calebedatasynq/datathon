@@ -1,0 +1,30 @@
+{
+  "_descricao": "Respostas livres de cliente a uma pergunta pendente, com a confirmação esperada. sim/nao: o valor atinge ou não o limite; nao_sabe: não sabe ou dá faixa dos dois lados do limite (vai para o gerente); nao_respondeu: falou de outra coisa. Rascunho do agente, para revisão da equipe.",
+  "perguntas": {
+    "funcionarios": {"id": "funcionarios_estimados_empresa_acima_23", "texto": "A empresa tem 23 funcionários ou mais?", "variavel": "funcionarios_estimados_empresa", "limiar": 23},
+    "bens": {"id": "valor_bens_ponderado_estabelecimento_acima_56337", "texto": "Os bens deste endereço (máquinas, equipamentos, móveis) somam mais de R$ 56.337?", "variavel": "valor_bens_ponderado_estabelecimento", "limiar": 56337},
+    "estoque": {"id": "estoque_medio_estimado_acima_40000", "texto": "O estoque médio deste endereço passa de R$ 40.000?", "variavel": "estoque_medio_estimado", "limiar": 40000}
+  },
+  "respostas": [
+    {"pergunta": "funcionarios", "mensagem": "Temos 30 funcionários hoje", "esperado": "sim"},
+    {"pergunta": "funcionarios", "mensagem": "uns 25 mais ou menos", "esperado": "sim"},
+    {"pergunta": "funcionarios", "mensagem": "somos 18 pessoas", "esperado": "nao"},
+    {"pergunta": "funcionarios", "mensagem": "acho que uns 20", "esperado": "nao"},
+    {"pergunta": "funcionarios", "mensagem": "exatamente 23", "esperado": "sim"},
+    {"pergunta": "funcionarios", "mensagem": "não sei dizer, quem cuida disso é o RH", "esperado": "nao_sabe"},
+    {"pergunta": "funcionarios", "mensagem": "mais de cinquenta, contando as duas lojas", "esperado": "sim"},
+    {"pergunta": "funcionarios", "mensagem": "só eu e minha esposa", "esperado": "nao"},
+    {"pergunta": "funcionarios", "mensagem": "quanto custa esse seguro?", "esperado": "nao_respondeu"},
+    {"pergunta": "funcionarios", "mensagem": "entre 15 e 30, depende da época do ano", "esperado": "nao_sabe"},
+    {"pergunta": "bens", "mensagem": "os equipamentos valem uns 80 mil", "esperado": "sim"},
+    {"pergunta": "bens", "mensagem": "tenho uns 50 mil em máquinas", "esperado": "nao"},
+    {"pergunta": "bens", "mensagem": "nem 20 mil", "esperado": "nao"},
+    {"pergunta": "bens", "mensagem": "passa de 100 mil fácil", "esperado": "sim"},
+    {"pergunta": "bens", "mensagem": "sei lá, nunca fiz essa conta", "esperado": "nao_sabe"},
+    {"pergunta": "bens", "mensagem": "o seguro cobre enchente?", "esperado": "nao_respondeu"},
+    {"pergunta": "estoque", "mensagem": "tenho uns 50 mil em mercadoria", "esperado": "sim"},
+    {"pergunta": "estoque", "mensagem": "menos de 30", "esperado": "nao"},
+    {"pergunta": "estoque", "mensagem": "uns 40, 45 mil", "esperado": "sim"},
+    {"pergunta": "estoque", "mensagem": "depende do mês, às vezes 20, às vezes 60 mil", "esperado": "nao_sabe"}
+  ]
+}

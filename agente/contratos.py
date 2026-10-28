@@ -131,3 +131,4 @@ class EstadoTurno(BaseModel):
     resposta: str | None = None
     guardrail: ResultadoGuardrail | None = None
     requer_humano: bool = False
+    motivo_humano: str | None = None
