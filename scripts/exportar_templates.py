@@ -48,7 +48,7 @@ def exportar() -> tuple[int, int]:
                 "tipo_localizacao_sugerido": p.tipo_localizacao,
                 "relacao_imovel_sugerida": p.relacao_imovel,
                 "plano_recomendado": p.plano_base or "",
-                "coberturas_recomendadas": ";".join(c.cobertura for c in p.coberturas),
+                "coberturas_recomendadas": ";".join(c.cobertura for c in p.coberturas if c.origem != "opcional"),
                 "confianca_geral": p.confianca_geral,
                 "justificativa_recomendacao": p.justificativa,
                 "perguntas_confirmacao": " | ".join(p.perguntas_confirmacao),
@@ -56,7 +56,9 @@ def exportar() -> tuple[int, int]:
             }
         )
         for c in p.coberturas:
-            origem = f"fixa do plano {p.plano_base}" if c.origem == "plano" else "adicional sugerida pelo perfil"
+            if c.origem == "opcional":  # o template lista o que o plano recomenda, não as opções
+                continue
+            origem = f"no pacote {p.plano_base}" if c.origem == "plano" else "adicional pela necessidade do cliente"
             coberturas.append(
                 {
                     "empresa_id": empresa_id,
@@ -69,7 +71,7 @@ def exportar() -> tuple[int, int]:
                     "regra_calculo_utilizada": c.regra_calculo,
                     "justificativa": c.justificativa,
                     "informacao_a_confirmar": c.informacao_a_confirmar or "",
-                    "observacao": f"{origem}; cláusulas: {', '.join(c.clausulas)}",
+                    "observacao": f"necessidade {c.necessidade.lower()}; {origem}; cláusulas: {', '.join(c.clausulas)}",
                 }
             )
     for nome, linhas in (("template_resultado_times.csv", resultado), ("template_coberturas_times.csv", coberturas)):

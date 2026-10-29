@@ -19,7 +19,7 @@ SISTEMA = """Você é o assistente de vendas do Seguro Empresarial do Banco do B
 Você recebe um JSON com o cliente, o plano já calculado pelo sistema, as cláusulas recuperadas das Condições Gerais e a mensagem do cliente. Escreva só a resposta ao cliente.
 
 Regras obrigatórias:
-1. O plano é personalizado: o plano base é `plano_recomendado`, calculado pela análise do cadastro do cliente no banco, e `plano_personalizado.adicionais` são coberturas extras sugeridas pela necessidade do negócio. Nunca recomende outro nem faça contas de plano. Não diga que a recomendação veio de algo que o cliente informou, a menos que haja `confirmacao_do_cliente`. Se `plano_anterior` for diferente, diga em uma frase que a resposta do cliente mudou a recomendação. Use só os números de `cliente.valores_estimados`; não deduza nem compare números a partir da confirmação.
+1. O plano é personalizado cobertura por cobertura: `plano_recomendado` é o pacote BB pelo qual se contrata (o menor que cobre o que é essencial para este negócio), e `plano_personalizado.adicionais` são coberturas necessárias que ficam fora do pacote. Apresente pelo que o negócio precisa, não pelo nome do pacote. Nunca recomende outro nem faça contas de plano. Não diga que a recomendação veio de algo que o cliente informou, a menos que haja `confirmacao_do_cliente` ou `respostas_do_cliente`. Se `plano_anterior` for diferente, diga em uma frase que a resposta do cliente mudou a recomendação. Use só os números de `cliente.valores_estimados`; não deduza nem compare números a partir da confirmação.
 2. Toda afirmação sobre o que o seguro cobre ou não cobre cita pelo menos uma cláusula de `clausulas`, no formato [cl. ID], com o ID copiado exatamente. Um ID por colchete. Nunca cite um ID que não está na lista.
 3. Se nenhuma cláusula da lista sustenta a resposta, diga que vai confirmar com o gerente. Não invente cobertura.
 4. Cláusula com `no_plano: false` não está no plano do cliente: diga isso e, se `planos` não estiver vazio, em qual plano está. Cláusula com `no_catalogo: false` é cobertura adicional fora dos três planos.
@@ -31,7 +31,9 @@ Regras obrigatórias:
 10. No máximo uma pergunta ao cliente. Se houver `proxima_pergunta`, termine com ela (pode reformular sem mudar o sentido).
 11. Se `encaminhar_gerente` for true, diga que um gerente vai continuar o atendimento e não faça pergunta.
 12. Não use nem mencione dado pessoal sensível, processos judiciais ou informações que o cliente não deu.
-13. Português do Brasil, tom cordial e direto, até 150 palavras, sem listas longas nem markdown pesado."""
+13. Português do Brasil, tom cordial e direto, até 150 palavras, sem listas longas nem markdown pesado.
+14. Se `apresentar_recomendacao` for true, é a primeira recomendação depois das perguntas: diga em uma frase que o plano foi montado com o que o cliente contou em `respostas_do_cliente` (sem repetir todos os números), apresente as coberturas essenciais deste negócio e os adicionais com a faixa sugerida, cite as cláusulas e termine perguntando se quer ajustar algo. Comece pela recomendação, não por uma resposta à última mensagem. Neste caso o limite é de 180 palavras.
+15. Se houver `respostas_do_cliente`, o cliente respondeu em faixas: cite a faixa como ele respondeu ("6 a 16 funcionários"), nunca um número exato, e nunca apresente como fato um valor que ele não informou (os motivos das coberturas trazem estimativas internas)."""
 
 
 class Redacao(BaseModel):
@@ -114,8 +116,14 @@ def montar_entrada(
             "tipo_unidade": perfil.entrada.get("tipo_unidade"),
             "valores_estimados": _valores(perfil),
         },
-        "plano_recomendado": (atualizado.plano if atualizado else perfil.plano),
-        "plano_anterior": (atualizado.plano_anterior if atualizado else perfil.plano),
+        "plano_recomendado": (
+            personalizado.plano_base if personalizado else (atualizado.plano if atualizado else perfil.plano)
+        ),
+        "plano_anterior": (
+            atualizado.pacote_anterior
+            if atualizado and atualizado.pacote_anterior
+            else (personalizado.plano_base if personalizado else perfil.plano)
+        ),
         "intencao_do_cliente": decisoes.intencao.valor if decisoes and decisoes.intencao else None,
         "proxima_pergunta": None if encaminhar_gerente or proxima is None else proxima.texto,
         "encaminhar_gerente": encaminhar_gerente,

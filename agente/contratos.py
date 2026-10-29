@@ -59,7 +59,11 @@ class CoberturaRecomendada(BaseModel):
 
     cobertura: str
     origem: str
-    """"plano" (fixa do plano base) ou "adicional" (incluída pela necessidade do cliente)."""
+    """"plano" (vem no pacote de contratação), "adicional" (necessária e fora do pacote) ou
+    "opcional" (fora do pacote, baixa necessidade: o cliente pode incluir)."""
+    necessidade: str = "RECOMENDADA"
+    """ESSENCIAL, RECOMENDADA, OPCIONAL ou NAO_SE_APLICA, calculada das variáveis do cliente."""
+    motivo_necessidade: str | None = None
     faixa_valor_min: float
     faixa_valor_max: float
     confianca: str
@@ -78,6 +82,9 @@ class PlanoPersonalizado(BaseModel):
     imovel_id: str
     empresa_id: str
     plano_base: Plano | None
+    """Pacote de contratação: o menor que cobre as essenciais, nunca abaixo do índice do motor."""
+    plano_motor: Plano | None = None
+    pacote_minimo: Plano | None = None
     elegivel: str
     """SIM ou A_CONFIRMAR (nunca NAO automático)."""
     motivo_elegibilidade: str | None = None
@@ -93,6 +100,10 @@ class PlanoPersonalizado(BaseModel):
     @property
     def adicionais(self) -> list[CoberturaRecomendada]:
         return [c for c in self.coberturas if c.origem == "adicional"]
+
+    @property
+    def opcionais(self) -> list[CoberturaRecomendada]:
+        return [c for c in self.coberturas if c.origem == "opcional"]
 
 
 class Decisao(BaseModel):
@@ -120,6 +131,10 @@ class PerfilAtualizado(BaseModel):
 
     plano_anterior: Plano | None
     plano: Plano | None
+    """Índice do motor de score antes e depois da confirmação."""
+    pacote_anterior: Plano | None = None
+    pacote: Plano | None = None
+    """Pacote de contratação do plano personalizado antes e depois (o que o cliente vê)."""
     proxima_pergunta: Pergunta | None = None
 
 
@@ -178,3 +193,7 @@ class EstadoTurno(BaseModel):
     guardrail: ResultadoGuardrail | None = None
     requer_humano: bool = False
     motivo_humano: str | None = None
+    opcoes: list[str] = Field(default_factory=list)
+    """Respostas sugeridas para a próxima pergunta (botões na interface)."""
+    descoberta: dict | None = None
+    """Conversa do zero: o que o cliente respondeu, perguntas puladas e progresso."""

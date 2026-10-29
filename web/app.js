@@ -24,7 +24,10 @@ const estado = {
   reproduzindo: false,
   clausulas: {},
   ultimoTurno: null,
+  modo: "cadastro", // "cadastro" (cliente da base) ou "descoberta" (conversa do zero)
+  descoberta: null,
 };
+const SUGESTOES_DEPOIS = ["E se arrombarem a loja, cobre?", "Cobre ataque hacker?", "Achei caro.", "Quero falar com o meu gerente."];
 
 const SVG = {
   marca:
@@ -118,6 +121,19 @@ function adicionarCliente(texto) {
   rolar();
 }
 
+function adicionarAgente(texto) {
+  mensagens.append(el("article", { class: "msg agente", "aria-label": "Mensagem do agente" },
+    el("p", { class: "autor", html: `${SVG.marca}<span>Agente Empresarial</span>` }),
+    el("div", { class: "texto", html: renderizarTexto(texto) })));
+  rolar();
+}
+
+function mostrarOpcoes(opcoes) {
+  const barra = $("#sugestoes");
+  barra.replaceChildren(...opcoes.map((s) => el("button", { type: "button", class: "sugestao", onclick: () => enviar(s) }, s)));
+  barra.hidden = !opcoes.length;
+}
+
 /* Um turno do agente: o bloco de raciocínio (etapas ao vivo) e, depois, a resposta. */
 function novoTurnoAgente() {
   const resumoTexto = el("span", { class: "resumo-texto" }, "Pensando");
@@ -176,47 +192,90 @@ function novoTurnoAgente() {
 }
 
 /* ---------- painel do plano personalizado ---------- */
+const GRUPOS = [
+  ["ESSENCIAL", "Essenciais para este negócio"],
+  ["RECOMENDADA", "Recomendadas"],
+  ["OPCIONAL", "Opcionais"],
+];
+const ORIGEM_DADO = { cnpj: "CNPJ", estimado: "estimado", cliente: null };
+
+function blocoSabe(desc) {
+  const bloco = el("section", { class: "bloco" },
+    el("h2", {}, desc.feitas ? `O que o agente já sabe · ${desc.feitas} ${desc.feitas === 1 ? "pergunta" : "perguntas"}` : "O que o agente já sabe"));
+  if (!desc.sabe.length) {
+    bloco.append(el("p", { class: "vazio-bloco" }, "Nada ainda: este cliente não tem cadastro. O agente pergunta só o que muda o plano."));
+    return bloco;
+  }
+  bloco.append(el("dl", { class: "sabe" }, desc.sabe.map((s) => el("div", { class: "sabe-linha" },
+    el("dt", {}, s.rotulo),
+    el("dd", {}, s.valor, ORIGEM_DADO[s.origem] ? el("span", { class: "origem" }, ORIGEM_DADO[s.origem]) : null)))));
+  if (desc.puladas.length) {
+    bloco.append(el("p", { class: "legenda" }, `Não perguntei: ${desc.puladas.map((x) => x.pergunta.toLowerCase()).join(", ")}. Nenhuma resposta possível mudaria o plano.`));
+  }
+  return bloco;
+}
+
 function renderizarDetalhes(cliente, turno) {
   const p = (turno && turno.personalizado) || cliente.personalizado;
+  const desc = (turno && turno.descoberta) || estado.descoberta;
   const alvo = $("#detalhes-conteudo");
   alvo.replaceChildren();
-  if (!p) return;
+  const descoberta = estado.modo === "descoberta";
+  const provisorio = descoberta && (!desc || desc.etapa !== "recomendada");
+  if (descoberta && desc) alvo.append(blocoSabe(desc));
+  if (!p) {
+    if (descoberta) alvo.append(el("section", { class: "bloco" }, el("h2", {}, "Plano em formação"),
+      el("p", { class: "vazio-bloco" }, "O plano começa a se formar a partir da primeira resposta.")));
+    return;
+  }
 
+  const adicionais = p.coberturas.filter((c) => c.origem === "adicional");
   const mudou = turno && turno.plano_anterior && turno.plano && turno.plano_anterior !== turno.plano;
   const eleg = p.elegivel === "SIM"
     ? el("span", { class: "pilula positiva" }, "Elegível")
     : el("span", { class: "pilula aviso", title: p.motivo_elegibilidade || "" }, "Elegibilidade a confirmar");
   const conf = el("span", { class: `pilula${p.confianca_geral === "BAIXA" ? " aviso" : ""}` }, `Confiança ${p.confianca_geral.toLowerCase().replace("media", "média")}`);
+  let motor = null;
+  if (p.plano_motor && p.plano_motor !== p.plano_base) {
+    motor = `O índice do motor sozinho indicaria o ${nomePlano(p.plano_motor)}; as necessidades deste negócio pedem o ${nomePlano(p.plano_base)}.`;
+  } else if (!p.plano_motor && !descoberta) {
+    motor = "Motor sem índice: faltam dados essenciais no cadastro.";
+  } else if (!p.plano_motor && descoberta && !provisorio) {
+    motor = "Ramo fora da base do motor: o plano saiu só das necessidades.";
+  }
   alvo.append(el("section", { class: "bloco" },
-    el("h2", {}, "Plano recomendado"),
-    el("p", { class: "plano-nome" }, nomePlano(p.plano_base)),
+    el("h2", {}, provisorio ? "Plano em formação" : "Plano recomendado"),
+    el("p", { class: "plano-nome" }, `Pacote ${nomePlano(p.plano_base)}`),
+    el("p", { class: "plano-sob-medida" }, adicionais.length
+      ? `+ ${adicionais.length} ${adicionais.length === 1 ? "cobertura adicional" : "coberturas adicionais"} sob medida`
+      : "Sem adicionais: o pacote cobre o que este negócio precisa"),
     mudou ? el("p", { class: "plano-mudanca", html: `Era ${escapar(nomePlano(turno.plano_anterior))}; mudou para <strong>${escapar(nomePlano(turno.plano))}</strong> com a resposta do cliente.` }) : null,
-    el("div", { class: "metas" }, eleg, conf, el("span", { class: "pilula" }, p.relacao_imovel === "LOCATARIO" ? "Imóvel alugado" : "Imóvel provavelmente próprio")),
+    motor ? el("p", { class: "plano-mudanca" }, motor) : null,
+    provisorio ? null : el("div", { class: "metas" }, eleg, conf, el("span", { class: "pilula" }, { LOCATARIO: "Imóvel alugado", A_CONFIRMAR: "Imóvel a confirmar" }[p.relacao_imovel] ?? "Imóvel provavelmente próprio")),
   ));
 
   const pergunta = turno ? turno.proxima_pergunta : cliente.pergunta_pendente;
-  if (pergunta) {
+  if (pergunta && !descoberta) {
     alvo.append(el("section", { class: "bloco" },
       el("div", { class: "pergunta-pendente" }, el("p", {}, "A pergunta que decide o plano"), el("p", {}, pergunta))));
   }
 
-  const linha = (c, adicional) => el("li", { class: `cobertura${adicional ? " adicional" : ""}${c.confianca === "BAIXA" ? " cob-baixa" : ""}`, title: c.justificativa },
+  const linha = (c) => el("li", { class: `cobertura${c.origem === "adicional" ? " adicional" : ""}${c.origem === "opcional" ? " opcional" : ""}`, title: c.justificativa },
     el("span", { class: "cob-nome" }, c.nome),
     el("span", { class: "cob-faixa num" }, faixa(c.minimo, c.maximo)),
-    adicional ? el("span", { class: "cob-sub" }, c.justificativa.split(";")[0]) : null);
-
-  const fixas = p.coberturas.filter((c) => c.origem === "plano");
-  const adicionais = p.coberturas.filter((c) => c.origem === "adicional");
-  if (adicionais.length) {
+    el("span", { class: "cob-sub" },
+      el("span", { class: `tag-origem ${c.origem}` }, c.origem === "plano" ? "no pacote" : c.origem === "adicional" ? "adicional" : "fora do pacote"),
+      ` ${c.motivo}`));
+  for (const [nivel, titulo] of GRUPOS) {
+    const itens = p.coberturas.filter((c) => c.necessidade === nivel);
+    if (!itens.length) continue;
     alvo.append(el("section", { class: "bloco" },
-      el("h2", {}, `Adicionais para este negócio (${adicionais.length})`),
-      el("ul", { class: "coberturas" }, adicionais.map((c) => linha(c, true)))));
+      el("h2", {}, `${titulo} (${itens.length})`),
+      el("ul", { class: "coberturas" }, itens.map(linha))));
   }
-  alvo.append(el("section", { class: "bloco" },
-    el("h2", {}, `Coberturas do plano ${nomePlano(p.plano_base)} (${fixas.length})`),
-    fixas.length ? el("ul", { class: "coberturas" }, fixas.map((c) => linha(c, false)))
-      : el("p", { class: "vazio-bloco" }, "Plano suspenso: faltam dados essenciais no cadastro."),
-    el("p", { class: "legenda" }, "Faixas sugeridas de limite de indenização, a confirmar. Não são preço.")));
+  alvo.append(el("p", { class: "legenda" }, provisorio
+    ? "Plano provisório: o que ainda não foi perguntado usa a mediana do ramo. Faixas de limite de indenização, não preço."
+    : "Faixas sugeridas de limite de indenização, a confirmar. Não são preço."));
 
   if (p.dados_a_conferir && p.dados_a_conferir.length) {
     alvo.append(el("section", { class: "bloco" },
@@ -224,11 +283,12 @@ function renderizarDetalhes(cliente, turno) {
       el("ul", { class: "conferir" }, p.dados_a_conferir.map((d) => el("li", {}, d[0].toUpperCase() + d.slice(1))))));
   }
 
+  const d = (turno && turno.decisoes) || {};
+  if (descoberta && !Object.keys(d).length) return;
   const blocoTurno = el("section", { class: "bloco" }, el("h2", {}, "Decisões do último turno"));
   if (!turno) {
     blocoTurno.append(el("p", { class: "vazio-bloco" }, "Aparecem aqui quando o cliente escrever: intenção, confirmação, rota e guardrail."));
   } else {
-    const d = turno.decisoes;
     const linhaDecisao = (rotulo, valor, prob) => [
       el("dt", {}, rotulo), el("dd", { class: "num" }, `${valor} · ${pct(prob)}`),
       el("div", { class: "barra", "aria-hidden": "true" }, el("span", { style: `width:${Math.round(prob * 100)}%` })),
@@ -292,6 +352,18 @@ function definirModo(reproducao, texto) {
 
 function mostrarCliente(cliente, subtitulo) {
   estado.cliente = cliente;
+  estado.modo = cliente.modo === "descoberta" ? "descoberta" : "cadastro";
+  if (estado.modo === "descoberta") {
+    $("#titulo").textContent = "Novo cliente";
+    $("#cliente-id").textContent = "sem cadastro";
+    $("#escopo-cliente").textContent = "Conversa do zero";
+    $("#subtitulo").innerHTML = subtitulo ?? "O agente não sabe nada sobre este cliente: pergunta só o que muda o plano e depois recomenda.";
+    renderizarDetalhes(cliente, null);
+    document.querySelectorAll(".nav-item[data-cliente]").forEach((b) => b.setAttribute("aria-current", "false"));
+    $("#nova-descoberta").setAttribute("aria-current", "true");
+    return;
+  }
+  $("#nova-descoberta").setAttribute("aria-current", "false");
   $("#titulo").textContent = cliente.segmento;
   $("#cliente-id").textContent = cliente.cliente_id;
   $("#escopo-cliente").textContent = `${cliente.segmento} · ${cliente.empresa_id}`;
@@ -314,9 +386,30 @@ function mostrarCliente(cliente, subtitulo) {
   document.querySelectorAll(".nav-item[data-cliente]").forEach((b) => b.setAttribute("aria-current", String(b.dataset.cliente === cliente.cliente_id)));
 }
 
+async function iniciarDescoberta() {
+  if (estado.ocupado) return;
+  estado.reproduzindo = false;
+  definirModo(false);
+  fecharMenu();
+  mensagens.replaceChildren();
+  estado.clausulas = {};
+  $("#titulo").textContent = "Abrindo conversa…";
+  const r = await fetch("/api/descobertas", { method: "POST" });
+  if (!r.ok) { $("#subtitulo").textContent = "Não foi possível abrir a conversa."; return; }
+  const dados = await r.json();
+  estado.sessao = dados.sessao_id;
+  estado.descoberta = dados.descoberta;
+  mostrarCliente(dados.cliente);
+  adicionarAgente(dados.abertura.texto);
+  mostrarOpcoes(dados.abertura.opcoes);
+  bloquear(false);
+  $("#entrada").focus();
+}
+
 async function abrirCliente(clienteId) {
   if (estado.ocupado) return;
   estado.reproduzindo = false;
+  estado.descoberta = null;
   definirModo(false);
   fecharMenu();
   mensagens.replaceChildren();
@@ -363,7 +456,7 @@ async function enviar(texto) {
   texto = texto.trim();
   if (!texto || estado.ocupado || estado.reproduzindo || !estado.sessao) return;
   ultimaMensagem = texto;
-  $("#sugestoes").hidden = false;
+  $("#sugestoes").hidden = estado.modo === "descoberta";
   mensagens.querySelector(".sugestoes-intro")?.remove();
   mensagens.querySelector(".achado-rotulo")?.remove();
   $("#entrada").value = "";
@@ -382,8 +475,12 @@ async function enviar(texto) {
         Object.assign(estado.clausulas, dados.clausulas);
         turno.concluir(dados);
         estado.ultimoTurno = dados;
+        if (dados.descoberta) estado.descoberta = dados.descoberta;
         renderizarDetalhes(estado.cliente, dados);
         atualizarSubtitulo(dados);
+        if (estado.modo === "descoberta") {
+          mostrarOpcoes(dados.opcoes.length ? dados.opcoes : dados.descoberta?.etapa === "recomendada" ? SUGESTOES_DEPOIS : []);
+        }
       } else if (tipo === "erro") turno.falhar(dados.mensagem);
     });
   } catch (erro) {
@@ -394,6 +491,10 @@ async function enviar(texto) {
   }
 }
 function atualizarSubtitulo(turno) {
+  if (estado.modo === "descoberta" && turno.descoberta?.etapa === "recomendada" && turno.personalizado) {
+    $("#subtitulo").innerHTML = `Plano montado com ${turno.descoberta.feitas} respostas: pacote <strong>${escapar(nomePlano(turno.personalizado.plano_base))}</strong> sob medida.`;
+    return;
+  }
   if (turno.plano && turno.plano_anterior && turno.plano !== turno.plano_anterior) {
     $("#subtitulo").innerHTML = `O plano mudou de ${escapar(nomePlano(turno.plano_anterior))} para <strong>${escapar(nomePlano(turno.plano))}</strong> com a resposta do cliente.`;
   }
@@ -424,9 +525,11 @@ async function reproduzir(sessaoId) {
   estado.clausulas = {};
   definirModo(true, `Reprodução · sessão ${sessaoId}`);
   mensagens.replaceChildren();
+  estado.descoberta = null;
   mostrarCliente(g.cliente, `Reprodução da sessão <strong>${escapar(sessaoId)}</strong>, lida do log de auditoria: nenhuma API é chamada.`);
   $("#sugestoes").replaceChildren();
   bloquear(true);
+  if (g.abertura) adicionarAgente(g.abertura);
   for (const t of g.turnos) {
     adicionarCliente(t.mensagem);
     await esperar(500);
@@ -438,6 +541,7 @@ async function reproduzir(sessaoId) {
     }
     Object.assign(estado.clausulas, t.clausulas);
     turno.concluir(t);
+    if (t.descoberta) estado.descoberta = t.descoberta;
     renderizarDetalhes(g.cliente, t);
     await esperar(1200);
   }
@@ -454,7 +558,7 @@ async function carregarGravacoes() {
     el("button", { class: "nav-item", type: "button", onclick: () => reproduzir(s.sessao_id) },
       el("span", { class: "nav-texto" },
         el("span", { class: "nav-titulo" }, s.primeira_mensagem),
-        el("span", { class: "nav-sub" }, `${s.cliente_id.replace("IMO_", "")} · ${s.turnos} ${s.turnos === 1 ? "turno" : "turnos"}`))))));
+        el("span", { class: "nav-sub" }, `${s.descoberta ? "Conversa do zero" : s.cliente_id.replace("IMO_", "")} · ${s.turnos} ${s.turnos === 1 ? "turno" : "turnos"}`))))));
 }
 
 /* ---------- navegação, menu e inicialização ---------- */
@@ -463,7 +567,11 @@ $("#abrir-menu").addEventListener("click", () => $("#lateral").classList.add("ab
 $("#fechar-menu").addEventListener("click", fecharMenu);
 $("#ver-plano").addEventListener("click", () => { $("#detalhes").classList.add("aberto"); $("#ver-plano").setAttribute("aria-expanded", "true"); });
 $("#fechar-detalhes").addEventListener("click", () => { $("#detalhes").classList.remove("aberto"); $("#ver-plano").setAttribute("aria-expanded", "false"); });
-$("#nova").addEventListener("click", () => estado.cliente && abrirCliente(estado.cliente.cliente_id));
+$("#nova").addEventListener("click", () => {
+  if (estado.modo === "descoberta") iniciarDescoberta();
+  else if (estado.cliente) abrirCliente(estado.cliente.cliente_id);
+});
+$("#nova-descoberta").addEventListener("click", iniciarDescoberta);
 $("#abrir-gravacoes").addEventListener("click", () => {
   const lista = $("#lista-gravacoes");
   const abrir = lista.hidden;

@@ -1,4 +1,5 @@
-"""Plano personalizado: plano base do motor + coberturas adicionais + faixa em reais por cobertura.
+"""Plano personalizado cobertura por cobertura: necessidade e faixa em reais de cada cobertura,
+e o pacote BB mais próximo como forma de contratar (pacote + adicionais).
 
 Determinístico, sem LLM. As faixas seguem "valor em risco" a partir dos dados do estabelecimento
 (mínimo com valores ponderados/médios, máximo com cadastrados/pico). Onde as Condições Gerais
@@ -31,7 +32,7 @@ FRACAO_ELETRICOS_SEM_CADASTRO = (0.2, 0.5)  # parte dos bens que é equipamento 
 
 # Gatilhos dos adicionais
 MINIMO_SUBTRAIVEL_ROUBO = 10_000  # estoque + portáteis para sugerir roubo fora do plano
-MINIMO_FUNCIONARIOS_RC_EMPREGADOR = 10
+MINIMO_FUNCIONARIOS_RC_EMPREGADOR = 17  # critério de referência do motor (modelo/criterios_referencia.json)
 MINIMO_REFRIGERACAO = 0.5
 MINIMO_DELIVERY = 0.5
 MINIMO_RECEBIMENTO_FISICO = 0.3  # fração do faturamento recebida fora do digital
@@ -306,45 +307,118 @@ DIMENSIONAR = {
 }
 
 
-def adicionais_indicados(est: Estabelecimento, plano: Plano, bens: _Bens) -> dict[str, str]:
-    """Cobertura adicional → motivo, para o que o perfil pede e o plano base não traz."""
-    do_plano = set(rag.coberturas_do_plano(plano))
-    motivos = {}
+# ---------- necessidade de cada cobertura (o plano sai daqui, não do pacote) ----------
+
+ESSENCIAL, RECOMENDADA, OPCIONAL, NAO_SE_APLICA = "ESSENCIAL", "RECOMENDADA", "OPCIONAL", "NAO_SE_APLICA"
+ORDEM_PACOTES = [Plano.ESSENCIAL, Plano.PRATICO, Plano.TOTAL]
+SEGMENTOS_SEM_PUBLICO = {"ESCRITORIO"}  # recebem poucos clientes no local
+MINIMO_ELETRICOS_ESSENCIAL = 30_000
+MINIMO_DESPESA_ESSENCIAL = 20_000
+MINIMO_SUBTRAIVEL_RECOMENDADA = 3_000
+MINIMO_FUNCIONARIOS_RECOMENDADA = 5
+MINIMO_DINHEIRO_DIA_ESSENCIAL = 10_000
+
+
+def necessidade(nome: str, est: Estabelecimento, bens: _Bens) -> tuple[str, str]:
+    """(nível, motivo) de uma cobertura para este estabelecimento. Regras da equipe, sem LLM."""
     subtraivel = est.estoque_medio + bens.soma("valor_ponderado", TIPOS_PORTATEIS)
-    if "ROUBO_FURTO_ARROMBAMENTO" not in do_plano and subtraivel >= MINIMO_SUBTRAIVEL_ROUBO:
-        motivos["ROUBO_FURTO_ARROMBAMENTO"] = f"estoque e portáteis de cerca de {_reais(subtraivel)} sem cobertura de roubo no plano"
-    if "RESPONSABILIDADE_CIVIL_EMPREGADOR" not in do_plano and est.funcionarios_empresa >= MINIMO_FUNCIONARIOS_RC_EMPREGADOR:
-        motivos["RESPONSABILIDADE_CIVIL_EMPREGADOR"] = f"{est.funcionarios_empresa:.0f} funcionários sem cobertura para acidente de empregado"
-    if "QUEBRA_DE_VIDROS" not in do_plano and {"LOJA", "GALERIA"} & set(est.termos_endereco):
-        motivos["QUEBRA_DE_VIDROS"] = "endereço de loja/galeria, provável vitrine"
-    if est.probabilidade_refrigeracao >= MINIMO_REFRIGERACAO and est.estoque_medio > 0:
-        motivos["DETERIORACAO_DE_MERCADORIAS_EM_AMBIENTES_FRIGORIFICADOS"] = (
-            f"provável uso de refrigeração ({est.probabilidade_refrigeracao:.0%})"
-        )
-    if est.probabilidade_delivery >= MINIMO_DELIVERY:
-        motivos["DELIVERY"] = f"provável operação de delivery ({est.probabilidade_delivery:.0%})"
-    if (
-        1 - est.percentual_recebimentos_digitais >= MINIMO_RECEBIMENTO_FISICO
-        and _dinheiro_por_dia(est) >= MINIMO_DINHEIRO_DIA
-    ):
-        motivos["ROUBO_OU_FURTO_DE_VALORES_MEDIANTE_ARROMBAMENTO"] = (
-            f"{1 - est.percentual_recebimentos_digitais:.0%} dos recebimentos fora do digital"
-        )
-    return motivos
+    match nome:
+        case "INCENDIO_RAIO_EXPLOSAO_FUMACA":
+            return ESSENCIAL, "cobertura básica obrigatória do seguro (cl. CG-3.1)"
+        case "RESPONSABILIDADE_CIVIL_ESTABELECIMENTO":
+            if est.grupo_atividade in SEGMENTOS_SEM_PUBLICO:
+                return RECOMENDADA, "danos a visitantes e terceiros no local"
+            return ESSENCIAL, "recebe clientes no estabelecimento"
+        case "DANOS_ELETRICOS":
+            eletricos = bens.soma("valor_cadastrado", TIPOS_ELETRICOS)
+            if eletricos >= MINIMO_ELETRICOS_ESSENCIAL:
+                return ESSENCIAL, f"{_reais(eletricos)} em equipamentos elétricos"
+            return RECOMENDADA, "equipamentos elétricos sujeitos a raio e variação de tensão"
+        case "PERDA_PAGAMENTO_ALUGUEL":
+            if est.paga_aluguel:
+                return ESSENCIAL, f"paga {_reais(est.valor_aluguel)} de aluguel, que continua se o ponto parar"
+            return OPCIONAL, "imóvel provavelmente próprio: só cobre aluguel de outro ponto"
+        case "DESPESAS_FIXAS":
+            if est.despesa_fixa_mensal >= MINIMO_DESPESA_ESSENCIAL:
+                return ESSENCIAL, f"{_reais(est.despesa_fixa_mensal)} por mês de despesas fixas"
+            return RECOMENDADA, "despesas fixas continuam se o negócio parar"
+        case "ROUBO_FURTO_ARROMBAMENTO":
+            if subtraivel >= MINIMO_SUBTRAIVEL_ROUBO:
+                return ESSENCIAL, f"cerca de {_reais(subtraivel)} em estoque e equipamentos portáteis"
+            if subtraivel >= MINIMO_SUBTRAIVEL_RECOMENDADA:
+                return RECOMENDADA, f"cerca de {_reais(subtraivel)} em estoque e equipamentos portáteis"
+            return OPCIONAL, "pouco estoque e poucos equipamentos portáteis"
+        case "VENDAVAL_EVENTOS_CORRELATOS":
+            if est.termos_endereco and set(est.termos_endereco) <= {"SALA", "TORRE"}:
+                return OPCIONAL, "sala em prédio: telhado e fachada são do condomínio"
+            return RECOMENDADA, "sem dado de risco climático da região; protege telhado, fachada e bens"
+        case "RESPONSABILIDADE_CIVIL_EMPREGADOR":
+            n = est.funcionarios_empresa
+            if n >= MINIMO_FUNCIONARIOS_RC_EMPREGADOR:
+                return ESSENCIAL, f"{n:.0f} funcionários"
+            if n >= MINIMO_FUNCIONARIOS_RECOMENDADA:
+                return RECOMENDADA, f"{n:.0f} funcionários"
+            return OPCIONAL, "equipe muito pequena"
+        case "QUEBRA_DE_VIDROS":
+            if {"LOJA", "GALERIA"} & set(est.termos_endereco):
+                return RECOMENDADA, "loja com vitrine ou fachada de vidro"
+            return OPCIONAL, "sem vitrine identificada"
+        case "DETERIORACAO_DE_MERCADORIAS_EM_AMBIENTES_FRIGORIFICADOS":
+            if est.probabilidade_refrigeracao >= MINIMO_REFRIGERACAO and est.estoque_medio > 0:
+                return RECOMENDADA, "guarda mercadoria refrigerada"
+            return NAO_SE_APLICA, "não usa refrigeração para mercadoria"
+        case "DELIVERY":
+            if est.probabilidade_delivery >= MINIMO_DELIVERY:
+                return RECOMENDADA, "faz entregas"
+            return NAO_SE_APLICA, "não faz entregas"
+        case "ROUBO_OU_FURTO_DE_VALORES_MEDIANTE_ARROMBAMENTO":
+            dia = _dinheiro_por_dia(est)
+            fisico = 1 - est.percentual_recebimentos_digitais
+            if dia >= MINIMO_DINHEIRO_DIA_ESSENCIAL:
+                return ESSENCIAL, f"cerca de {_reais(dia)} por dia recebidos em dinheiro"
+            if fisico >= MINIMO_RECEBIMENTO_FISICO and dia >= MINIMO_DINHEIRO_DIA:
+                return RECOMENDADA, f"cerca de {_reais(dia)} por dia recebidos em dinheiro"
+            if dia > 0:
+                return OPCIONAL, "pouco dinheiro em caixa"
+            return NAO_SE_APLICA, "recebe tudo no digital"
+    raise ValueError(nome)
 
 
-def _cobertura(nome: str, origem: str, est: Estabelecimento, bens: _Bens, motivo: str | None = None) -> CoberturaRecomendada:
+def necessidades(est: Estabelecimento) -> dict[str, tuple[str, str]]:
+    bens = _Bens(est)
+    return {nome: necessidade(nome, est, bens) for nome in DIMENSIONAR}
+
+
+def pacote_minimo(niveis: dict[str, tuple[str, str]]) -> Plano:
+    """Menor pacote da BB Seguros cujo catálogo contém todas as coberturas essenciais que existem em pacote."""
+    no_catalogo = set(rag._catalogo())
+    essenciais = {c for c, (n, _) in niveis.items() if n == ESSENCIAL and c in no_catalogo}
+    return next((p for p in ORDEM_PACOTES if essenciais <= set(rag.coberturas_do_plano(p))), Plano.TOTAL)
+
+
+def pacote_de_contratacao(niveis: dict[str, tuple[str, str]], plano_motor: Plano | None) -> Plano:
+    """O pacote mínimo pelas necessidades, nunca abaixo do índice do motor de score."""
+    minimo = pacote_minimo(niveis)
+    if plano_motor is None:
+        return minimo
+    return max(minimo, plano_motor, key=ORDEM_PACOTES.index)
+
+
+def _cobertura(
+    nome: str, origem: str, est: Estabelecimento, bens: _Bens, nivel: tuple[str, str]
+) -> CoberturaRecomendada:
     d = DIMENSIONAR[nome](est, bens)
-    justificativa = f"{motivo}; {d['justificativa']}" if motivo else d["justificativa"]
     return CoberturaRecomendada(
         cobertura=nome,
         origem=origem,
+        necessidade=nivel[0],
+        motivo_necessidade=nivel[1],
         faixa_valor_min=d["faixa"][0],
         faixa_valor_max=d["faixa"][1],
         confianca=d["confianca"],
         dados_utilizados=d["dados"],
         regra_calculo=d["regra"],
-        justificativa=justificativa,
+        justificativa=f"{nivel[1]}; {d['justificativa']}",
         informacao_a_confirmar=d["confirmar"],
         clausulas=CLAUSULAS[nome],
     )
@@ -369,47 +443,120 @@ def elegibilidade(perfil: Perfil, est: Estabelecimento) -> tuple[str, str | None
     return ("A_CONFIRMAR" if pendencias else "SIM"), ("; ".join(pendencias) or None), perguntas
 
 
-def personalizar(perfil: Perfil, est: Estabelecimento) -> PlanoPersonalizado:
+def _nome(cobertura: str) -> str:
+    return cobertura.lower().replace("_", " ")
+
+
+def est_com_entrada(est: Estabelecimento, entrada: dict) -> Estabelecimento:
+    """O estabelecimento com os valores da entrada do motor (que incluem o que o cliente confirmou):
+    funcionários, estoque e bens. Sem isso a confirmação mudava o índice e não as necessidades."""
+    mudancas = {}
+    if entrada.get("funcionarios_estimados_empresa") is not None:
+        mudancas["funcionarios_empresa"] = entrada["funcionarios_estimados_empresa"]
+    if entrada.get("estoque_medio_estimado") is not None and entrada["estoque_medio_estimado"] != est.estoque_medio:
+        novo = entrada["estoque_medio_estimado"]
+        mudancas["estoque_medio"] = novo
+        mudancas["estoque_pico"] = est.estoque_pico * novo / est.estoque_medio if est.estoque_medio else novo * 1.3
+    bens_entrada = entrada.get("valor_bens_ponderado_estabelecimento")
+    ponderado = sum(b.valor_ponderado for b in est.bens)
+    if bens_entrada is not None and ponderado and abs(bens_entrada - ponderado) > 1:
+        fator = bens_entrada / ponderado
+        mudancas["bens"] = [
+            b.model_copy(update={"valor_cadastrado": b.valor_cadastrado * fator, "valor_ponderado": b.valor_ponderado * fator})
+            for b in est.bens
+        ]
+    return est.model_copy(update=mudancas) if mudancas else est
+
+
+def _assinatura(p: PlanoPersonalizado) -> tuple:
+    """O que define o plano para o cliente: o pacote e as coberturas que entram (não as opcionais)."""
+    return p.plano_base, frozenset(c.cobertura for c in p.coberturas if c.origem != "opcional")
+
+
+def pergunta_muda_o_plano(perfil: Perfil, est: Estabelecimento) -> bool:
+    """A pergunta pendente do motor só vale a pena se o sim e o não levam a planos personalizados diferentes."""
+    if not perfil.perguntas_pendentes:
+        return False
+    from agente.contratos import Confirmacao
+    from agente.regras import aplicar_confirmacao
+
+    pergunta = perfil.perguntas_pendentes[0]
+    planos = set()
+    for valor in ("sim", "nao"):
+        _, novo = aplicar_confirmacao(perfil, Confirmacao(pergunta_id=pergunta.id, valor=valor, probabilidade=1))
+        planos.add(_assinatura(personalizar(novo, est, filtrar_pergunta=False)))
+    return len(planos) > 1
+
+
+def perfil_relevante(perfil: Perfil, est: Estabelecimento) -> Perfil:
+    """O perfil sem a pergunta pendente quando ela não muda o plano personalizado (tese: só perguntar o que muda)."""
+    if perfil.perguntas_pendentes and not pergunta_muda_o_plano(perfil, est_com_entrada(est, perfil.entrada)):
+        return perfil.model_copy(update={"perguntas_pendentes": []})
+    return perfil
+
+
+def personalizar(perfil: Perfil, est: Estabelecimento, filtrar_pergunta: bool = True) -> PlanoPersonalizado:
+    """Plano cobertura por cobertura: nível de necessidade e faixa de cada uma; o pacote BB mais
+    próximo diz como contratar (pacote + adicionais)."""
+    if filtrar_pergunta:
+        perfil = perfil_relevante(perfil, est)
+    est = est_com_entrada(est, perfil.entrada)
     bens = _Bens(est)
     elegivel, motivo_eleg, perguntas_eleg = elegibilidade(perfil, est)
-    coberturas: list[CoberturaRecomendada] = []
-    adicionais = {}
-    if perfil.plano is not None:
-        coberturas = [_cobertura(c, "plano", est, bens) for c in rag.coberturas_do_plano(perfil.plano)]
-        adicionais = adicionais_indicados(est, perfil.plano, bens)
-        candidatos = [_cobertura(c, "adicional", est, bens, motivo) for c, motivo in adicionais.items()]
-        candidatos = [c for c in candidatos if c.faixa_valor_max >= MINIMO_RELEVANTE_ADICIONAL]
-        adicionais = {c.cobertura: adicionais[c.cobertura] for c in candidatos}
-        coberturas += candidatos
+    niveis = necessidades(est)
+    minimo = pacote_minimo(niveis)
+    pacote = pacote_de_contratacao(niveis, perfil.plano)
+    do_pacote = rag.coberturas_do_plano(pacote)
+    coberturas = [_cobertura(c, "plano", est, bens, niveis[c]) for c in do_pacote]
+    for c, nivel in niveis.items():
+        if c in do_pacote or nivel[0] == NAO_SE_APLICA:
+            continue
+        cob = _cobertura(c, "opcional", est, bens, nivel)
+        if nivel[0] in (ESSENCIAL, RECOMENDADA) and cob.faixa_valor_max >= MINIMO_RELEVANTE_ADICIONAL:
+            cob.origem = "adicional"
+        coberturas.append(cob)
+    adicionais = [c for c in coberturas if c.origem == "adicional"]
+
     achados = inconsistencias(est)
     perguntas = [p.texto for p in perfil.perguntas_pendentes] + perguntas_eleg
     perguntas += [f"Confirmar: {a}" for a in achados]
     perguntas += [
         f"Confirmar: {c.informacao_a_confirmar}"
         for c in coberturas
-        if c.informacao_a_confirmar and c.confianca == "BAIXA" and "parece alto" not in c.informacao_a_confirmar
+        if c.origem != "opcional"
+        and c.informacao_a_confirmar
+        and c.confianca == "BAIXA"
+        and "parece alto" not in c.informacao_a_confirmar
     ][:3]
     principal = next((c for c in coberturas if c.cobertura == "INCENDIO_RAIO_EXPLOSAO_FUMACA"), None)
-    if perfil.plano is None or elegivel != "SIM":
+    if elegivel != "SIM":
         confianca = "BAIXA"
     elif perfil.perguntas_pendentes or perfil.avisos or achados or (principal and principal.confianca == "BAIXA"):
         confianca = "MEDIA"
     else:
         confianca = "ALTA"
-    justificativa = (
-        f"Plano {perfil.plano} pelo índice do motor (score {perfil.score:.3f})"
-        if perfil.plano
-        else "Plano suspenso pelo motor: faltam dados essenciais"
-    )
+
+    essenciais = [c for c, (n, _) in niveis.items() if n == ESSENCIAL]
+    justificativa = f"Pacote {pacote}: menor pacote com as coberturas essenciais ({', '.join(map(_nome, essenciais))})"
+    if perfil.plano is not None and pacote != minimo:
+        justificativa = f"Pacote {pacote}: índice do motor (score {perfil.score:.3f}); pelas necessidades bastaria o {minimo}"
+    elif perfil.plano is not None:
+        justificativa += f"; índice do motor: {perfil.plano} (score {perfil.score:.3f})"
+    else:
+        justificativa += "; motor sem índice: faltam dados essenciais"
     if achados:
         justificativa += "; dados a conferir: " + "; ".join(achados)
     if adicionais:
-        justificativa += "; adicionais: " + "; ".join(f"{c.lower().replace('_', ' ')} ({m})" for c, m in adicionais.items())
+        justificativa += "; adicionais: " + "; ".join(
+            f"{_nome(c.cobertura)} ({c.motivo_necessidade})" for c in adicionais
+        )
     local = next((t for t in ("LOJA", "GALERIA", "SALA", "TORRE") if t in est.termos_endereco), "NAO_IDENTIFICADO")
     return PlanoPersonalizado(
         imovel_id=est.imovel_id,
         empresa_id=est.empresa_id,
-        plano_base=perfil.plano,
+        plano_base=pacote,
+        plano_motor=perfil.plano,
+        pacote_minimo=minimo,
         elegivel=elegivel,
         motivo_elegibilidade=motivo_eleg,
         tipo_localizacao=local,

@@ -22,15 +22,15 @@ def _confirmacao(perfil, valor):
 def test_sim_recalcula_com_o_motor(fronteira):
     pergunta = fronteira.perguntas_pendentes[0]
     atualizado, novo = aplicar_confirmacao(fronteira, _confirmacao(fronteira, "sim"))
-    assert atualizado.plano_anterior == Plano.PRATICO
-    assert atualizado.plano == pergunta.plano_se_sim == Plano.TOTAL
+    assert atualizado.plano_anterior == fronteira.plano
+    assert atualizado.plano == pergunta.plano_se_sim
     assert novo.plano == plano_de(novo.entrada)  # mesma regra do motor, sem atalho
     assert novo.entrada[pergunta.variavel] >= pergunta.limiar
 
 
 def test_nao_mantem_o_plano(fronteira):
     atualizado, novo = aplicar_confirmacao(fronteira, _confirmacao(fronteira, "nao"))
-    assert atualizado.plano == fronteira.perguntas_pendentes[0].plano_se_nao == Plano.PRATICO
+    assert atualizado.plano == fronteira.perguntas_pendentes[0].plano_se_nao
 
 
 @pytest.mark.parametrize("valor", ["sim", "nao"])

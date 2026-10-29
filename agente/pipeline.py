@@ -14,7 +14,7 @@ from agente.dados_base import get_estabelecimento
 from agente.decisor import Decisor, confirmacao_aplicavel, criar_decisor, decidir_turno
 from agente.guardrail import conferir
 from agente.perfil import get_perfil_cliente
-from agente.personalizacao import personalizar
+from agente.personalizacao import perfil_relevante, personalizar
 from agente.redator import Redacao, montar_entrada, redigir
 from agente.regras import aplicar_confirmacao
 
@@ -79,10 +79,15 @@ class Conversa:
         redigir_fn: Callable[..., Redacao] = redigir,
         arquivo_log: Path | None = None,
         sessao_id: str | None = None,
+        perfil: Perfil | None = None,
+        estabelecimento=None,
     ):
+        """perfil e estabelecimento prontos servem ao cliente sem cadastro (conversa do zero)."""
         self.cliente_id = cliente_id
-        self.perfil = get_perfil_cliente(cliente_id)
-        self.estabelecimento = get_estabelecimento(cliente_id)
+        self.estabelecimento = estabelecimento or get_estabelecimento(cliente_id)
+        self.perfil = perfil_relevante(perfil or get_perfil_cliente(cliente_id), self.estabelecimento)
+        self.respostas_do_cliente: dict[str, str] = {}
+        """Respostas da conversa do zero (rótulos das faixas), para o redator citar o que o cliente contou."""
         self.decisor = decisor or criar_decisor()
         self.redigir = redigir_fn
         self.arquivo_log = arquivo_log
@@ -90,7 +95,12 @@ class Conversa:
         self.historico: list[dict] = []
         self.turnos = 0
 
-    def turno(self, mensagem: str, ao_progredir: Callable[[dict], None] | None = None) -> EstadoTurno:
+    def turno(
+        self,
+        mensagem: str,
+        ao_progredir: Callable[[dict], None] | None = None,
+        apresentar_recomendacao: bool = False,
+    ) -> EstadoTurno:
         """Um turno. ao_progredir recebe cada etapa ao começar e ao terminar (para a interface ao vivo)."""
         tempos, tokens, extras = {}, {}, {}
         etapas: list[dict] = []
@@ -149,20 +159,31 @@ class Conversa:
         confirmacao = decisoes.confirmacao if confirmacao_aplicavel(decisoes) else None
         respondida = perfil.perguntas_pendentes[0] if confirmacao else None
         atualizado, perfil_novo = aplicar_confirmacao(perfil, confirmacao)
-        estado.perfil_atualizado = atualizado
+        perfil_novo = perfil_relevante(perfil_novo, self.estabelecimento)
         personalizado = personalizar(perfil_novo, self.estabelecimento)
+        pacote_antes = personalizar(perfil, self.estabelecimento).plano_base if confirmacao else personalizado.plano_base
+        atualizado = atualizado.model_copy(
+            update={
+                "pacote_anterior": pacote_antes,
+                "pacote": personalizado.plano_base,
+                "proxima_pergunta": perfil_novo.perguntas_pendentes[0] if perfil_novo.perguntas_pendentes else None,
+            }
+        )
+        estado.perfil_atualizado = atualizado
         estado.plano_personalizado = personalizado
         marcar("regras")
-        if atualizado.plano != atualizado.plano_anterior:
-            detalhe = f"{atualizado.plano_anterior} → {atualizado.plano}, pela resposta a: {respondida.texto}"
+        if atualizado.pacote != atualizado.pacote_anterior:
+            detalhe = f"pacote {atualizado.pacote_anterior} → {atualizado.pacote}, pela resposta a: {respondida.texto}"
+        elif confirmacao:
+            detalhe = f"pacote mantido: {atualizado.pacote}; necessidades recalculadas com a resposta"
         else:
-            detalhe = f"plano mantido: {atualizado.plano}"
+            detalhe = f"pacote {atualizado.pacote}"
         detalhe += f" · {len(personalizado.adicionais)} adicionais · {len(personalizado.coberturas)} faixas"
         avisar("regras", "Plano personalizado montado", detalhe, "feito")
 
         # 3. recuperar
         avisar("recuperar", "Consultando as Condições Gerais")
-        clausulas = rag.buscar_para_turno(mensagem, atualizado.plano, perfil.segmento)
+        clausulas = rag.buscar_para_turno(mensagem, personalizado.plano_base, perfil.segmento)
         extras_ids = [c.clausulas[0] for c in personalizado.adicionais] + (objecao["clausulas"] if objecao else [])
         clausulas += _clausulas_extras(extras_ids, perfil_novo, {c.id for c in clausulas})
         estado.clausulas = clausulas
@@ -188,6 +209,12 @@ class Conversa:
             respondida,
             personalizado,
         )
+        if self.respostas_do_cliente:
+            # Cliente sem cadastro: os números do perfil são faixas ou medianas do ramo, não fatos.
+            entrada["respostas_do_cliente"] = self.respostas_do_cliente
+            entrada["cliente"]["valores_estimados"] = {}
+        if apresentar_recomendacao:
+            entrada["apresentar_recomendacao"] = True
         avisar("redigir", "Redigindo a resposta com o Claude Haiku")
         redacao = self.redigir(entrada)
         tokens["redator"] = [redacao.tokens]

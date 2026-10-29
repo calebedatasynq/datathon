@@ -398,6 +398,19 @@ svg { display: block; }
   border-bottom: 4px solid var(--marca); /* o amarelo do destaque de plano no site da BB Seguros */
 }
 .plano-mudanca { margin-top: 10px; font-size: 13px; color: var(--muted); }
+.plano-sob-medida { margin-top: 10px; font-size: 14px; font-weight: 500; color: var(--accent); }
+.nav-destaque { margin-bottom: 4px; }
+.nav-destaque .nav-titulo { color: var(--primary); font-weight: 600; }
+.nav-destaque .nav-icone { stroke: var(--primary); }
+.sabe { display: grid; }
+.sabe-linha { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 12px; padding: 7px 0; border-top: 1px solid var(--rule); font-size: 13.5px; }
+.sabe-linha:first-child { border-top: 0; padding-top: 0; }
+.sabe-linha dt { color: var(--muted); }
+.sabe-linha dd { margin: 0; text-align: right; font-weight: 500; }
+.origem { margin-left: 6px; padding: 0 6px; border-radius: 999px; background: var(--raised); color: var(--faint); font-size: 11px; font-weight: 500; }
+.tag-origem { font-size: 11px; font-weight: 500; color: var(--faint); }
+.tag-origem.adicional { color: var(--accent); }
+.cobertura.opcional .cob-nome, .cobertura.opcional .cob-faixa { color: var(--muted); }
 .plano-mudanca strong { color: var(--accent); font-weight: 600; }
 .metas { margin-top: 12px; display: flex; flex-wrap: wrap; gap: 6px; }
 .pilula {
