@@ -196,9 +196,16 @@ def buscar(
     return resultado
 
 
+# Cláusula das CG v1.1 → fonte mais nova que a substitui. Quando as duas vêm no mesmo turno, a
+# antiga sai: a exclusão de ataques cibernéticos (8.2 a) é anterior à Ampla Proteção Cibernética.
+SUPERADAS = {"CG-8.2.a": "SITE-CIBERNETICA"}
+
+
 def buscar_para_turno(mensagem: str, plano: Plano | None, segmento: str | None, k: int = 5) -> list[ClausulaRecuperada]:
     """Busca do turno + o resumo do plano recomendado (catálogo), para a resposta poder citá-lo."""
     resultado = buscar(mensagem, plano, segmento, k)
+    ids = {c.id for c in resultado}
+    resultado = [c for c in resultado if not (SUPERADAS.get(c.id) in ids)]
     if plano is not None and f"PLANO-{plano}" not in {c.id for c in resultado}:
         resumo = por_id()[f"PLANO-{plano}"]
         resultado.append(ClausulaRecuperada(**resumo.model_dump(), pontuacao=0.0, no_plano=True))

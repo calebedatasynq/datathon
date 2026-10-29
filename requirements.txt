@@ -10,3 +10,5 @@ pytest>=8.3
 #   pip install --index-url https://download.pytorch.org/whl/cpu torch
 chromadb>=1.0
 sentence-transformers>=3.0
+fastapi>=0.115
+uvicorn[standard]>=0.30

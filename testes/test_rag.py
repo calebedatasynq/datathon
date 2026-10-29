@@ -81,3 +81,8 @@ def test_no_maximo_duas_por_cobertura_e_tipo():
 def test_expansao_so_acrescenta():
     assert rag.expandir("caí num golpe de PIX").startswith("caí num golpe de PIX")
     assert "estelionato" in rag.expandir("caí num golpe de PIX")
+
+
+def test_exclusao_cibernetica_superada_sai_do_turno():
+    ids = [c.id for c in rag.buscar_para_turno("cobre ataque hacker com ransomware?", Plano.TOTAL, None)]
+    assert "SITE-CIBERNETICA" in ids and "CG-8.2.a" not in ids

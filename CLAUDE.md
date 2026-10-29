@@ -68,6 +68,13 @@ personalizado: plano base (motor de score) + coberturas adicionais + faixa de li
 - Preço: o agente nunca informa preço (decisão da equipe); limite de indenização não é preço.
 - Redator: Haiku com output_config effort "low" e max_tokens 8000 (o raciocínio do Haiku conta no max_tokens e já cortou respostas); resposta cortada é reprovada pelo guardrail.
 
+## Interface (Fase 6)
+- python app.py → http://127.0.0.1:8000. Backend FastAPI em interface/servidor.py; página estática em web/ (index.html, estilo.css, app.js), sem build.
+- Conversa ao vivo: POST /api/conversas/{id}/mensagens devolve SSE com cada etapa (Conversa.turno(ao_progredir=...)) e o turno final; a página mostra as etapas como o "pensando" do Claude.
+- Reprodução: /api/gravacoes lê logs/turnos.jsonl (inclui as etapas) e reexibe a conversa no ritmo gravado, sem API.
+- Visual: skill .agents/skills/design-taste-frontend (app screen, estilo framed-sheet): moldura tingida do azul BB, amarelo BB só no plano recomendado, tinta azul-marinho Ibmec, IBM Plex Sans (+ Plex Mono só nos ids). Checar com lint.mjs --app web e inspect.mjs --app http://127.0.0.1:8000/.
+- Redator com thinking desligado (Haiku pensava ~1.600 tokens, 13 s); 12/12 turnos aprovados na 1ª tentativa.
+
 ## Comandos
 - Instalar: `.venv/Scripts/python -m pip install -r requirements.txt`
 - Testes: `.venv/Scripts/python -m pytest`

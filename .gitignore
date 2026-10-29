@@ -7,3 +7,5 @@ logs/
 # Índices vetoriais são gerados: python scripts/indexar_rag.py
 conhecimento/banco_vetorial/
 rag/rag/banco_vetorial/
+# Capturas e fichas da skill de design
+.taste-skill/

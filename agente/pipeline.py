@@ -48,6 +48,27 @@ def _clausulas_extras(ids: list[str], perfil: Perfil, ja_tem: set[str]) -> list[
     ]
 
 
+INTENCOES = {
+    "responder_pergunta": "responde à pergunta",
+    "perguntar_cobertura": "pergunta sobre cobertura",
+    "objecao": "objeção",
+    "quer_contratar": "quer contratar",
+    "sem_interesse": "sem interesse",
+    "outro": "outro assunto",
+}
+
+
+def _resumo_decisoes(d) -> str:
+    partes = []
+    if d.intencao:
+        partes.append(f"intenção: {INTENCOES.get(d.intencao.valor, d.intencao.valor)} {d.intencao.probabilidade:.0%}")
+    if d.confirmacao:
+        partes.append(f"confirmação: {d.confirmacao.valor.replace('_', ' ')} {d.confirmacao.probabilidade:.0%}")
+    if d.rota:
+        partes.append(f"rota: {d.rota.valor} {d.rota.probabilidade:.0%}")
+    return " · ".join(partes)
+
+
 class Conversa:
     """Uma conversa com um cliente; guarda o perfil (com confirmações) e o histórico entre turnos."""
 
@@ -69,8 +90,10 @@ class Conversa:
         self.historico: list[dict] = []
         self.turnos = 0
 
-    def turno(self, mensagem: str) -> EstadoTurno:
+    def turno(self, mensagem: str, ao_progredir: Callable[[dict], None] | None = None) -> EstadoTurno:
+        """Um turno. ao_progredir recebe cada etapa ao começar e ao terminar (para a interface ao vivo)."""
         tempos, tokens, extras = {}, {}, {}
+        etapas: list[dict] = []
         relogio = time.perf_counter()
 
         def marcar(etapa: str):
@@ -79,23 +102,50 @@ class Conversa:
             tempos[etapa] = round(agora - relogio, 3)
             relogio = agora
 
+        def avisar(id_: str, titulo: str, detalhe: str | None = None, estado_etapa: str = "rodando"):
+            evento = {"id": id_, "estado": estado_etapa, "titulo": titulo, "detalhe": detalhe}
+            if estado_etapa != "rodando":
+                evento["segundos"] = tempos.get(id_)
+                etapas.append(evento)
+            if ao_progredir:
+                ao_progredir(evento)
+
         perfil = self.perfil
         estado = EstadoTurno(cliente_id=self.cliente_id, mensagem=mensagem, perfil=perfil)
+        avisar(
+            "perfil",
+            "Cadastro e índice do motor lidos",
+            f"plano {perfil.plano} · score {perfil.score:.3f}".replace(".", ",")
+            if perfil.plano
+            else "cadastro incompleto: plano suspenso pelo motor",
+            "feito",
+        )
 
         # 1. decidir
+        avisar("decidir", "Interpretando a mensagem com o Jev")
         decisoes, motivo = decidir_turno(perfil, mensagem, self.decisor)
         estado.decisoes = decisoes
         tokens["decisor"] = self.decisor.ultima_execucao.get("tokens")
         modelo_decisor = self.decisor.ultima_execucao.get("modelo")
         if self.decisor.ultima_execucao.get("falha_principal"):
             extras["falha_decisor_principal"] = self.decisor.ultima_execucao["falha_principal"]
+        marcar("decidir")
+        avisar("decidir", f"Mensagem interpretada ({modelo_decisor})", _resumo_decisoes(decisoes), "feito")
         objecao = None
         if decisoes.intencao and decisoes.intencao.valor == "objecao":
+            avisar("objecao", "Identificando a objeção do cliente")
             objecao = identificar_objecao(mensagem, self.decisor)
             extras["objecao"] = objecao["id"] if objecao else None
-        marcar("decidir")
+            marcar("objecao")
+            avisar(
+                "objecao",
+                "Objeção identificada" if objecao else "Objeção sem correspondência segura",
+                objecao["objecao"] if objecao else "segue sem orientação curada",
+                "feito",
+            )
 
         # 2. regras (determinístico)
+        avisar("regras", "Recalculando o plano no motor de score")
         confirmacao = decisoes.confirmacao if confirmacao_aplicavel(decisoes) else None
         respondida = perfil.perguntas_pendentes[0] if confirmacao else None
         atualizado, perfil_novo = aplicar_confirmacao(perfil, confirmacao)
@@ -103,13 +153,26 @@ class Conversa:
         personalizado = personalizar(perfil_novo, self.estabelecimento)
         estado.plano_personalizado = personalizado
         marcar("regras")
+        if atualizado.plano != atualizado.plano_anterior:
+            detalhe = f"{atualizado.plano_anterior} → {atualizado.plano}, pela resposta a: {respondida.texto}"
+        else:
+            detalhe = f"plano mantido: {atualizado.plano}"
+        detalhe += f" · {len(personalizado.adicionais)} adicionais · {len(personalizado.coberturas)} faixas"
+        avisar("regras", "Plano personalizado montado", detalhe, "feito")
 
         # 3. recuperar
+        avisar("recuperar", "Consultando as Condições Gerais")
         clausulas = rag.buscar_para_turno(mensagem, atualizado.plano, perfil.segmento)
         extras_ids = [c.clausulas[0] for c in personalizado.adicionais] + (objecao["clausulas"] if objecao else [])
         clausulas += _clausulas_extras(extras_ids, perfil_novo, {c.id for c in clausulas})
         estado.clausulas = clausulas
         marcar("recuperar")
+        avisar(
+            "recuperar",
+            f"{len(clausulas)} cláusulas recuperadas (busca {'híbrida' if rag.modo_efetivo() == 'hibrido' else 'BM25'})",
+            " · ".join(c.id for c in clausulas[:4]) + (" …" if len(clausulas) > 4 else ""),
+            "feito",
+        )
 
         # 4. redigir e 5. conferir: reprovou, reescreve uma vez; reprovou de novo, vai ao gerente
         encaminhando = motivo is not None
@@ -125,24 +188,43 @@ class Conversa:
             respondida,
             personalizado,
         )
+        avisar("redigir", "Redigindo a resposta com o Claude Haiku")
         redacao = self.redigir(entrada)
         tokens["redator"] = [redacao.tokens]
         marcar("redigir")
+        avisar("redigir", "Resposta redigida", f"{len(redacao.citacoes)} citações · {redacao.modelo}", "feito")
+        avisar("conferir", "Conferindo citações e promessas")
         guardrail = conferir(redacao.texto, clausulas, self.decisor, encaminhando, 1, redacao.cortada)
         tokens["guardrail"] = [self.decisor.ultima_execucao.get("tokens")] if guardrail.verificacoes else []
         marcar("conferir")
+        avisar(
+            "conferir",
+            "Resposta aprovada pelo guardrail" if guardrail.aprovado else "Guardrail reprovou a resposta",
+            None if guardrail.aprovado else guardrail.motivo,
+            "feito" if guardrail.aprovado else "falhou",
+        )
         if not guardrail.aprovado:
             extras["resposta_reprovada"] = redacao.texto
+            extras["motivo_reprovacao"] = guardrail.motivo
+            avisar("reescrever", "Reescrevendo a resposta")
             redacao = self.redigir(
                 entrada,
                 instrucao_extra=f"A resposta anterior foi reprovada: {guardrail.motivo}. Reescreva cumprindo as regras.",
             )
             tokens["redator"].append(redacao.tokens)
             marcar("reescrever")
+            avisar("reescrever", "Resposta reescrita", None, "feito")
+            avisar("conferir_2", "Conferindo de novo")
             guardrail = conferir(redacao.texto, clausulas, self.decisor, encaminhando, 2, redacao.cortada)
             if guardrail.verificacoes:
                 tokens["guardrail"].append(self.decisor.ultima_execucao.get("tokens"))
             marcar("conferir_2")
+            avisar(
+                "conferir_2",
+                "Reescrita aprovada" if guardrail.aprovado else "Reprovada de novo: vai para o gerente",
+                None if guardrail.aprovado else guardrail.motivo,
+                "feito" if guardrail.aprovado else "falhou",
+            )
         resposta = redacao.texto
         if not guardrail.aprovado:
             extras["resposta_reprovada_2"] = redacao.texto
@@ -158,6 +240,8 @@ class Conversa:
         self.perfil = perfil_novo
         self.historico += [{"cliente": mensagem}, {"agente": resposta}]
         tempos["total"] = round(sum(tempos.values()), 3)
+        avisar("registrar", "Turno registrado para auditoria", f"sessão {self.sessao_id} · turno {self.turnos}", "feito")
+        extras["etapas"] = etapas
         log.registrar(
             estado,
             self.sessao_id,

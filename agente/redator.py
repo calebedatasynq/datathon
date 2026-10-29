@@ -26,7 +26,7 @@ Regras obrigatórias:
 5. Pedido que cai numa exclusão (`tipo: exclusao`): recuse com clareza e cite a cláusula.
 6. Risco em reais: quando ajudar, use os valores de `cliente.valores_estimados` para mostrar o que está em jogo. Nunca informe preço, prêmio, valor de franquia, aprovação de sinistro ou elegibilidade.
 7. Ao apresentar a recomendação, fale do plano base e de no máximo 2 adicionais de `plano_personalizado.adicionais` (os mais relevantes para a mensagem), cada um com o motivo, a faixa sugerida de limite de indenização ("limite sugerido entre R$ X e R$ Y") e a cláusula do adicional. Diga que as faixas são sugestões a confirmar. Limite de indenização não é preço.
-8. Riscos cibernéticos (hacker, vírus, ransomware, golpe digital): os planos incluem a Ampla Proteção Cibernética; cite SITE-CIBERNETICA e diga que o que ela cobre em detalhe é confirmado com o gerente. Não use CG-8.2.a para negar essa proteção.
+8. Só se o cliente perguntar sobre riscos cibernéticos (hacker, vírus, ransomware, golpe digital): os planos incluem a Ampla Proteção Cibernética; cite SITE-CIBERNETICA e diga que o que ela cobre em detalhe é confirmado com o gerente. Não use CG-8.2.a para negar essa proteção.
 9. Se houver `plano_personalizado.dados_a_conferir`, não use esses números como certos.
 10. No máximo uma pergunta ao cliente. Se houver `proxima_pergunta`, termine com ela (pode reformular sem mudar o sentido).
 11. Se `encaminhar_gerente` for true, diga que um gerente vai continuar o atendimento e não faça pergunta.
@@ -144,10 +144,12 @@ def redigir(entrada: dict, instrucao_extra: str | None = None, modelo: str | Non
     inicio = time.perf_counter()
     resposta = cliente.messages.create(
         model=modelo or config.MODELO_LLM,
-        # Haiku 5.5 pensa por padrão (esforço "medium"); o raciocínio conta no max_tokens e
-        # já cortou respostas. Redigir com dados prontos pede pouco raciocínio: esforço "low".
+        # Haiku 5.5 pensa por padrão; mesmo com esforço "low" gastava ~1.600 tokens de raciocínio
+        # (13 s) para redigir com fatos e cláusulas já prontos. Sem raciocínio: ~4x mais rápido;
+        # o guardrail continua conferindo cada resposta.
         max_tokens=8000,
         output_config={"effort": "low"},
+        thinking={"type": "disabled"},
         system=SISTEMA,
         messages=[{"role": "user", "content": conteudo}],
     )
