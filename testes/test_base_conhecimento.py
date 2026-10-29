@@ -60,5 +60,5 @@ def test_catalogo_estruturado():
     # A documentação do BB Radar listou só ESSENCIAL e PRATICO; o catálogo tem os três.
     assert rag.planos_com_cobertura("DANOS_ELETRICOS") == [Plano.ESSENCIAL, Plano.PRATICO, Plano.TOTAL]
     assert rag.planos_com_cobertura("QUEBRA_DE_VIDROS") == [Plano.TOTAL]
-    assert len(rag.coberturas_do_plano(Plano.ESSENCIAL)) == 5
-    assert len(rag.coberturas_do_plano(Plano.TOTAL)) == 9
+    assert len(rag.coberturas_do_plano(Plano.ESSENCIAL)) == 6
+    assert len(rag.coberturas_do_plano(Plano.TOTAL)) == 10

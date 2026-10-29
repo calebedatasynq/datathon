@@ -1,0 +1,16 @@
+{
+  "status": "APROVADO",
+  "verificacoes": [
+    "Conteúdo soma inventário separado de estoque e exclui letreiros",
+    "Danos elétricos só usa tipos identificados; sem cadastro permanece ausente",
+    "Aluguel sem pagamento não vira zero nem prova imóvel próprio",
+    "Despesas não duplicam agregado/aluguel; inconsistência financeira exposta",
+    "Exceções sem base monetária ficam justificadas e não recebem valor inventado",
+    "Elegibilidade incompleta nunca é aprovada; sinais impeditivos suspendem oferta",
+    "Zeros/ausências distintos; chaves duplicadas, não finitos e estoque inconsistente rejeitados",
+    "Desenvolvimento: chaves/ordem, fórmulas independentes, reprodução integral do índice e suspensão",
+    "Teste_Comum: chaves/ordem, fórmulas independentes, reprodução integral do índice e suspensão",
+    "CSVs salvos: cabeçalhos, valores, listas e quantidade de linhas conferidos com a geração"
+  ],
+  "escopo": "Integridade e regras do protótipo; não valida adequação comercial nem limites de contratação."
+}

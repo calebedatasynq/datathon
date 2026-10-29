@@ -39,7 +39,7 @@ def test_resposta_aprovada_e_cita_so_clausulas_do_turno(resultado):
 
 def test_resposta_fala_do_plano_calculado(resultado):
     _, e = resultado
-    assert _normal(e.perfil_atualizado.plano.value) in _normal(e.resposta)
+    assert _normal(e.plano_personalizado.plano_base.value) in _normal(e.resposta)
 
 
 def test_no_maximo_uma_pergunta(resultado):
@@ -51,7 +51,7 @@ def test_fronteira_muda_de_plano_com_a_confirmacao(resultado):
     plano, e = resultado
     if plano != "PRATICO":
         pytest.skip("só a persona de fronteira tem pergunta pendente")
-    assert (e.perfil_atualizado.plano_anterior, e.perfil_atualizado.plano) == ("PRATICO", "TOTAL")
+    assert (e.perfil_atualizado.pacote_anterior, e.perfil_atualizado.pacote) == ("PRATICO", "TOTAL")
     assert e.plano_personalizado.plano_base == "TOTAL"
 
 

@@ -1,0 +1,13 @@
+{
+  "gradiente_analitico": true,
+  "probabilidades_somam_um": true,
+  "probabilidades_validas": true,
+  "score_no_intervalo": true,
+  "cortes_ordenados": true,
+  "faixas_reproduzem_mediana": true,
+  "contribuicoes_reproduzem_score": true,
+  "empresas_separadas": true,
+  "modelo_nao_alterado_apos_teste": true,
+  "exportacao_completa_rag": true,
+  "tres_classes_teste": true
+}

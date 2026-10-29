@@ -149,7 +149,7 @@ def test_conversa_de_fronteira_ponta_a_ponta(decisor, arquivo_log):
     assert primeiro.guardrail.aprovado and not primeiro.requer_humano
     assert primeiro.resposta.count("?") == 1  # faz a pergunta pendente
     segundo = conversa.turno("Somos uns 30 funcionários.")
-    assert (segundo.perfil_atualizado.plano_anterior, segundo.perfil_atualizado.plano) == ("PRATICO", "TOTAL")
+    assert (segundo.perfil_atualizado.pacote_anterior, segundo.perfil_atualizado.pacote) == ("PRATICO", "TOTAL")
     assert segundo.guardrail.aprovado and not segundo.requer_humano
     assert len(log.ler(arquivo_log, conversa.sessao_id)) == 2
 
@@ -157,4 +157,4 @@ def test_conversa_de_fronteira_ponta_a_ponta(decisor, arquivo_log):
 def test_resposta_vaga_vai_para_o_gerente(decisor, arquivo_log):
     conversa = Conversa(FRONTEIRA, decisor=decisor, arquivo_log=arquivo_log)
     estado = conversa.turno("sei lá, nunca contei quantos funcionários a gente tem")
-    assert estado.requer_humano and estado.perfil_atualizado.plano == "PRATICO"
+    assert estado.requer_humano and estado.perfil_atualizado.pacote == estado.perfil_atualizado.pacote_anterior

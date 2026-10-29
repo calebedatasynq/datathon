@@ -1,14 +1,14 @@
 {
   "ESSENCIAL": {
-    "cliente_id": "IMO_CASO_00053_01",
+    "cliente_id": "IMO_CASO_00023_01",
     "tipo": "claro"
   },
   "PRATICO": {
-    "cliente_id": "IMO_CASO_00043_01",
+    "cliente_id": "IMO_CASO_00103_01",
     "tipo": "fronteira"
   },
   "TOTAL": {
-    "cliente_id": "IMO_CASO_00037_01",
+    "cliente_id": "IMO_CASO_00115_02",
     "tipo": "claro"
   }
 }

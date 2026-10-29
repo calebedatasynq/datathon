@@ -1,0 +1,22 @@
+{
+  "versao": "1.0",
+  "unidade": "empresa-estabelecimento",
+  "alvo": "plano_recomendado",
+  "ordem_alvo": ["ESSENCIAL", "PRATICO", "TOTAL"],
+  "grupo_validacao": "empresa_id",
+  "chaves": ["empresa_id", "imovel_id"],
+  "candidatas_iniciais": [
+    "grupo_atividade",
+    "faturamento_mensal_empresa",
+    "funcionarios_estimados_empresa",
+    "quantidade_estabelecimentos_empresa",
+    "tipo_unidade",
+    "area_m2",
+    "estoque_medio_estimado",
+    "valor_bens_ponderado_estabelecimento"
+  ],
+  "candidatas_condicionais": ["possui_termo_loja", "possui_termo_galeria"],
+  "incluir_todas_as_colunas_como_preditores": false,
+  "significancia_estatistica_avaliada": false,
+  "limites_de_score_definidos": false
+}

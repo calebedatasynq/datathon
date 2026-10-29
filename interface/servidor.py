@@ -19,7 +19,8 @@ from agente import config, log, rag
 from agente.dados_base import get_estabelecimento
 from agente.decisor import criar_decisor
 from agente.perfil import get_perfil_cliente, listar_clientes
-from agente.personalizacao import personalizar
+from agente.personalizacao import perfil_relevante, personalizar
+from agente.descoberta import ConversaDescoberta
 from agente.pipeline import Conversa
 
 warnings.filterwarnings("ignore")
@@ -27,6 +28,7 @@ WEB = config.RAIZ / "web"
 PERSONAS = json.loads((config.RAIZ / "dados" / "fixtures" / "personas.json").read_text(encoding="utf-8"))
 
 NOMES_COBERTURA = {
+    "AMPLA_PROTECAO_CIBERNETICA": "Proteção Cibernética",
     "INCENDIO_RAIO_EXPLOSAO_FUMACA": "Incêndio, raio, explosão e fumaça",
     "DANOS_ELETRICOS": "Danos elétricos",
     "PERDA_PAGAMENTO_ALUGUEL": "Perda ou pagamento de aluguel",
@@ -62,9 +64,10 @@ SUGESTOES = [
     "Quero falar com o meu gerente.",
 ]
 
+RECURSOS = ["descoberta"]
 app = FastAPI(title="Agente Empresarial · BB Seguros")
 app.mount("/estatico", StaticFiles(directory=WEB), name="estatico")
-conversas: dict[str, Conversa] = {}
+conversas: dict[str, Conversa | ConversaDescoberta] = {}
 travas: dict[str, threading.Lock] = {}
 decisor = criar_decisor()
 
@@ -104,17 +107,42 @@ def _personalizado(p: dict | None) -> dict | None:
             "justificativa": c["justificativa"],
             "confirmar": c.get("informacao_a_confirmar"),
             "clausulas": c["clausulas"],
+            "necessidade": c.get("necessidade", "RECOMENDADA"),
+            "motivo": c.get("motivo_necessidade") or c["justificativa"].split(";")[0],
         }
         for c in p["coberturas"]
     ]
     return {
         "plano_base": p["plano_base"],
+        "plano_motor": p.get("plano_motor"),
+        "pacote_minimo": p.get("pacote_minimo"),
         "elegivel": p["elegivel"],
         "motivo_elegibilidade": p.get("motivo_elegibilidade"),
         "confianca_geral": p["confianca_geral"],
         "relacao_imovel": p["relacao_imovel"],
         "coberturas": coberturas,
         "dados_a_conferir": p.get("dados_a_conferir", []),
+        "risco_local": _risco(p.get("risco_local")),
+    }
+
+
+def _risco(r: dict | None) -> dict | None:
+    """Perigos do local para o painel. O fator de agravamento fica no log, fora da tela (não é preço)."""
+    if r is None:
+        return None
+    local = r["local"]
+    return {
+        "local": ", ".join(x for x in (local.get("bairro"), f"{local['municipio']}/{local['uf']}") if x),
+        "precisao": local["precisao"],
+        "agravamento": r["agravamento"],
+        "analise_de_aceitacao": r["analise_de_aceitacao"],
+        "perigos": [
+            {"id": p["id"], "nome": p["nome"], "nivel": p["nivel"], "indicador": p["indicador"],
+             "coberto": p["coberto"], "clausula": p["clausulas"][0] if p["clausulas"] else None}
+            for p in r["perigos"]
+        ],  # fmt: skip
+        "fontes": r["fontes"],
+        "falhas": r.get("falhas", []),
     }
 
 
@@ -126,14 +154,18 @@ def _reais(v: float) -> str:
 
 def _achado(perfil: dict, personalizado: dict) -> str:
     """O fato do caso que mais importa, dito antes de qualquer mensagem."""
-    plano = perfil["plano"]
-    if plano is None:
-        return "O motor suspendeu a indicação: faltam dados essenciais no cadastro."
+    plano = personalizado["plano_base"]
     pergunta = perfil["perguntas_pendentes"][0] if perfil["perguntas_pendentes"] else None
     adicionais = sum(c["origem"] == "adicional" for c in personalizado["coberturas"])
-    extra = f" O plano personalizado acrescenta {adicionais} {'cobertura' if adicionais == 1 else 'coberturas'} ao {NOME_PLANO[plano]}." if adicionais else ""
+    essenciais = sum(c.get("necessidade") == "ESSENCIAL" for c in personalizado["coberturas"])
+    extra = f" Para fechar o plano, {adicionais} {'cobertura entra' if adicionais == 1 else 'coberturas entram'} como adicional." if adicionais else ""
+    base = f"Pelos dados, {essenciais} coberturas são essenciais para este negócio; o menor pacote que cobre todas é o {NOME_PLANO[plano]}."
+    if perfil["plano"] is not None and personalizado.get("plano_motor") and personalizado["plano_motor"] != plano:
+        base += f" O índice do motor sozinho indicaria o {NOME_PLANO[personalizado['plano_motor']]}."
+    if perfil["plano"] is None:
+        base += " O motor suspendeu o índice: faltam dados essenciais no cadastro."
     if pergunta is None:
-        return f"Caso claro: nenhuma resposta do cliente muda o plano {NOME_PLANO[plano]}.{extra}"
+        return f"{base}{extra}"
     outro = pergunta["plano_se_sim"] if pergunta["plano_se_sim"] != plano else pergunta["plano_se_nao"]
     sobe = outro == pergunta["plano_se_sim"]
     estimado, limiar = pergunta["valor_estimado"], pergunta["limiar"]
@@ -144,8 +176,8 @@ def _achado(perfil: dict, personalizado: dict) -> str:
         distancia, corte = _reais(abs(limiar - estimado)), f"acima de {_reais(limiar)}"
     direcao = "sobe para" if sobe else "cai para"
     return (
-        f"Está a {distancia} do corte: com {corte}, o plano {direcao} {NOME_PLANO[outro]}. "
-        f"Uma pergunta resolve.{extra}"
+        f"{base}{extra} Está a {distancia} do corte do motor: com {corte}, o índice {direcao} {NOME_PLANO[outro]}, "
+        "e isso muda o plano. Uma pergunta resolve."
     )
 
 
@@ -184,8 +216,8 @@ def resumo_turno(estado: dict, etapas: list[dict], turno: int, tempos: dict | No
         "resposta": estado["resposta"],
         "etapas": etapas,
         "segundos": (tempos or {}).get("total") or round(sum(e.get("segundos") or 0 for e in etapas), 2),
-        "plano_anterior": atualizado.get("plano_anterior"),
-        "plano": atualizado.get("plano"),
+        "plano_anterior": atualizado.get("pacote_anterior") or atualizado.get("plano_anterior"),
+        "plano": atualizado.get("pacote") or atualizado.get("plano"),
         "proxima_pergunta": (atualizado.get("proxima_pergunta") or {}).get("texto"),
         "decisoes": {k: v for k, v in d.items() if v},
         "guardrail": estado.get("guardrail"),
@@ -196,6 +228,26 @@ def resumo_turno(estado: dict, etapas: list[dict], turno: int, tempos: dict | No
             for c in estado["clausulas"]
         },
         "personalizado": _personalizado(estado.get("plano_personalizado")),
+        "opcoes": estado.get("opcoes") or [],
+        "descoberta": estado.get("descoberta"),
+    }
+
+
+def cliente_descoberta() -> dict:
+    """O "cliente" de uma conversa do zero: nada se sabe dele ainda."""
+    return {
+        "modo": "descoberta",
+        "cliente_id": None,
+        "empresa_id": "",
+        "segmento": "Novo cliente",
+        "tipo_unidade": None,
+        "plano": None,
+        "score": None,
+        "pergunta_pendente": None,
+        "sugestoes": [],
+        "fatos": [],
+        "achado": "",
+        "personalizado": None,
     }
 
 
@@ -223,6 +275,9 @@ def saude():
         "decisor": "Jev (TypeSafe) com Claude Haiku de reserva" if config.chave_jev() else "Claude Haiku",
         "redator": config.MODELO_LLM,
         "busca": "híbrida" if rag.modo_efetivo() == "hibrido" else "BM25",
+        # A página confere isto: um servidor antigo serve a página nova (arquivos lidos do disco)
+        # sem as rotas novas, e a conversa do zero caía na conversa anterior.
+        "recursos": RECURSOS,
     }
 
 
@@ -230,7 +285,7 @@ def saude():
 def clientes():
     personas = []
     for plano, p in PERSONAS.items():
-        perfil = get_perfil_cliente(p["cliente_id"])
+        perfil = perfil_relevante(get_perfil_cliente(p["cliente_id"]), get_estabelecimento(p["cliente_id"]))
         personas.append(
             {
                 "cliente_id": perfil.cliente_id,
@@ -259,6 +314,20 @@ def nova_conversa(pedido: NovaConversa):
     return {
         "sessao_id": conversa.sessao_id,
         "cliente": resumo_cliente(conversa.perfil.model_dump(mode="json"), personalizado.model_dump(mode="json")),
+    }
+
+
+@app.post("/api/descobertas")
+def nova_descoberta():
+    """Conversa do zero: o agente não conhece o cliente e pergunta só o que muda o plano."""
+    conversa = ConversaDescoberta(decisor=decisor)
+    conversas[conversa.sessao_id] = conversa
+    travas[conversa.sessao_id] = threading.Lock()
+    return {
+        "sessao_id": conversa.sessao_id,
+        "cliente": cliente_descoberta(),
+        "abertura": conversa.abertura(),
+        "descoberta": conversa.resumo(),
     }
 
 
@@ -312,7 +381,13 @@ def gravacoes():
     sessoes: dict[str, dict] = {}
     for r in log.ler():
         s = sessoes.setdefault(
-            r["sessao_id"], {"sessao_id": r["sessao_id"], "cliente_id": r["estado"]["cliente_id"], "turnos": 0}
+            r["sessao_id"],
+            {
+                "sessao_id": r["sessao_id"],
+                "cliente_id": r["estado"]["cliente_id"],
+                "descoberta": r["estado"]["cliente_id"].startswith("NOVO_"),
+                "turnos": 0,
+            },
         )
         s["turnos"] += 1
         s["momento"] = r["momento"]
@@ -326,12 +401,17 @@ def gravacao(sessao_id: str):
     if not registros:
         raise HTTPException(404, "Gravação não encontrada")
     primeiro = registros[0]["estado"]
-    personalizado = personalizar(
-        get_perfil_cliente(primeiro["cliente_id"]), get_estabelecimento(primeiro["cliente_id"])
-    ).model_dump(mode="json")
+    if primeiro["cliente_id"].startswith("NOVO_"):
+        cliente = cliente_descoberta()
+    else:
+        personalizado = personalizar(
+            get_perfil_cliente(primeiro["cliente_id"]), get_estabelecimento(primeiro["cliente_id"])
+        ).model_dump(mode="json")
+        cliente = resumo_cliente(primeiro["perfil"], personalizado)
     return {
         "sessao_id": sessao_id,
-        "cliente": resumo_cliente(primeiro["perfil"], personalizado),
+        "abertura": registros[0].get("abertura"),
+        "cliente": cliente,
         "turnos": [
             resumo_turno(r["estado"], r.get("etapas", []), r["turno"], r["tempos_s"]) for r in registros
         ],

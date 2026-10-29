@@ -1,0 +1,58 @@
+{
+  "desenvolvimento": {
+    "plano_final_diferente_do_motor_sem_suspensos": 1094,
+    "casos_com_alternativas": 2900,
+    "casos_esperados": 2978,
+    "casos_processados": 2978,
+    "cobertura_processamento_percentual": 100.0,
+    "linhas_coberturas": 28519,
+    "sugestoes_inclusive_condicionais": 2900,
+    "sugestoes_com_todas_fixas": 2900,
+    "sugestoes_com_cibernetica": 2900,
+    "elegibilidade": {
+      "A_CONFIRMAR": 2900,
+      "NAO": 78
+    },
+    "planos": {
+      "PRATICO": 1808,
+      "TOTAL": 779,
+      "SUSPENSO": 78,
+      "ESSENCIAL": 313
+    },
+    "confianca": {
+      "BAIXA": 2978
+    },
+    "casos_com_justificativa": 2978,
+    "media_pendencias_confirmacao": 8.475151108126258,
+    "erros": {},
+    "limites": "Verifica conformidade estrutural; não valida comercialmente os planos, APIs ou qualidade das respostas do LLM."
+  },
+  "teste_comum": {
+    "plano_final_diferente_do_motor_sem_suspensos": 64,
+    "casos_com_alternativas": 138,
+    "casos_esperados": 144,
+    "casos_processados": 144,
+    "cobertura_processamento_percentual": 100.0,
+    "linhas_coberturas": 1350,
+    "sugestoes_inclusive_condicionais": 138,
+    "sugestoes_com_todas_fixas": 138,
+    "sugestoes_com_cibernetica": 138,
+    "elegibilidade": {
+      "A_CONFIRMAR": 138,
+      "NAO": 6
+    },
+    "planos": {
+      "TOTAL": 38,
+      "PRATICO": 83,
+      "SUSPENSO": 6,
+      "ESSENCIAL": 17
+    },
+    "confianca": {
+      "BAIXA": 144
+    },
+    "casos_com_justificativa": 144,
+    "media_pendencias_confirmacao": 8.465277777777779,
+    "erros": {},
+    "limites": "Verifica conformidade estrutural; não valida comercialmente os planos, APIs ou qualidade das respostas do LLM."
+  }
+}

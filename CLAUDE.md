@@ -2,8 +2,9 @@
 
 ## Objetivo
 Um agente que faz uma pergunta em vez de vinte e nunca promete o que a apólice não cobre.
-ESSENCIAL, PRATICO e TOTAL são os planos vigentes da BB Seguros; o agente monta um plano
-personalizado: plano base (motor de score) + coberturas adicionais + faixa de limite por cobertura.
+ESSENCIAL, PRATICO e TOTAL são os planos vigentes da BB Seguros; o agente monta o plano cobertura
+por cobertura (necessidade + faixa de limite), e o pacote BB mais próximo diz como contratar
+(pacote + adicionais). Dois modos: cliente da base (cadastro) e conversa do zero (sem cadastro).
 
 ## Arquitetura (cascata)
 1. Decisor (Jev ou plano B) classifica a mensagem e extrai confirmações, com probabilidade.
@@ -58,7 +59,10 @@ personalizado: plano base (motor de score) + coberturas adicionais + faixa de li
 - log.py: logs/turnos.jsonl com estado completo, versões, tempos por etapa e tokens (base do modo de reprodução).
 
 ## Plano personalizado (decisões da equipe, out/2026)
-- agente/personalizacao.py (sem LLM): plano base do motor + todas as coberturas fixas do plano (catálogo CSV do desafio, fonte única da composição dos planos) + adicionais disparados pelos dados (roubo no ESSENCIAL, RC empregador, vidros, frigorificados, delivery, roubo de valores) + faixa mín–máx em R$ por cobertura com confiança, dados, regra, justificativa e o que confirmar.
+- agente/personalizacao.py (sem LLM), cobertura por cobertura: necessidade(cobertura) → ESSENCIAL / RECOMENDADA / OPCIONAL / NAO_SE_APLICA com motivo, a partir das variáveis do estabelecimento.
+- Pacote de contratação = menor pacote do catálogo CSV que contém todas as essenciais, nunca abaixo do índice do motor (PlanoPersonalizado.plano_base; plano_motor e pacote_minimo ficam registrados). Fora do pacote: essencial/recomendada com faixa ≥ MINIMO_RELEVANTE_ADICIONAL vira "adicional"; o resto, "opcional".
+- est_com_entrada aplica ao estabelecimento os valores da entrada do motor (inclui confirmações); sem isso a confirmação não mudava as necessidades.
+- perfil_relevante: a pergunta do motor só é feita se o sim e o não levam a planos personalizados diferentes (13 de 23 casos).
 - Premissas de dimensionamento são constantes no topo do módulo; onde a CG fixa período/limite, a regra segue a cláusula (aluguel ≤ 12 meses, despesas fixas ≤ 180 dias, valores = dia + dia útil anterior).
 - Inconsistência financeira (aluguel > 50% ou despesa fixa > faturamento do endereço) baixa a confiança e vira confirmação.
 - Elegibilidade: SIM ou A_CONFIRMAR pelas cl. CG-6 e CG-7.1 (nunca NAO automático).
@@ -68,9 +72,24 @@ personalizado: plano base (motor de score) + coberturas adicionais + faixa de li
 - Preço: o agente nunca informa preço (decisão da equipe); limite de indenização não é preço.
 - Redator: Haiku com output_config effort "low" e max_tokens 8000 (o raciocínio do Haiku conta no max_tokens e já cortou respostas); resposta cortada é reprovada pelo guardrail.
 
+## Conversa do zero (agente/descoberta.py)
+- Cliente sem cadastro: abre perguntando se quer informar o CNPJ (BrasilAPI → CNAE → ramo pelo Jev); sem CNPJ, pergunta o ramo.
+- Perguntas com faixas (botões) e texto livre (Jev escolhe a faixa; botão não passa pelo Jev). Antes de cada pergunta, testa todas as respostas no motor + personalização (_assinatura: pacote, coberturas que entram e ordem de grandeza do limite de incêndio) e pula a que não muda nada. Típico: 3 a 8 perguntas, mediana 5 (MAX_PERGUNTAS = 8).
+- O que não foi perguntado vem da mediana do ramo na base de DESENVOLVIMENTO (dados_base.perfil_segmento), nunca da de teste.
+- Cliente virtual: estabelecimento_virtual + perfil_de_entrada; motivos sem números (faixas ou medianas não viram fatos), imóvel "A_CONFIRMAR" se não perguntado.
+- Ao terminar, vira uma Conversa normal (Conversa aceita perfil/estabelecimento injetados) com apresentar_recomendacao=True; o redator recebe respostas_do_cliente e valores_estimados vazio.
+
+## Risco do local (CEP)
+- agente/territorio.py: CEP → ViaCEP + Nominatim (OSM); clima Open-Meteo (ERA5 10 anos para vento e chuva; previsões históricas 3 anos para trovoada e granizo); relevo Open-Meteo Elevation; setores de risco do SGB (WFS); barragens OSM/Overpass (12 s). Fontes e limiares em docs/fontes_territoriais.md.
+- `avaliar` é puro (testável sem rede); `analisar_cep` consulta em paralelo, com cache em dados/fixtures/territorio_cache.json e etapas ao vivo (geo_*). Fonte fora do ar = SEM_DADO, nunca BAIXO.
+- Efeito: vendaval/granizo/raios alteram necessidade e faixa (personalizacao.nivel_local); alagamento, deslizamento e barragem não são cobertos (CG-8.1.l, CG-8.1.o) e, se altos, a elegibilidade fica a confirmar (CG-13.3). O fator de agravamento nunca vai ao cliente (decisão: sem preço).
+- Conversa do zero: depois do ramo pergunta o CEP (ou usa o do CNPJ); botão "Prefiro não informar o CEP". Clientes da base: python scripts/enriquecer_territorio.py gera dados/fixtures/risco_territorio.json (coordenada perturbada: só município).
+- Nominatim: no máximo 1 consulta por segundo, User-Agent genérico (sem e-mail de ninguém). Open-Meteo limita por minuto.
+
 ## Interface (Fase 6)
 - python app.py → http://127.0.0.1:8000. Backend FastAPI em interface/servidor.py; página estática em web/ (index.html, estilo.css, app.js), sem build.
 - Conversa ao vivo: POST /api/conversas/{id}/mensagens devolve SSE com cada etapa (Conversa.turno(ao_progredir=...)) e o turno final; a página mostra as etapas como o "pensando" do Claude.
+- Conversa do zero: POST /api/descobertas; mesma rota de mensagens; turnos trazem opcoes (botões) e descoberta (o que o agente sabe, puladas).
 - Reprodução: /api/gravacoes lê logs/turnos.jsonl (inclui as etapas) e reexibe a conversa no ritmo gravado, sem API.
 - Visual: skill .agents/skills/design-taste-frontend (app screen, estilo framed-sheet): moldura tingida do azul BB, amarelo BB só no plano recomendado, tinta azul-marinho Ibmec, IBM Plex Sans (+ Plex Mono só nos ids). Checar com lint.mjs --app web e inspect.mjs --app http://127.0.0.1:8000/.
 - Redator com thinking desligado (Haiku pensava ~1.600 tokens, 13 s); 12/12 turnos aprovados na 1ª tentativa.

@@ -33,15 +33,24 @@ def test_score_e_plano_iguais_ao_motor(cliente_id):
 
 @pytest.mark.parametrize("plano", list(Plano))
 def test_personas_tem_perfil_completo(plano):
-    perfil = get_perfil_cliente(PERSONAS[plano]["cliente_id"])
-    assert perfil.plano == plano
+    # A persona é definida pelo pacote de contratação do plano personalizado, não só pelo índice.
+    from agente.dados_base import get_estabelecimento
+    from agente.personalizacao import personalizar
+
+    cliente_id = PERSONAS[plano]["cliente_id"]
+    perfil = get_perfil_cliente(cliente_id)
+    assert personalizar(perfil, get_estabelecimento(cliente_id)).plano_base == plano
     assert perfil.status == "EXPERIMENTAL_BASE_MOCK"
     assert perfil.segmento and perfil.score is not None and perfil.probabilidades
-    assert not perfil.avisos
+    assert not perfil.avisos or PERSONAS[plano]["tipo"] == "fronteira"  # só a fronteira aceita área imputada
 
 
 def test_persona_fronteira_tem_pergunta_que_muda_o_plano():
-    perfil = get_perfil_cliente(PERSONAS["PRATICO"]["cliente_id"])
+    from agente.dados_base import get_estabelecimento
+    from agente.personalizacao import perfil_relevante
+
+    cliente_id = PERSONAS["PRATICO"]["cliente_id"]
+    perfil = perfil_relevante(get_perfil_cliente(cliente_id), get_estabelecimento(cliente_id))
     assert len(perfil.perguntas_pendentes) == 1
     pergunta = perfil.perguntas_pendentes[0]
     assert pergunta.plano_se_sim != pergunta.plano_se_nao

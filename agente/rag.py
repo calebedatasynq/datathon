@@ -12,6 +12,8 @@ import csv
 import hashlib
 import json
 import re
+import threading
+import time
 import unicodedata
 import warnings
 from collections import defaultdict
@@ -125,22 +127,42 @@ def embeddings(textos: list[str], tipo: str) -> list[list[float]]:
     return _modelo().encode([f"{tipo}: {t}" for t in textos], normalize_embeddings=True).tolist()
 
 
-@cache
-def _colecao():
-    """Coleção Chroma, ou None (com aviso) se não existe ou não bate com clausulas.jsonl."""
-    try:
-        import chromadb
+_COLECAO = None
+_FALHOU_EM: float | None = None
+_TRAVA_COLECAO = threading.Lock()
+NOVA_TENTATIVA_S = 30
 
-        cliente = chromadb.PersistentClient(path=str(config.DIR_BANCO_VETORIAL))
-        colecao = cliente.get_collection(config.COLECAO_VETORIAL)
-    except Exception as erro:  # pacote ausente, pasta ausente ou coleção ausente
-        warnings.warn(f"Busca vetorial indisponível ({erro}); usando só BM25. Rode scripts/indexar_rag.py")
+
+def _colecao():
+    """Coleção Chroma, ou None (com aviso) se não existe ou não bate com clausulas.jsonl.
+
+    Só o sucesso fica guardado: a primeira abertura podia falhar por concorrência (aquecimento
+    e primeira requisição ao mesmo tempo) e o servidor ficava em BM25 para sempre.
+    """
+    global _COLECAO, _FALHOU_EM
+    if _COLECAO is not None:
+        return _COLECAO
+    if _FALHOU_EM is not None and time.monotonic() - _FALHOU_EM < NOVA_TENTATIVA_S:
         return None
-    metadados = colecao.metadata or {}
-    if metadados.get("hash_clausulas") != hash_clausulas() or metadados.get("modelo") != config.MODELO_EMBEDDINGS:
-        warnings.warn("Índice vetorial desatualizado; usando só BM25. Rode scripts/indexar_rag.py")
-        return None
-    return colecao
+    with _TRAVA_COLECAO:
+        if _COLECAO is not None:
+            return _COLECAO
+        try:
+            import chromadb
+
+            cliente = chromadb.PersistentClient(path=str(config.DIR_BANCO_VETORIAL))
+            colecao = cliente.get_collection(config.COLECAO_VETORIAL)
+        except Exception as erro:  # pacote ausente, pasta ausente ou coleção ausente
+            _FALHOU_EM = time.monotonic()
+            warnings.warn(f"Busca vetorial indisponível ({erro}); usando só BM25. Rode scripts/indexar_rag.py")
+            return None
+        metadados = colecao.metadata or {}
+        if metadados.get("hash_clausulas") != hash_clausulas() or metadados.get("modelo") != config.MODELO_EMBEDDINGS:
+            _FALHOU_EM = time.monotonic()
+            warnings.warn("Índice vetorial desatualizado; usando só BM25. Rode scripts/indexar_rag.py")
+            return None
+        _COLECAO = colecao
+        return colecao
 
 
 def modo_efetivo() -> str:
@@ -209,6 +231,9 @@ def buscar_para_turno(mensagem: str, plano: Plano | None, segmento: str | None, 
     if plano is not None and f"PLANO-{plano}" not in {c.id for c in resultado}:
         resumo = por_id()[f"PLANO-{plano}"]
         resultado.append(ClausulaRecuperada(**resumo.model_dump(), pontuacao=0.0, no_plano=True))
+    if plano is not None and "SITE-CIBERNETICA" not in {c.id for c in resultado}:
+        resultado.append(ClausulaRecuperada(**por_id()["SITE-CIBERNETICA"].model_dump(), pontuacao=0.0, no_plano=True))
+    resultado = [c for c in resultado if not (SUPERADAS.get(c.id) in {r.id for r in resultado})]
     return resultado
 
 
@@ -228,6 +253,8 @@ def _catalogo() -> dict[str, list[Plano]]:
     with open(config.CATALOGO, encoding="utf-8-sig", newline="") as f:
         for linha in csv.DictReader(f):
             planos[linha["cobertura_fixa"].strip()].append(Plano(linha["plano"].strip()))
+    # Guia final, seção 10.2: complemento ao CSV original do desafio.
+    planos["AMPLA_PROTECAO_CIBERNETICA"] = list(Plano)
     return dict(planos)
 
 

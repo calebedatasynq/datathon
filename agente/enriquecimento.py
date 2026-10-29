@@ -40,6 +40,8 @@ class Enriquecimento(BaseModel):
     descricao_cnae: str | None = None
     municipio: str | None = None
     uf: str | None = None
+    cep: str | None = None
+    """CEP do endereço do CNPJ (para o risco do local)."""
     segmento: Decisao | None = None
     fonte: str
     """"brasilapi" ou "cache"."""
@@ -65,7 +67,7 @@ def consultar_cnpj(cnpj: str, usar_rede: bool = True, timeout: float = 10) -> tu
             resposta = requests.get(URL_BRASILAPI.format(cnpj=cnpj), timeout=timeout)
             resposta.raise_for_status()
             dados = resposta.json()
-            campos = ("razao_social", "cnae_fiscal", "cnae_fiscal_descricao", "municipio", "uf")
+            campos = ("razao_social", "cnae_fiscal", "cnae_fiscal_descricao", "municipio", "uf", "cep")
             cache[cnpj] = {campo: dados.get(campo) for campo in campos}
             CACHE_CNPJ.write_text(json.dumps(cache, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
             return cache[cnpj], "brasilapi"
@@ -95,6 +97,7 @@ def enriquecer_cnpj(cnpj: str, decisor: Decisor, usar_rede: bool = True) -> Enri
         descricao_cnae=descricao,
         municipio=dados.get("municipio"),
         uf=dados.get("uf"),
+        cep=str(dados["cep"]) if dados.get("cep") else None,
         segmento=classificar_cnae(descricao, decisor) if descricao else None,
         fonte=fonte,
     )

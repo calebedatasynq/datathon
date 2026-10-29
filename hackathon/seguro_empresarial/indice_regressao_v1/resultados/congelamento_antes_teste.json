@@ -1,0 +1,15 @@
+{
+  "modelo": "patrimonio_emprego",
+  "alpha": 0.1,
+  "variaveis": [
+    "funcionarios_estimados_empresa",
+    "estoque_medio_estimado",
+    "valor_bens_ponderado_estabelecimento"
+  ],
+  "cortes": [
+    0.21073582787904,
+    0.9843725670088532
+  ],
+  "hash_modelo": "112042196a6f0d84a2eccf8beb6fe6a72ad045c0334db142151fc5bd54000a05",
+  "hash_protocolo": "3c5455357701b4abbaff8b56b7fa4c17fbcde124cc7e7b1b6f9db57840429f98"
+}

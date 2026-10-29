@@ -59,7 +59,11 @@ class CoberturaRecomendada(BaseModel):
 
     cobertura: str
     origem: str
-    """"plano" (fixa do plano base) ou "adicional" (incluída pela necessidade do cliente)."""
+    """"plano" (vem no pacote de contratação), "adicional" (necessária e fora do pacote) ou
+    "opcional" (fora do pacote, baixa necessidade: o cliente pode incluir)."""
+    necessidade: str = "RECOMENDADA"
+    """ESSENCIAL, RECOMENDADA, OPCIONAL ou NAO_SE_APLICA, calculada das variáveis do cliente."""
+    motivo_necessidade: str | None = None
     faixa_valor_min: float
     faixa_valor_max: float
     confianca: str
@@ -72,14 +76,69 @@ class CoberturaRecomendada(BaseModel):
     """Cláusulas das Condições Gerais que sustentam a cobertura (citáveis)."""
 
 
+class Local(BaseModel):
+    """Onde fica o estabelecimento (CEP geocodificado ou coordenada aproximada da base)."""
+
+    cep: str | None = None
+    logradouro: str | None = None
+    bairro: str | None = None
+    municipio: str
+    uf: str
+    codigo_ibge: str | None = None
+    latitude: float
+    longitude: float
+    precisao: str
+    """"CEP" (ponto do CEP ou da rua) ou "MUNICIPIO" (só a cidade: perigos locais ficam no nível do município)."""
+    fonte: str
+
+
+class Perigo(BaseModel):
+    """Um perigo natural no local, com o indicador público que sustenta o nível."""
+
+    id: str
+    """VENDAVAL, GRANIZO, RAIOS, ALAGAMENTO, DESLIZAMENTO ou BARRAGEM."""
+    nome: str
+    nivel: str
+    """ALTO, MEDIO, BAIXO ou SEM_DADO."""
+    indicador: str
+    fonte: str
+    coberto: bool
+    """Se a apólice pode cobrir o dano (com a cobertura certa) ou se é excluída."""
+    cobertura: str | None = None
+    clausulas: list[str] = Field(default_factory=list)
+
+
+class RiscoLocal(BaseModel):
+    """Riscos naturais do local a partir de fontes públicas. Não é preço: o agravamento é indicativo
+    para a subscrição e nunca é informado ao cliente como valor."""
+
+    local: Local
+    perigos: list[Perigo]
+    agravamento: str
+    """BAIXO, MEDIO ou ALTO: pressão de custo pelos perigos que o seguro cobre."""
+    fator_agravamento: float
+    """Indicativo interno (1,00 = sem agravamento); não é preço nem taxa."""
+    analise_de_aceitacao: bool
+    """Perigo alto que o seguro não cobre: a aceitação depende da análise do risco (cl. CG-13.3)."""
+    fontes: list[str]
+    falhas: list[str] = Field(default_factory=list)
+    consultado_em: str
+
+    def nivel(self, perigo: str) -> str:
+        return next((p.nivel for p in self.perigos if p.id == perigo), "SEM_DADO")
+
+
 class PlanoPersonalizado(BaseModel):
     """Plano base do motor + coberturas adicionais + faixa por cobertura. Uma linha do template_resultado."""
 
     imovel_id: str
     empresa_id: str
     plano_base: Plano | None
+    """Pacote de contratação: o menor que cobre as essenciais, nunca abaixo do índice do motor."""
+    plano_motor: Plano | None = None
+    pacote_minimo: Plano | None = None
     elegivel: str
-    """SIM ou A_CONFIRMAR (nunca NAO automático)."""
+    """SIM, A_CONFIRMAR ou NAO quando há restrição explícita no cadastro."""
     motivo_elegibilidade: str | None = None
     tipo_localizacao: str
     relacao_imovel: str
@@ -89,10 +148,17 @@ class PlanoPersonalizado(BaseModel):
     perguntas_confirmacao: list[str]
     dados_a_conferir: list[str] = Field(default_factory=list)
     """Inconsistências financeiras do cadastro (não usar esses números como certos)."""
+    risco_local: RiscoLocal | None = None
+    """Perigos naturais do local (CEP ou município), quando consultados."""
+    alternativas: list[dict] = Field(default_factory=list)
 
     @property
     def adicionais(self) -> list[CoberturaRecomendada]:
         return [c for c in self.coberturas if c.origem == "adicional"]
+
+    @property
+    def opcionais(self) -> list[CoberturaRecomendada]:
+        return [c for c in self.coberturas if c.origem == "opcional"]
 
 
 class Decisao(BaseModel):
@@ -120,6 +186,10 @@ class PerfilAtualizado(BaseModel):
 
     plano_anterior: Plano | None
     plano: Plano | None
+    """Índice do motor de score antes e depois da confirmação."""
+    pacote_anterior: Plano | None = None
+    pacote: Plano | None = None
+    """Pacote de contratação do plano personalizado antes e depois (o que o cliente vê)."""
     proxima_pergunta: Pergunta | None = None
 
 
@@ -178,3 +248,7 @@ class EstadoTurno(BaseModel):
     guardrail: ResultadoGuardrail | None = None
     requer_humano: bool = False
     motivo_humano: str | None = None
+    opcoes: list[str] = Field(default_factory=list)
+    """Respostas sugeridas para a próxima pergunta (botões na interface)."""
+    descoberta: dict | None = None
+    """Conversa do zero: o que o cliente respondeu, perguntas puladas e progresso."""

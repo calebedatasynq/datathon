@@ -1,0 +1,13 @@
+{
+  "8_a_10_variaveis": true,
+  "3_iteracoes_9_configuracoes_27_ajustes": true,
+  "politica_v1_preservada": true,
+  "p_somam_1": true,
+  "p_validas": true,
+  "score_valido": true,
+  "cortes_ordenados": true,
+  "mediana_confere": true,
+  "contribuicoes_conferem": true,
+  "modelo_congelado": true,
+  "bootstrap_90_ou_mais": true
+}

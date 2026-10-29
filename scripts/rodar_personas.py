@@ -17,7 +17,7 @@ from agente.pipeline import Conversa  # noqa: E402
 
 PERSONAS = json.loads((config.RAIZ / "dados" / "fixtures" / "personas.json").read_text(encoding="utf-8"))
 MENSAGENS = {
-    "ESSENCIAL": "Oi! Que seguro faz sentido para a minha farmácia? E se arrombarem a loja, cobre?",
+    "ESSENCIAL": "Oi! Que seguro faz sentido para o meu negócio? E se arrombarem a loja, cobre?",
     "PRATICO": "Somos uns 30 funcionários.",
     "TOTAL": "Se um funcionário se machucar trabalhando, o seguro cobre?",
 }

@@ -22,7 +22,7 @@ As saídas ficam em `saidas/ambas_bases/desenvolvimento/` e `saidas/ambas_bases/
 
 | Base | Resultados | Coberturas |
 | --- | ---: | ---: |
-| Desenvolvimento | 2.978 | 24.356 |
-| Teste comum | 144 | 1.165 |
+| Desenvolvimento | 2.978 | 28.519 |
+| Teste comum | 144 | 1.350 |
 
-Foram conferidos cabeçalhos, ordem e identificação dos estabelecimentos, além da associação das coberturas aos estabelecimentos exportados. A suíte pertinente de perfil, personalização, regras e exportação passou com **458 testes**. Isso verifica o comportamento implementado e a consistência dos arquivos sintéticos, não a eficácia comercial ou a adequação atuarial do plano.
+Foram conferidos cabeçalhos, ordem e identificação dos estabelecimentos, além da associação das coberturas aos estabelecimentos exportados. Na revisão do Guia final, **532 testes locais passaram e 6 foram pulados** na seleção executada. A auditoria estrutural está em `saidas/ambas_bases/metricas_guia_final.json`. Isso verifica o comportamento implementado e a consistência dos arquivos sintéticos, não a eficácia comercial ou a adequação atuarial do plano.
