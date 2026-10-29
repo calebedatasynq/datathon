@@ -34,6 +34,14 @@ def _ordem() -> list[tuple[str, str]]:
         return [(linha["empresa_id"], linha["imovel_id"]) for linha in csv.DictReader(f)]
 
 
+def _fontes(p) -> str:
+    """As fontes do plano e, se houver, as do risco do local, com a data da consulta e a granularidade."""
+    if p.risco_local is None:
+        return FONTES
+    r = p.risco_local
+    return f"{FONTES}; risco do local (consulta em {r.consultado_em}, granularidade: município; ver docs/fontes_territoriais.md): " + "; ".join(r.fontes)
+
+
 def exportar() -> tuple[int, int]:
     SAIDA.mkdir(exist_ok=True)
     resultado, coberturas = [], []
@@ -52,7 +60,7 @@ def exportar() -> tuple[int, int]:
                 "confianca_geral": p.confianca_geral,
                 "justificativa_recomendacao": p.justificativa,
                 "perguntas_confirmacao": " | ".join(p.perguntas_confirmacao),
-                "fontes_publicas_adicionais": FONTES,
+                "fontes_publicas_adicionais": _fontes(p),
             }
         )
         for c in p.coberturas:

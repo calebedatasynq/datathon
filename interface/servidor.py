@@ -121,6 +121,27 @@ def _personalizado(p: dict | None) -> dict | None:
         "relacao_imovel": p["relacao_imovel"],
         "coberturas": coberturas,
         "dados_a_conferir": p.get("dados_a_conferir", []),
+        "risco_local": _risco(p.get("risco_local")),
+    }
+
+
+def _risco(r: dict | None) -> dict | None:
+    """Perigos do local para o painel. O fator de agravamento fica no log, fora da tela (não é preço)."""
+    if r is None:
+        return None
+    local = r["local"]
+    return {
+        "local": ", ".join(x for x in (local.get("bairro"), f"{local['municipio']}/{local['uf']}") if x),
+        "precisao": local["precisao"],
+        "agravamento": r["agravamento"],
+        "analise_de_aceitacao": r["analise_de_aceitacao"],
+        "perigos": [
+            {"id": p["id"], "nome": p["nome"], "nivel": p["nivel"], "indicador": p["indicador"],
+             "coberto": p["coberto"], "clausula": p["clausulas"][0] if p["clausulas"] else None}
+            for p in r["perigos"]
+        ],  # fmt: skip
+        "fontes": r["fontes"],
+        "falhas": r.get("falhas", []),
     }
 
 

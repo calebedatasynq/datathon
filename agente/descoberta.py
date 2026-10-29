@@ -14,10 +14,11 @@ import uuid
 from collections.abc import Callable
 from pathlib import Path
 
+import requests
 from pydantic import BaseModel
 
-from agente import config, log
-from agente.contratos import EstadoTurno, Perfil, PlanoPersonalizado, ResultadoGuardrail
+from agente import config, log, territorio
+from agente.contratos import EstadoTurno, Perfil, PlanoPersonalizado, ResultadoGuardrail, RiscoLocal
 from agente.dados_base import Bem, Estabelecimento, perfil_segmento
 from agente.decisor import Decisor, criar_decisor
 from agente.enriquecimento import SEGMENTOS, classificar_cnae, enriquecer_cnpj
@@ -180,6 +181,12 @@ ABERTURA = (
     "Se preferir não informar, sem problema: é só me contar o que a sua empresa faz."
 )
 PERGUNTA_ATIVIDADE = "O que a sua empresa faz? Por exemplo: restaurante, farmácia, salão de beleza, oficina…"
+PERGUNTA_CEP = (
+    "Qual é o CEP do estabelecimento? Com ele eu consulto o histórico de clima e o relevo da região "
+    "(vento forte, granizo, raios, alagamento, deslizamento e barragens próximas) para ajustar o plano."
+)
+SEM_CEP = "Prefiro não informar o CEP"
+ROTULO_RESPOSTA = {"atividade": "Ramo", "cep": "CEP"}
 
 
 class Resposta(BaseModel):
@@ -199,8 +206,11 @@ def _valor(respostas: dict[str, Resposta], chave: str, padrao):
     return padrao if r is None or r.valor is None else r.valor
 
 
-def estabelecimento_virtual(identificador: str, segmento: str | None, respostas: dict[str, Resposta]) -> Estabelecimento:
-    """O estabelecimento a partir das respostas; o que falta vem da mediana do segmento."""
+def estabelecimento_virtual(
+    identificador: str, segmento: str | None, respostas: dict[str, Resposta], risco: RiscoLocal | None = None
+) -> Estabelecimento:
+    """O estabelecimento a partir das respostas; o que falta vem da mediana do segmento.
+    risco: perigos naturais do CEP informado (None sem CEP)."""
     ref = perfil_segmento(segmento)
     funcionarios = float(_valor(respostas, "funcionarios", ref.funcionarios))
     faturamento = float(_valor(respostas, "faturamento", ref.faturamento))
@@ -249,6 +259,7 @@ def estabelecimento_virtual(identificador: str, segmento: str | None, respostas:
         endereco_cnpj_compativel=True,
         material_parede_externa="NAO_DISPONIVEL",
         bens=bens,
+        risco=risco,
     )
 
 
@@ -267,8 +278,10 @@ def entrada_do_motor(est: Estabelecimento) -> dict:
     }
 
 
-def cliente_virtual(identificador: str, segmento: str | None, respostas: dict[str, Resposta]) -> tuple[Perfil, Estabelecimento, PlanoPersonalizado]:
-    est = estabelecimento_virtual(identificador, segmento, respostas)
+def cliente_virtual(
+    identificador: str, segmento: str | None, respostas: dict[str, Resposta], risco: RiscoLocal | None = None
+) -> tuple[Perfil, Estabelecimento, PlanoPersonalizado]:
+    est = estabelecimento_virtual(identificador, segmento, respostas, risco)
     respondidas = tuple(
         v for k, v in (("funcionarios", "funcionarios_estimados_empresa"), ("estoque", "estoque_medio_estimado"), ("bens", "valor_bens_ponderado_estabelecimento"))
         if k in respostas and respostas[k].origem != "estimado"
@@ -313,7 +326,7 @@ def _assinatura(p: PlanoPersonalizado) -> tuple:
 
 
 def proxima_pergunta(
-    identificador: str, segmento: str | None, respostas: dict[str, Resposta], puladas: set[str]
+    identificador: str, segmento: str | None, respostas: dict[str, Resposta], puladas: set[str], risco: RiscoLocal | None = None
 ) -> tuple[PerguntaDescoberta | None, list[tuple[str, str]]]:
     """A próxima pergunta que ainda pode mudar o plano, e as que foram puladas agora (com o motivo)."""
     puladas_agora = []
@@ -328,7 +341,7 @@ def proxima_pergunta(
         if feitas >= MAX_PERGUNTAS:
             return None, puladas_agora
         planos = {
-            _assinatura(cliente_virtual(identificador, segmento, {**respostas, pergunta.id: Resposta(pergunta=pergunta.id, rotulo=o.rotulo, valor=o.valor, origem="teste")})[2])
+            _assinatura(cliente_virtual(identificador, segmento, {**respostas, pergunta.id: Resposta(pergunta=pergunta.id, rotulo=o.rotulo, valor=o.valor, origem="teste")}, risco)[2])
             for o in pergunta.opcoes
         }
         if len(planos) == 1:
@@ -339,6 +352,10 @@ def proxima_pergunta(
 
 
 # ---------- a conversa ----------
+
+
+def _lista(itens: list[str]) -> str:
+    return itens[0] if len(itens) == 1 else f"{', '.join(itens[:-1])} e {itens[-1]}"
 
 
 def _cnpj_no_texto(texto: str) -> str | None:
@@ -365,7 +382,8 @@ class ConversaDescoberta:
         self.cnpj: dict | None = None
         self.respostas: dict[str, Resposta] = {}
         self.puladas: dict[str, str] = {}
-        self.etapa = "cnpj"  # cnpj → atividade → pergunta → recomendada
+        self.risco: RiscoLocal | None = None
+        self.etapa = "cnpj"  # cnpj → atividade → cep → pergunta → recomendada
         self.pergunta: PerguntaDescoberta | None = None
         self.conversa: Conversa | None = None
         self.turnos = 0
@@ -382,6 +400,8 @@ class ConversaDescoberta:
             itens.append({"rotulo": "Empresa", "valor": self.cnpj.get("razao_social") or "—", "origem": "cnpj"})
         if self.segmento:
             itens.append({"rotulo": "Ramo", "valor": ROTULO_SEGMENTO.get(self.segmento, self.segmento), "origem": "cnpj" if self.cnpj else "cliente"})
+        if self.risco and "cep" in self.respostas:
+            itens.append({"rotulo": "Local", "valor": self.respostas["cep"].rotulo, "origem": self.respostas["cep"].origem})
         for r in self.respostas.values():
             if r.pergunta in POR_ID:
                 itens.append({"rotulo": CURTO[r.pergunta], "valor": r.rotulo, "origem": r.origem})
@@ -448,7 +468,7 @@ class ConversaDescoberta:
             proxima, puladas_agora = None, []
             if self.etapa == "pergunta":
                 avisar("escolher", "Escolhendo a próxima pergunta")
-                proxima, puladas_agora = proxima_pergunta(self.cliente_id, self.segmento, self.respostas, set(self.puladas))
+                proxima, puladas_agora = proxima_pergunta(self.cliente_id, self.segmento, self.respostas, set(self.puladas), self.risco)
                 for pid, motivo in puladas_agora:
                     self.puladas[pid] = motivo
                 detalhe = "; ".join(f"pulei “{POR_ID[p].texto}” ({m})" for p, m in puladas_agora) or None
@@ -464,6 +484,8 @@ class ConversaDescoberta:
         # pergunta de roteiro: texto fixo, sem LLM e sem afirmação de cobertura
         if self.etapa == "atividade":
             pergunta_texto, opcoes = PERGUNTA_ATIVIDADE, [ROTULO_SEGMENTO[s] for s in SEGMENTOS_DA_BASE]
+        elif self.etapa == "cep":
+            pergunta_texto, opcoes = PERGUNTA_CEP, [SEM_CEP]
         elif self.etapa == "cnpj":
             pergunta_texto, opcoes = "Pode digitar o CNPJ? Só os números já servem.", ["Prefiro não informar o CNPJ"]
         elif self.etapa == "cnpj_de_novo":
@@ -477,7 +499,7 @@ class ConversaDescoberta:
         resposta = f"{aviso} {pergunta_texto}".strip()
         provisorio = None
         if self.segmento:  # sem o ramo, um plano seria só média geral: melhor não mostrar nenhum
-            _, _, provisorio = cliente_virtual(self.cliente_id, self.segmento, self.respostas)
+            _, _, provisorio = cliente_virtual(self.cliente_id, self.segmento, self.respostas, self.risco)
             avisar(
                 "plano",
                 "Plano provisório atualizado",
@@ -524,8 +546,7 @@ class ConversaDescoberta:
                     return f"Encontrei {info.razao_social}. Não consegui encaixar a atividade num ramo com segurança.", False
                 self.segmento = seg
                 self.respostas["atividade"] = Resposta(pergunta="atividade", rotulo=ROTULO_SEGMENTO[seg], valor=None, origem="cnpj")
-                self.etapa = "pergunta"
-                return f"Encontrei {info.razao_social} ({ROTULO_SEGMENTO[seg].lower()}).", False
+                return f"Encontrei {info.razao_social} ({ROTULO_SEGMENTO[seg].lower()}).{self._depois_do_ramo(avisar)}", False
             if mensagem.strip().lower() == "prefiro não informar o cnpj":  # botão: sem passar pelo Jev
                 self.etapa = "atividade"
                 return "Sem problema, seguimos sem o CNPJ.", False
@@ -559,9 +580,22 @@ class ConversaDescoberta:
             if segmento_botao:
                 self.segmento = segmento_botao
                 self.respostas["atividade"] = Resposta(pergunta="atividade", rotulo=ROTULO_SEGMENTO[segmento_botao], valor=None, origem="cliente")
-                self.etapa = "pergunta"
-                return f"Anotado: {ROTULO_SEGMENTO[segmento_botao]}.", False
+                return f"Anotado: {ROTULO_SEGMENTO[segmento_botao]}.{self._depois_do_ramo(avisar)}", False
             return self._definir_atividade(mensagem, avisar)
+
+        if self.etapa == "cep":
+            texto = mensagem.strip()
+            cep = territorio.normalizar_cep(texto)
+            if texto.lower() == SEM_CEP.lower() or (cep is None and re.search(r"\bn[ãa]o\b", texto.lower())):
+                self.etapa = "pergunta"
+                return "Sem problema, sigo sem o CEP.", False
+            if cep is None:
+                return "Não encontrei um CEP nessa mensagem.", False
+            frase = self._consultar_cep(cep, avisar, "cliente")
+            if frase is None:
+                return "Não consegui localizar esse CEP. Pode conferir os números?", False
+            self.etapa = "pergunta"
+            return frase, False
 
         # uma pergunta de faixa
         pergunta = self.pergunta
@@ -593,13 +627,46 @@ class ConversaDescoberta:
         avisar("atividade", "Ramo identificado", f"{ROTULO_SEGMENTO.get(seg, seg)} · {prob:.0%}", "feito")
         self.segmento = seg
         self.respostas["atividade"] = Resposta(pergunta="atividade", rotulo=ROTULO_SEGMENTO.get(seg, seg), valor=None, origem="cliente", probabilidade=prob)
-        self.etapa = "pergunta"
-        return f"Entendi: {ROTULO_SEGMENTO.get(seg, seg).lower()}.", False
+        return f"Entendi: {ROTULO_SEGMENTO.get(seg, seg).lower()}.{self._depois_do_ramo(avisar)}", False
+
+    def _depois_do_ramo(self, avisar) -> str:
+        """Com o ramo definido vem o local: o CEP do CNPJ, se houver; senão, a pergunta do CEP."""
+        cep = territorio.normalizar_cep((self.cnpj or {}).get("cep") or "")
+        frase = self._consultar_cep(cep, avisar, "cnpj") if cep else None
+        self.etapa = "pergunta" if frase else "cep"
+        return f" {frase}" if frase else ""
+
+    def _consultar_cep(self, cep: str, avisar, origem: str) -> str | None:
+        """Consulta o risco do local; devolve a frase para o cliente, ou None se o CEP não foi localizado."""
+        try:
+            risco = territorio.analisar_cep(cep, avisar)
+        except (LookupError, ValueError, requests.RequestException):
+            avisar("geo_cep", "Não consegui localizar o CEP", "sigo sem o risco do local", "falhou")
+            return None
+        self.risco = risco
+        local = risco.local
+        onde = ", ".join(x for x in (local.bairro, f"{local.municipio}/{local.uf}") if x)
+        self.respostas["cep"] = Resposta(pergunta="cep", rotulo=onde, valor=None, origem=origem)
+        altos = [p.nome.lower() for p in risco.perigos if p.nivel == "ALTO"]
+        medios = [p.nome.lower() for p in risco.perigos if p.nivel == "MEDIO"]
+        avisar(
+            "geo",
+            "Risco do local avaliado",
+            f"altos: {', '.join(altos) or 'nenhum'} · médios: {', '.join(medios) or 'nenhum'} · agravamento {risco.agravamento.lower()}",
+            "feito",
+        )
+        partes = []
+        if altos:
+            partes.append(f"risco alto de {_lista(altos)}")
+        if medios:
+            partes.append(f"risco moderado de {_lista(medios)}")
+        achado = f"encontrei {'; '.join(partes)}" if partes else "não encontrei risco natural relevante"
+        return f"Consultei a região ({onde}): {achado}. Vou considerar isso no plano."
 
     def _recomendar(self, mensagem: str, aviso: str, etapas: list, avisar, ao_progredir) -> EstadoTurno:
         """Fim das perguntas: monta o cliente virtual e passa ao pipeline normal."""
         avisar("montar", "Montando o seu perfil com as respostas")
-        perfil, est, plano = cliente_virtual(self.cliente_id, self.segmento, self.respostas)
+        perfil, est, plano = cliente_virtual(self.cliente_id, self.segmento, self.respostas, self.risco)
         avisar(
             "montar",
             "Perfil montado",
@@ -614,7 +681,7 @@ class ConversaDescoberta:
         self.conversa.turnos = self.turnos
         self.conversa.historico = list(self.historico)
         self.conversa.respostas_do_cliente = {
-            (POR_ID[r.pergunta].texto if r.pergunta in POR_ID else "Ramo"): r.rotulo for r in self.respostas.values()
+            (POR_ID[r.pergunta].texto if r.pergunta in POR_ID else ROTULO_RESPOSTA[r.pergunta]): r.rotulo for r in self.respostas.values()
         }
         self.etapa = "recomendada"
         estado = self.conversa.turno(mensagem, ao_progredir, apresentar_recomendacao=True)

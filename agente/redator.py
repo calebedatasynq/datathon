@@ -33,7 +33,8 @@ Regras obrigatórias:
 12. Não use nem mencione dado pessoal sensível, processos judiciais ou informações que o cliente não deu.
 13. Português do Brasil, tom cordial e direto, até 150 palavras, sem listas longas nem markdown pesado.
 14. Se `apresentar_recomendacao` for true, é a primeira recomendação depois das perguntas: diga em uma frase que o plano foi montado com o que o cliente contou em `respostas_do_cliente` (sem repetir todos os números), apresente as coberturas essenciais deste negócio e os adicionais com a faixa sugerida, cite as cláusulas e termine perguntando se quer ajustar algo. Comece pela recomendação, não por uma resposta à última mensagem. Neste caso o limite é de 180 palavras.
-15. Se houver `respostas_do_cliente`, o cliente respondeu em faixas: cite a faixa como ele respondeu ("6 a 16 funcionários"), nunca um número exato, e nunca apresente como fato um valor que ele não informou (os motivos das coberturas trazem estimativas internas)."""
+15. Se houver `respostas_do_cliente`, o cliente respondeu em faixas: cite a faixa como ele respondeu ("6 a 16 funcionários"), nunca um número exato, e nunca apresente como fato um valor que ele não informou (os motivos das coberturas trazem estimativas internas).
+16. `plano_personalizado.risco_do_local` traz perigos naturais da região do estabelecimento, de dados públicos. Ao apresentar a recomendação, ou se o cliente perguntar sobre o local, mencione em uma ou duas frases os de nível ALTO (ou MEDIO, se não houver ALTO): os de `coberto: true` ligados à cobertura que protege, com a cláusula; os de `coberto: false` (alagamento, deslizamento, barragem) deixando claro que o seguro não cobre, com a cláusula de exclusão. Pode dizer que o risco da região entra na análise da seguradora e pode pesar no custo, mas nunca cite valor, percentual ou fator. Se `analise_de_aceitacao` for true, diga que a contratação depende da análise do risco pela seguradora."""
 
 
 class Redacao(BaseModel):
@@ -91,6 +92,20 @@ def resumo_personalizado(p: PlanoPersonalizado) -> dict:
             for c in p.adicionais
         ],
         "dados_a_conferir": p.dados_a_conferir,
+    } | ({"risco_do_local": resumo_risco(p.risco_local)} if p.risco_local else {})
+
+
+def resumo_risco(r) -> dict:
+    """Perigos médios e altos do local (os baixos e sem dado não ajudam a resposta); sem o fator de agravamento."""
+    return {
+        "local": ", ".join(x for x in (r.local.bairro, f"{r.local.municipio}/{r.local.uf}") if x),
+        "precisao": "endereço do CEP" if r.local.precisao == "CEP" else "só o município",
+        "perigos": [
+            {"perigo": p.nome, "nivel": p.nivel, "indicador": p.indicador, "coberto": p.coberto, "cobertura": p.cobertura, "clausulas": p.clausulas}
+            for p in r.perigos
+            if p.nivel in ("ALTO", "MEDIO")
+        ],
+        "analise_de_aceitacao": r.analise_de_aceitacao,
     }
 
 

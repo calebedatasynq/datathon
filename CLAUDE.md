@@ -79,6 +79,13 @@ por cobertura (necessidade + faixa de limite), e o pacote BB mais próximo diz c
 - Cliente virtual: estabelecimento_virtual + perfil_de_entrada; motivos sem números (faixas ou medianas não viram fatos), imóvel "A_CONFIRMAR" se não perguntado.
 - Ao terminar, vira uma Conversa normal (Conversa aceita perfil/estabelecimento injetados) com apresentar_recomendacao=True; o redator recebe respostas_do_cliente e valores_estimados vazio.
 
+## Risco do local (CEP)
+- agente/territorio.py: CEP → ViaCEP + Nominatim (OSM); clima Open-Meteo (ERA5 10 anos para vento e chuva; previsões históricas 3 anos para trovoada e granizo); relevo Open-Meteo Elevation; setores de risco do SGB (WFS); barragens OSM/Overpass (12 s). Fontes e limiares em docs/fontes_territoriais.md.
+- `avaliar` é puro (testável sem rede); `analisar_cep` consulta em paralelo, com cache em dados/fixtures/territorio_cache.json e etapas ao vivo (geo_*). Fonte fora do ar = SEM_DADO, nunca BAIXO.
+- Efeito: vendaval/granizo/raios alteram necessidade e faixa (personalizacao.nivel_local); alagamento, deslizamento e barragem não são cobertos (CG-8.1.l, CG-8.1.o) e, se altos, a elegibilidade fica a confirmar (CG-13.3). O fator de agravamento nunca vai ao cliente (decisão: sem preço).
+- Conversa do zero: depois do ramo pergunta o CEP (ou usa o do CNPJ); botão "Prefiro não informar o CEP". Clientes da base: python scripts/enriquecer_territorio.py gera dados/fixtures/risco_territorio.json (coordenada perturbada: só município).
+- Nominatim: no máximo 1 consulta por segundo, User-Agent genérico (sem e-mail de ninguém). Open-Meteo limita por minuto.
+
 ## Interface (Fase 6)
 - python app.py → http://127.0.0.1:8000. Backend FastAPI em interface/servidor.py; página estática em web/ (index.html, estilo.css, app.js), sem build.
 - Conversa ao vivo: POST /api/conversas/{id}/mensagens devolve SSE com cada etapa (Conversa.turno(ao_progredir=...)) e o turno final; a página mostra as etapas como o "pensando" do Claude.

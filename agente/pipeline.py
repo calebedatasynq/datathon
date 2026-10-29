@@ -37,6 +37,14 @@ def identificar_objecao(mensagem: str, decisor: Decisor) -> dict | None:
     return objecoes[resposta.valor]
 
 
+def clausulas_do_risco(personalizado) -> list[str]:
+    """Cláusulas dos perigos médios e altos do local: a cobertura que protege ou a exclusão."""
+    risco = personalizado.risco_local
+    if risco is None:
+        return []
+    return [c for p in risco.perigos if p.nivel in ("ALTO", "MEDIO") for c in p.clausulas]
+
+
 def _clausulas_extras(ids: list[str], perfil: Perfil, ja_tem: set[str]) -> list[ClausulaRecuperada]:
     """Cláusulas que o turno precisa poder citar além das recuperadas (objeção, adicionais)."""
     return [
@@ -185,6 +193,7 @@ class Conversa:
         avisar("recuperar", "Consultando as Condições Gerais")
         clausulas = rag.buscar_para_turno(mensagem, personalizado.plano_base, perfil.segmento)
         extras_ids = [c.clausulas[0] for c in personalizado.adicionais] + (objecao["clausulas"] if objecao else [])
+        extras_ids += clausulas_do_risco(personalizado)
         clausulas += _clausulas_extras(extras_ids, perfil_novo, {c.id for c in clausulas})
         estado.clausulas = clausulas
         marcar("recuperar")

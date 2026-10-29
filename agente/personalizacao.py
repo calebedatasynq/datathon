@@ -22,6 +22,7 @@ TIPOS_PORTATEIS = {"EQUIPAMENTO_ELETRONICO", "EQUIPAMENTO_INFORMATICA", "EQUIPAM
 MESES_ALUGUEL = (6, 12)  # 12 = limite da cl. PERDA_PAGAMENTO_ALUGUEL-1.6; 6 = reparo típico (premissa)
 MESES_DESPESAS_FIXAS = (3, 6)  # 6 meses = 180 dias, limite da cl. DESPESAS_FIXAS-2.1
 FRACAO_VENDAVAL = (0.25, 0.5)  # vendaval costuma causar perda parcial (premissa)
+FRACAO_VENDAVAL_ALTO = (0.4, 0.75)  # região com vento forte ou granizo frequentes (agente/territorio.py)
 RC_ESTABELECIMENTO_POR_PORTE = {"MICRO": (50_000, 100_000), "PEQUENA": (100_000, 200_000), "MEDIA": (200_000, 500_000)}
 SALARIOS_RC_EMPREGADOR = (12, 36)  # de 1 a 3 anos do salário médio por evento (premissa)
 VIDROS_POR_LOCALIZACAO = {"LOJA": (10_000, 30_000), "GALERIA": (10_000, 30_000), "SALA": (3_000, 10_000), "TORRE": (3_000, 10_000)}
@@ -213,16 +214,27 @@ def _roubo(est: Estabelecimento, bens: _Bens) -> dict:
 
 
 def _vendaval(est: Estabelecimento, bens: _Bens) -> dict:
-    a, b = FRACAO_VENDAVAL
+    nivel = nivel_local(est, "VENDAVAL", "GRANIZO")
+    a, b = FRACAO_VENDAVAL_ALTO if nivel == "ALTO" else FRACAO_VENDAVAL
     base_min = bens.soma("valor_ponderado") + est.estoque_medio
     base_max = bens.soma("valor_cadastrado") + est.estoque_pico
+    if est.risco is None:
+        dados = "bens e estoque do endereço; sem consulta de risco climático da região"
+    else:
+        dados = (
+            f"bens e estoque do endereço; vento forte {est.risco.nivel('VENDAVAL').lower()} e granizo "
+            f"{est.risco.nivel('GRANIZO').lower()} na região (Open-Meteo)"
+        )
     return dict(
         faixa=_faixa(a * base_min, b * base_max),
-        confianca="BAIXA",
-        dados="bens e estoque do endereço; a base não tem índice territorial de vendaval",
-        regra=f"{a:.0%} a {b:.0%} do conteúdo (perda parcial, premissa da equipe)",
+        confianca="BAIXA" if nivel is None else "MEDIA",
+        dados=dados,
+        regra=f"{a:.0%} a {b:.0%} do conteúdo (perda parcial, premissa da equipe"
+        + ("; faixa maior por vento forte ou granizo frequentes)" if nivel == "ALTO" else ")"),
         justificativa="danos por vento, granizo e similares ao estabelecimento e bens",
-        confirmar="tipo de telhado e histórico de vendaval na região",
+        confirmar="tipo de telhado e histórico de vendaval na região"
+        if est.risco is None
+        else "tipo de telhado e se há letreiro, antena ou placa solar fixados ao imóvel",
     )
 
 
@@ -319,6 +331,17 @@ MINIMO_FUNCIONARIOS_RECOMENDADA = 5
 MINIMO_DINHEIRO_DIA_ESSENCIAL = 10_000
 
 
+def nivel_local(est: Estabelecimento, *perigos: str) -> str | None:
+    """O maior nível entre os perigos do local; None sem consulta ou se algum ficou sem dado."""
+    if est.risco is None:
+        return None
+    niveis = [est.risco.nivel(p) for p in perigos]
+    for nivel in ("ALTO", "MEDIO"):
+        if nivel in niveis:
+            return nivel
+    return "BAIXO" if all(n == "BAIXO" for n in niveis) else None
+
+
 def necessidade(nome: str, est: Estabelecimento, bens: _Bens) -> tuple[str, str]:
     """(nível, motivo) de uma cobertura para este estabelecimento. Regras da equipe, sem LLM."""
     subtraivel = est.estoque_medio + bens.soma("valor_ponderado", TIPOS_PORTATEIS)
@@ -333,6 +356,8 @@ def necessidade(nome: str, est: Estabelecimento, bens: _Bens) -> tuple[str, str]
             eletricos = bens.soma("valor_cadastrado", TIPOS_ELETRICOS)
             if eletricos >= MINIMO_ELETRICOS_ESSENCIAL:
                 return ESSENCIAL, f"{_reais(eletricos)} em equipamentos elétricos"
+            if nivel_local(est, "RAIOS") == "ALTO":
+                return ESSENCIAL, "muitas tempestades com raios na região (dados climáticos públicos)"
             return RECOMENDADA, "equipamentos elétricos sujeitos a raio e variação de tensão"
         case "PERDA_PAGAMENTO_ALUGUEL":
             if est.paga_aluguel:
@@ -351,6 +376,13 @@ def necessidade(nome: str, est: Estabelecimento, bens: _Bens) -> tuple[str, str]
         case "VENDAVAL_EVENTOS_CORRELATOS":
             if est.termos_endereco and set(est.termos_endereco) <= {"SALA", "TORRE"}:
                 return OPCIONAL, "sala em prédio: telhado e fachada são do condomínio"
+            match nivel_local(est, "VENDAVAL", "GRANIZO"):
+                case "ALTO":
+                    return ESSENCIAL, "vento forte ou granizo frequentes na região (dados climáticos públicos)"
+                case "MEDIO":
+                    return RECOMENDADA, "episódios de vento forte ou granizo na região (dados climáticos públicos)"
+                case "BAIXO":
+                    return OPCIONAL, "poucos registros de vento forte e granizo na região (dados climáticos públicos)"
             return RECOMENDADA, "sem dado de risco climático da região; protege telhado, fachada e bens"
         case "RESPONSABILIDADE_CIVIL_EMPREGADOR":
             n = est.funcionarios_empresa
@@ -361,6 +393,8 @@ def necessidade(nome: str, est: Estabelecimento, bens: _Bens) -> tuple[str, str]
             return OPCIONAL, "equipe muito pequena"
         case "QUEBRA_DE_VIDROS":
             if {"LOJA", "GALERIA"} & set(est.termos_endereco):
+                if nivel_local(est, "GRANIZO") in ("ALTO", "MEDIO"):
+                    return RECOMENDADA, "vitrine ou fachada de vidro numa região com granizo (dados climáticos públicos)"
                 return RECOMENDADA, "loja com vitrine ou fachada de vidro"
             return OPCIONAL, "sem vitrine identificada"
         case "DETERIORACAO_DE_MERCADORIAS_EM_AMBIENTES_FRIGORIFICADOS":
@@ -435,6 +469,9 @@ def elegibilidade(perfil: Perfil, est: Estabelecimento) -> tuple[str, str | None
     if est.situacao_imovel == "IRREGULAR":
         pendencias.append("situação cadastral do imóvel irregular")
         perguntas.append("O imóvel está regularizado na prefeitura?")
+    if est.risco and est.risco.analise_de_aceitacao:
+        altos = [p.nome.lower() for p in est.risco.perigos if p.nivel == "ALTO" and not p.coberto]
+        pendencias.append(f"local com risco alto de {', '.join(altos)}, que o seguro não cobre (aceitação sujeita à análise do risco, cl. CG-13.3)")
     if not est.endereco_cnpj_compativel:
         pendencias.append("endereço não confere com o CNPJ (cl. CG-6.1.1.a)")
         perguntas.append("O CNPJ está registrado neste endereço?")
@@ -546,6 +583,9 @@ def personalizar(perfil: Perfil, est: Estabelecimento, filtrar_pergunta: bool = 
         justificativa += "; motor sem índice: faltam dados essenciais"
     if achados:
         justificativa += "; dados a conferir: " + "; ".join(achados)
+    if est.risco:
+        altos = [p.nome.lower() for p in est.risco.perigos if p.nivel == "ALTO"]
+        justificativa += f"; risco do local: agravamento {est.risco.agravamento}" + (f" ({', '.join(altos)})" if altos else "")
     if adicionais:
         justificativa += "; adicionais: " + "; ".join(
             f"{_nome(c.cobertura)} ({c.motivo_necessidade})" for c in adicionais
@@ -566,4 +606,5 @@ def personalizar(perfil: Perfil, est: Estabelecimento, filtrar_pergunta: bool = 
         justificativa=justificativa,
         perguntas_confirmacao=list(dict.fromkeys(perguntas)),
         dados_a_conferir=achados,
+        risco_local=est.risco,
     )

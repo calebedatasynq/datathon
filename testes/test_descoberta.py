@@ -154,7 +154,8 @@ def test_resposta_que_nao_encaixa_repete_a_pergunta(arquivo_log):
 
     conversa = ConversaDescoberta(decisor=DecisorNaoResponde(), redigir_fn=RedatorEspiao(), arquivo_log=arquivo_log)
     conversa.turno("Prefiro não informar o CNPJ")
-    antes = conversa.turno("Farmácia")
+    conversa.turno("Farmácia")
+    antes = conversa.turno("Prefiro não informar o CEP")
     depois = conversa.turno("hoje está chovendo")
     assert depois.opcoes == antes.opcoes and "Não consegui encaixar" in depois.resposta
 

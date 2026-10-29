@@ -200,6 +200,30 @@ const GRUPOS = [
 ];
 const ORIGEM_DADO = { cnpj: "CNPJ", estimado: "estimado", cliente: null };
 
+const NIVEL_RISCO = { ALTO: "Alto", MEDIO: "Médio", BAIXO: "Baixo", SEM_DADO: "Sem dado" };
+
+function blocoRisco(r) {
+  const ordem = { ALTO: 0, MEDIO: 1, BAIXO: 2, SEM_DADO: 3 };
+  const perigos = [...r.perigos].sort((a, b) => ordem[a.nivel] - ordem[b.nivel]);
+  const linha = (x) => el("li", { class: `perigo nivel-${x.nivel.toLowerCase()}` },
+    el("span", { class: "cob-nome" }, x.nome),
+    el("span", { class: "perigo-nivel" }, NIVEL_RISCO[x.nivel]),
+    el("span", { class: "cob-sub" },
+      el("span", { class: `tag-origem${x.coberto ? "" : " exclusao"}` },
+        x.coberto ? "coberto" : "não coberto", x.clausula ? ` · ${rotuloCurto(x.clausula)}` : ""),
+      ` ${x.indicador}`));
+  return el("section", { class: "bloco" },
+    el("h2", {}, "Risco do local"),
+    el("p", { class: "risco-local" }, r.local,
+      el("span", { class: "origem" }, r.precisao === "CEP" ? "pelo CEP" : "só o município")),
+    el("div", { class: "metas" },
+      el("span", { class: `pilula${r.agravamento === "ALTO" ? " aviso" : ""}`, title: "Pressão de custo pelos perigos que o seguro cobre; indicativo para a análise da seguradora, não é preço" },
+        `Agravamento ${NIVEL_RISCO[r.agravamento].toLowerCase()}`),
+      r.analise_de_aceitacao ? el("span", { class: "pilula aviso" }, "Aceitação sob análise") : null),
+    el("ul", { class: "coberturas perigos" }, perigos.map(linha)),
+    el("p", { class: "legenda" }, `Fontes: ${r.fontes.join("; ")}.${r.falhas.length ? ` Indisponível agora: ${r.falhas.join("; ")}.` : ""}`));
+}
+
 function blocoSabe(desc) {
   const bloco = el("section", { class: "bloco" },
     el("h2", {}, desc.feitas ? `O que o agente já sabe · ${desc.feitas} ${desc.feitas === 1 ? "pergunta" : "perguntas"}` : "O que o agente já sabe"));
@@ -277,6 +301,8 @@ function renderizarDetalhes(cliente, turno) {
   alvo.append(el("p", { class: "legenda" }, provisorio
     ? "Plano provisório: o que ainda não foi perguntado usa a mediana do ramo. Faixas de limite de indenização, não preço."
     : "Faixas sugeridas de limite de indenização, a confirmar. Não são preço."));
+
+  if (p.risco_local) alvo.append(blocoRisco(p.risco_local));
 
   if (p.dados_a_conferir && p.dados_a_conferir.length) {
     alvo.append(el("section", { class: "bloco" },

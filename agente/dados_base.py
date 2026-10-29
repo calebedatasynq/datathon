@@ -9,7 +9,8 @@ from functools import cache
 
 from pydantic import BaseModel
 
-from agente import config
+from agente import config, territorio
+from agente.contratos import RiscoLocal
 
 PASTA_BASE = config.RAIZ / "Seguro_Empresarial_Teste_Comum"
 
@@ -48,6 +49,8 @@ class Estabelecimento(BaseModel):
     endereco_cnpj_compativel: bool
     material_parede_externa: str
     bens: list[Bem]
+    risco: RiscoLocal | None = None
+    """Perigos naturais do local (agente/territorio.py); None se não consultado."""
 
 
 def _ler(arquivo: str) -> list[dict]:
@@ -107,6 +110,7 @@ def _indice() -> dict[str, Estabelecimento]:
             endereco_cnpj_compativel=e["endereco_cnpj_compativel"] == "SIM",
             material_parede_externa=e["material_parede_externa_cadastrado"],
             bens=bens[e["imovel_id"]],
+            risco=territorio.risco_da_base(e["territorio_id"]),
         )
     return indice
 
