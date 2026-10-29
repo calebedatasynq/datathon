@@ -1,0 +1,46 @@
+{
+  "especificacoes": {
+    "8_variaveis": [
+      "funcionarios_estimados_empresa",
+      "estoque_medio_estimado",
+      "valor_bens_ponderado_estabelecimento",
+      "faturamento_mensal_empresa",
+      "quantidade_estabelecimentos_empresa",
+      "grupo_atividade",
+      "tipo_unidade",
+      "area_m2"
+    ],
+    "9_variaveis": [
+      "funcionarios_estimados_empresa",
+      "estoque_medio_estimado",
+      "valor_bens_ponderado_estabelecimento",
+      "faturamento_mensal_empresa",
+      "quantidade_estabelecimentos_empresa",
+      "grupo_atividade",
+      "tipo_unidade",
+      "area_m2",
+      "possui_termo_loja"
+    ],
+    "10_variaveis": [
+      "funcionarios_estimados_empresa",
+      "estoque_medio_estimado",
+      "valor_bens_ponderado_estabelecimento",
+      "faturamento_mensal_empresa",
+      "quantidade_estabelecimentos_empresa",
+      "grupo_atividade",
+      "tipo_unidade",
+      "area_m2",
+      "possui_termo_loja",
+      "possui_termo_galeria"
+    ]
+  },
+  "penalidades": [
+    0.1,
+    1,
+    10
+  ],
+  "politica": "central v1 mantida; percentis estimados no treino de cada dobra",
+  "r2": "McFadden no ajuste, análogo preditivo fora da amostra; likelihood sem penalidade",
+  "selecao": "menor log_loss OOF agregada entre 8/9/10 e penalidades",
+  "limite_teste": "Base de teste já avaliada na v1; reavaliação comparativa, não nova validação intocada"
+}

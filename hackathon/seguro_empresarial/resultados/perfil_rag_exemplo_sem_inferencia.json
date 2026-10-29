@@ -1,0 +1,56 @@
+{
+  "versao_contrato": "1.0",
+  "cliente": {
+    "empresa_id": "EMP_00221",
+    "imovel_id": "IMO_EMP_00221_01"
+  },
+  "status": "AGUARDANDO_REFERENCIA",
+  "score": null,
+  "cortes_score": null,
+  "plano_sugerido": null,
+  "probabilidades_por_plano": null,
+  "fatos": [
+    {
+      "campo": "grupo_atividade",
+      "valor": "BELEZA",
+      "origem": "base_desenvolvimento.csv",
+      "granularidade": "empresa"
+    },
+    {
+      "campo": "faturamento_mensal_empresa",
+      "valor": 304000,
+      "origem": "base_desenvolvimento.csv",
+      "granularidade": "empresa"
+    },
+    {
+      "campo": "funcionarios_estimados_empresa",
+      "valor": 15,
+      "origem": "base_desenvolvimento.csv",
+      "granularidade": "empresa"
+    },
+    {
+      "campo": "estoque_medio_estimado",
+      "valor": 38700,
+      "origem": "base_desenvolvimento.csv",
+      "granularidade": "estabelecimento"
+    }
+  ],
+  "perguntas_confirmacao": [
+    {
+      "codigo": "NECESSIDADES_COBERTURAS",
+      "pergunta": "Quais necessidades de proteção foram identificadas para este estabelecimento?",
+      "motivo": "Definir referência de cobertura antes de recomendar plano"
+    },
+    {
+      "codigo": "FUNCIONARIOS_LOCAIS",
+      "pergunta": "Quantos funcionários trabalham neste endereço?",
+      "motivo": "A quantidade disponível refere-se à empresa inteira"
+    }
+  ],
+  "faixas_monetarias": null,
+  "fontes_produto": [],
+  "limitacoes": [
+    "Não há modelo de planos treinado e validado neste exemplo.",
+    "Valores da base são sintéticos; nenhuma probabilidade de compra foi estimada."
+  ]
+}

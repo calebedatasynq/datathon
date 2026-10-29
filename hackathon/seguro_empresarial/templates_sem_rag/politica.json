@@ -1,0 +1,21 @@
+{
+  "versao": "templates_mock_v1.0",
+  "data_referencia": "2026-10-28",
+  "meses_aluguel": [6, 12],
+  "meses_despesas": [3, 6],
+  "limiar_perguntar_refrigeracao": 0.6,
+  "tipos_conteudo": ["MOBILIARIO", "EQUIPAMENTO_REFRIGERACAO", "EQUIPAMENTO_ELETRONICO", "PRATELEIRA", "EQUIPAMENTO_INFORMATICA", "EQUIPAMENTO_OFICINA", "SISTEMA_SEGURANCA", "EQUIPAMENTO_MEDICO", "MAQUINA", "EQUIPAMENTO_BELEZA", "EQUIPAMENTO_COZINHA"],
+  "tipos_eletricos": ["EQUIPAMENTO_REFRIGERACAO", "EQUIPAMENTO_ELETRONICO", "EQUIPAMENTO_INFORMATICA", "SISTEMA_SEGURANCA", "EQUIPAMENTO_MEDICO", "EQUIPAMENTO_BELEZA", "EQUIPAMENTO_COZINHA"],
+  "adicionais": {
+    "DELIVERY": "percentual_receita_delivery_est > 0; indício da empresa, confirmar operação neste estabelecimento",
+    "DETERIORACAO_MERCADORIAS_FRIGORIFICADAS": "equipamento de refrigeração vinculado ou probabilidade_refrigeracao_referencia >= 0.6; confirmar mercadorias e valores refrigerados",
+    "LETREIROS_ANUNCIOS_LUMINOSOS": "bem LETREIRO vinculado; confirmar características, uso e aceitação"
+  },
+  "avisos": [
+    "Parâmetros de cenário são hipóteses documentadas do protótipo, não preços nem limites comerciais oficiais.",
+    "Faixas patrimoniais comparam cenário ponderado cadastral e cenário integral cadastral; não são intervalos de confiança nem inventário completo.",
+    "Não usar probabilidade de vínculo ou de refrigeração como percentual da importância segurada.",
+    "Elegibilidade permanece PENDENTE_VALIDACAO sem confirmação integral dos requisitos.",
+    "Recomendação de plano é condicional; score não comprova adequação comercial."
+  ]
+}

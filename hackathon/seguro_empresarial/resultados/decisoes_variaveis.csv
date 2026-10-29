@@ -1,0 +1,19 @@
+﻿variavel,decisao,evidencia_ou_hipotese,limite,significancia_para_planos
+grupo_atividade,MANTER PARA TESTAR,Representa atividades com diferentes necessidades; 10 categorias observadas,Categorias não possuem ordem numérica,NÃO AVALIÁVEL SEM ASSOCIAÇÕES DE REFERÊNCIA
+funcionarios_estimados_empresa,MANTER PARA TESTAR,Hipótese relacionada à operação e RC empregador; dado completo,"É da empresa inteira, não funcionários locais",NÃO AVALIÁVEL SEM ASSOCIAÇÕES DE REFERÊNCIA
+quantidade_estabelecimentos_empresa,CONTROLE DE CONTEXTO,Permite contextualizar medidas corporativas repetidas em unidades,"Contagem do pacote, não critério automático de upgrade",NÃO AVALIÁVEL SEM ASSOCIAÇÕES DE REFERÊNCIA
+tipo_unidade,CONTROLE DE CONTEXTO,Matriz/filial; dado completo,Contribuição adicional só poderá ser medida com Y,NÃO AVALIÁVEL SEM ASSOCIAÇÕES DE REFERÊNCIA
+estoque_medio_estimado,MANTER PARA TESTAR,Estoque do estabelecimento; dado completo e confere com fonte,Já é estimativa; não mede risco de roubo,NÃO AVALIÁVEL SEM ASSOCIAÇÕES DE REFERÊNCIA
+valor_bens_ponderado_estabelecimento,MANTER PARA TESTAR,Agregação confere integralmente com valores ponderados dos bens,Não é importância segurada nem comprovação de localização,NÃO AVALIÁVEL SEM ASSOCIAÇÕES DE REFERÊNCIA
+faturamento_mensal_empresa,ALTERNATIVA À VARIÁVEL FUNCIONÁRIOS,"Correlação por empresa 0,9346; VIF exploratório em log 13,55 com demais medidas",Não descartar definitivamente; comparar modelo econômico com modelo de emprego,NÃO AVALIÁVEL SEM ASSOCIAÇÕES DE REFERÊNCIA
+area_m2,MODELO ALTERNATIVO,"61,72% ausente; avaliar modelo com e sem área",Imputador deve ser ajustado só no treino; ausência pode carregar viés,NÃO AVALIÁVEL SEM ASSOCIAÇÕES DE REFERÊNCIA
+estoque_pico_estimado,ALTERNATIVA AO ESTOQUE MÉDIO,"Correlação 0,9947, sem identidade de valores","Usar como alternativa, não os dois automaticamente",NÃO AVALIÁVEL SEM ASSOCIAÇÕES DE REFERÊNCIA
+indice_maturidade_digital,EXCLUIR DUPLICATA,Idêntica a dependencia_digital_pct nos 2.500 registros de empresas,"A exclusão é por duplicação, não por significância",NÃO AVALIÁVEL SEM ASSOCIAÇÕES DE REFERÊNCIA
+dependencia_digital_pct e índices digitais,RESERVAR PARA HIPÓTESE ESPECÍFICA,Dados variam; não há Y para provar ou refutar contribuição,Avaliar se distinguem planos fixos ou apenas adicionais/assistências,NÃO AVALIÁVEL SEM ASSOCIAÇÕES DE REFERÊNCIA
+cnae_principal / descricao_cnae,ALTERNATIVA À ATIVIDADE AGRUPADA,Representações de atividade; começar com 10 grupos facilita interpretação,Não repetir representações por padrão,NÃO AVALIÁVEL SEM ASSOCIAÇÕES DE REFERÊNCIA
+porte,ALTERNATIVA À ESCALA CONTÍNUA,"Categoria MICRO/PEQUENA, relacionada à dimensão econômica",Pode ser comparado depois; não empilhar todas as medidas de tamanho,NÃO AVALIÁVEL SEM ASSOCIAÇÕES DE REFERÊNCIA
+folha / compras / energia / despesas fixas,RESERVAR,Disponíveis e variáveis; investigação de redundância consta no arquivo de correlações,Nenhuma conclusão de irrelevância estatística foi feita,NÃO AVALIÁVEL SEM ASSOCIAÇÕES DE REFERÊNCIA
+padrao_construtivo_cadastrado,NÃO PRIORIZAR NO MODELO DE PLANOS,"81,83% NAO_DISPONIVEL",Pode apoiar confirmação do imóvel,NÃO AVALIÁVEL SEM ASSOCIAÇÕES DE REFERÊNCIA
+material_parede_externa_cadastrado,AUXILIAR DE ELEGIBILIDADE,"84,76% NAO_DISPONIVEL",Ausência não significa material aceito,NÃO AVALIÁVEL SEM ASSOCIAÇÕES DE REFERÊNCIA
+possui_termo_loja / possui_termo_galeria,CONDICIONAL,Flags do cadastro preservadas e conferidas,Não significam térreo ou vitrine comprovados,NÃO AVALIÁVEL SEM ASSOCIAÇÕES DE REFERÊNCIA
+UF / município / coordenadas,RESERVAR ENRIQUECIMENTO,"Localização não traz índices de roubo, alagamento ou vendaval",Não transformar código IBGE em grandeza numérica,NÃO AVALIÁVEL SEM ASSOCIAÇÕES DE REFERÊNCIA

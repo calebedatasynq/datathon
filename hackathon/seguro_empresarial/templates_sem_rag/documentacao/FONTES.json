@@ -1,0 +1,17 @@
+{
+  "consulta": "2026-10-28",
+  "origem_modelo": {
+    "arquivo": "Entrega_Indice_Seguro_RAG_v2.zip",
+    "sha256": "c8096f245caaf17e147d3559d596ee1ee1aa94f6b35ebad53d00ab165d6604e2"
+  },
+  "fontes_publicas": [
+    {
+      "url": "https://campanhas.bbseguros.com.br/seguro-empresarial/",
+      "uso": "composição dos planos, adicionais e distinção das assistências"
+    },
+    {
+      "url": "https://assets-bbsegurosportal.bbseguros.com.br/2024-08/cg-seguro-empresarial-v_1-1.pdf?VersionId=F5j.aDPjl.ePJzIhjV.z1Y1Nbm0byQ6M",
+      "uso": "referências contratuais preliminares; aplicabilidade será revisada após RAG"
+    }
+  ]
+}

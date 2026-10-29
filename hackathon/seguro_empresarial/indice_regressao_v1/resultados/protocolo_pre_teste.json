@@ -1,0 +1,56 @@
+{
+  "versao": "ordinal_mock_v1",
+  "seed": 20261028,
+  "cenarios": {
+    "central": [
+      0.6,
+      0.75
+    ],
+    "mais_abrangente": [
+      0.5,
+      0.65
+    ],
+    "mais_restritivo": [
+      0.7,
+      0.85
+    ]
+  },
+  "especificacoes": {
+    "patrimonio_emprego": [
+      "funcionarios_estimados_empresa",
+      "estoque_medio_estimado",
+      "valor_bens_ponderado_estabelecimento"
+    ],
+    "com_faturamento": [
+      "funcionarios_estimados_empresa",
+      "estoque_medio_estimado",
+      "valor_bens_ponderado_estabelecimento",
+      "faturamento_mensal_empresa"
+    ],
+    "com_contexto": [
+      "funcionarios_estimados_empresa",
+      "estoque_medio_estimado",
+      "valor_bens_ponderado_estabelecimento",
+      "grupo_atividade",
+      "tipo_unidade",
+      "quantidade_estabelecimentos_empresa"
+    ],
+    "com_area_loja": [
+      "funcionarios_estimados_empresa",
+      "estoque_medio_estimado",
+      "valor_bens_ponderado_estabelecimento",
+      "area_m2",
+      "possui_termo_loja",
+      "possui_termo_galeria"
+    ]
+  },
+  "penalidades": [
+    0.1,
+    1.0,
+    10.0
+  ],
+  "selecao": "menor log_loss média nas 3 dobras agrupadas; apenas cenário central",
+  "regra_decisao": "mediana ordinal; score=sigmoid(X beta)",
+  "origem_rotulos": "politica_proposta_do_hackathon; nao observados",
+  "hash_desenvolvimento": "f571787cd9f6ad507a8ab43a8cac0bda39ad9f843895cf40ac42d5bbb574a4f5"
+}
