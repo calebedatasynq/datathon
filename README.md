@@ -1,6 +1,6 @@
-# BB Radar: agente de vendas de seguro empresarial
+# Euler: agente empresarial
 
-Projeto da equipe BBDI para o Datathon Proteção Inteligente. O MVP conversa com uma empresa, calcula uma sugestão inicial de plano, considera necessidades de cobertura e recupera cláusulas para explicar a resposta. Os dados do desafio são sintéticos.
+Projeto da equipe BBDI para o Datathon Proteção Inteligente. O MVP conversa com uma empresa ou gerente, calcula uma sugestão inicial de plano, considera necessidades de cobertura e recupera cláusulas para explicar a resposta. Os dados do desafio são sintéticos.
 
 ## Como funciona
 
@@ -22,7 +22,7 @@ python -m pip install -r requirements.txt
 python app.py
 ```
 
-Abra `http://127.0.0.1:8000`. Copie `.env.example` para `.env` e substitua o valor de exemplo de `ANTHROPIC_API_KEY` por uma chave válida para conversar com o agente. `JEV_API_KEY` é opcional; sem ela, o decisor usa Claude. O arquivo `.env` é ignorado pelo Git e não deve ser enviado à banca.
+Abra `http://127.0.0.1:8000`. Copie `.env.example` para `.env` e substitua o valor de exemplo de `ANTHROPIC_API_KEY` por uma chave válida para conversar com o agente. `JEV_API_KEY` é opcional; sem ela, o decisor usa Claude. O arquivo `.env` é ignorado pelo Git. Mude a Key conforme modelo.
 
 Para reconstruir o índice vetorial, execute `python scripts/indexar_rag.py`. Esse passo pode baixar o modelo de embeddings. Os arquivos `conhecimento/clausulas.jsonl` e `conhecimento/fontes_produto.jsonl` já estão no repositório; a busca por palavras-chave funciona sem o índice vetorial.
 
@@ -49,4 +49,4 @@ Para os testes automatizados, use `python -m pytest -q`. `testes/test_conexoes.p
 
 ## Limitações e fontes
 
-As recomendações usam dados fictícios e podem depender de confirmação de atividade, imóvel, cobertura e elegibilidade. Não há integração demonstrada com emissão real de apólice. O agente não informa preço. O enriquecimento por CEP usa fontes públicas e pode ter granularidade de município ou dados ausentes; veja `docs/fontes_territoriais.md`. O uso de IA no desenvolvimento e nas respostas do agente deve ser revisado e explicado pela equipe durante a apresentação.
+As recomendações usam dados fictícios e podem depender de confirmação de atividade, imóvel, cobertura e elegibilidade. Não há integração demonstrada com emissão real de apólice. O agente não informa preço. O enriquecimento por CEP usa fontes públicas e pode ter granularidade de município ou dados ausentes; veja `docs/fontes_territoriais.md`. IA foi usada ativamente durante  o desenvolvimento do projeto, nas seguintes áreas: (Códigos python, interfaces visuais [frontend], geração de documentação [Fora esse], preenchimento do template, calculos matematicos e  Alimentação do RAG) Ideia e lógica do projeto foi usado apenas para duvidas.
