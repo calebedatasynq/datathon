@@ -6,6 +6,7 @@ O motor de score usa a base preparada; a personalização usa estes dados mais f
 import csv
 from collections import defaultdict
 from functools import cache
+from pathlib import Path
 
 from pydantic import BaseModel
 
@@ -50,8 +51,8 @@ class Estabelecimento(BaseModel):
     bens: list[Bem]
 
 
-def _ler(arquivo: str) -> list[dict]:
-    with open(PASTA_BASE / arquivo, encoding="utf-8-sig", newline="") as f:
+def _ler(arquivo: str, pasta: Path = PASTA_BASE) -> list[dict]:
+    with open(pasta / arquivo, encoding="utf-8-sig", newline="") as f:
         return list(csv.DictReader(f))
 
 
@@ -60,15 +61,15 @@ def _num(valor: str | None) -> float:
 
 
 @cache
-def _indice() -> dict[str, Estabelecimento]:
-    empresas = {e["empresa_id"]: e for e in _ler("empresas.csv")}
-    sinais = {s["imovel_id"]: s for s in _ler("sinais_financeiros_operacionais.csv")}
-    enderecos = _ler("enderecos_estabelecimentos.csv")
+def _indice(pasta: Path = PASTA_BASE) -> dict[str, Estabelecimento]:
+    empresas = {e["empresa_id"]: e for e in _ler("empresas.csv", pasta)}
+    sinais = {s["imovel_id"]: s for s in _ler("sinais_financeiros_operacionais.csv", pasta)}
+    enderecos = _ler("enderecos_estabelecimentos.csv", pasta)
     por_empresa = defaultdict(int)
     for e in enderecos:
         por_empresa[e["empresa_id"]] += 1
     bens = defaultdict(list)
-    for b in _ler("bens_cadastrados.csv"):
+    for b in _ler("bens_cadastrados.csv", pasta):
         bens[b["imovel_id_referencia"]].append(
             Bem(
                 tipo=b["tipo_bem"],
@@ -109,6 +110,11 @@ def _indice() -> dict[str, Estabelecimento]:
             bens=bens[e["imovel_id"]],
         )
     return indice
+
+
+def estabelecimentos_da_base(pasta: Path) -> dict[str, Estabelecimento]:
+    """Lê qualquer uma das duas bases sem alterar o cadastro usado na conversa."""
+    return _indice(Path(pasta))
 
 
 def get_estabelecimento(imovel_id: str) -> Estabelecimento:
