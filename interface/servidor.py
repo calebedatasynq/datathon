@@ -63,6 +63,7 @@ SUGESTOES = [
     "Quero falar com o meu gerente.",
 ]
 
+RECURSOS = ["descoberta"]
 app = FastAPI(title="Agente Empresarial · BB Seguros")
 app.mount("/estatico", StaticFiles(directory=WEB), name="estatico")
 conversas: dict[str, Conversa | ConversaDescoberta] = {}
@@ -252,6 +253,9 @@ def saude():
         "decisor": "Jev (TypeSafe) com Claude Haiku de reserva" if config.chave_jev() else "Claude Haiku",
         "redator": config.MODELO_LLM,
         "busca": "híbrida" if rag.modo_efetivo() == "hibrido" else "BM25",
+        # A página confere isto: um servidor antigo serve a página nova (arquivos lidos do disco)
+        # sem as rotas novas, e a conversa do zero caía na conversa anterior.
+        "recursos": RECURSOS,
     }
 
 

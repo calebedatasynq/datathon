@@ -157,3 +157,19 @@ def test_resposta_que_nao_encaixa_repete_a_pergunta(arquivo_log):
     antes = conversa.turno("Farmácia")
     depois = conversa.turno("hoje está chovendo")
     assert depois.opcoes == antes.opcoes and "Não consegui encaixar" in depois.resposta
+
+
+def test_saudacao_nao_e_recusa_do_cnpj(arquivo_log):
+    class DecisorSaudacao(DecisorFixo):
+        def avaliar(self, contexto, questoes):
+            saida = super().avaliar(contexto, questoes)
+            if "q" in questoes and "saudacao" in getattr(questoes["q"], "opcoes", {}):
+                return {"q": RespostaDecisor(valor="saudacao", probabilidade=0.97)}
+            return saida
+
+    conversa = ConversaDescoberta(decisor=DecisorSaudacao(), redigir_fn=RedatorEspiao(), arquivo_log=arquivo_log)
+    estado = conversa.turno("ola")
+    assert estado.resposta.startswith("Olá!") and "CNPJ" in estado.resposta
+    assert estado.plano_personalizado is None and conversa.segmento is None
+    estado = conversa.turno("Prefiro não informar o CNPJ")
+    assert "Farmácia" in estado.opcoes  # segue para o ramo normalmente

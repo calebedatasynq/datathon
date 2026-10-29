@@ -25,6 +25,7 @@ const estado = {
   clausulas: {},
   ultimoTurno: null,
   modo: "cadastro", // "cadastro" (cliente da base) ou "descoberta" (conversa do zero)
+  recursos: [], // o que o servidor oferece (/api/saude); um servidor antigo não tem "descoberta"
   descoberta: null,
 };
 const SUGESTOES_DEPOIS = ["E se arrombarem a loja, cobre?", "Cobre ataque hacker?", "Achei caro.", "Quero falar com o meu gerente."];
@@ -386,17 +387,48 @@ function mostrarCliente(cliente, subtitulo) {
   document.querySelectorAll(".nav-item[data-cliente]").forEach((b) => b.setAttribute("aria-current", String(b.dataset.cliente === cliente.cliente_id)));
 }
 
+/* Antes de abrir outra conversa, a anterior deixa de existir na página: se a abertura falhar,
+   nada do que o usuário escrever pode cair na conversa antiga (com cadastro). */
+function encerrarConversaAtual(titulo) {
+  estado.sessao = null;
+  estado.cliente = null;
+  estado.descoberta = null;
+  estado.ultimoTurno = null;
+  estado.clausulas = {};
+  mensagens.replaceChildren();
+  $("#titulo").textContent = titulo;
+  $("#cliente-id").textContent = "";
+  $("#subtitulo").textContent = "";
+  $("#sugestoes").replaceChildren();
+  $("#detalhes-conteudo").replaceChildren();
+  bloquear(false);
+}
+
+function falhaAoAbrir(mensagem) {
+  $("#titulo").textContent = "Conversa não aberta";
+  $("#subtitulo").textContent = mensagem;
+  bloquear(false);
+}
+
 async function iniciarDescoberta() {
   if (estado.ocupado) return;
   estado.reproduzindo = false;
   definirModo(false);
   fecharMenu();
-  mensagens.replaceChildren();
-  estado.clausulas = {};
-  $("#titulo").textContent = "Abrindo conversa…";
-  const r = await fetch("/api/descobertas", { method: "POST" });
-  if (!r.ok) { $("#subtitulo").textContent = "Não foi possível abrir a conversa."; return; }
-  const dados = await r.json();
+  encerrarConversaAtual("Abrindo conversa…");
+  if (!estado.recursos.includes("descoberta")) {
+    falhaAoAbrir("Este servidor está desatualizado e não tem a conversa do zero. Reinicie com python app.py.");
+    return;
+  }
+  let dados;
+  try {
+    const r = await fetch("/api/descobertas", { method: "POST" });
+    if (!r.ok) throw new Error(`HTTP ${r.status}`);
+    dados = await r.json();
+  } catch (erro) {
+    falhaAoAbrir(`Não foi possível abrir a conversa do zero (${erro.message}). Se o servidor foi atualizado, reinicie com python app.py.`);
+    return;
+  }
   estado.sessao = dados.sessao_id;
   estado.descoberta = dados.descoberta;
   mostrarCliente(dados.cliente);
@@ -409,15 +441,18 @@ async function iniciarDescoberta() {
 async function abrirCliente(clienteId) {
   if (estado.ocupado) return;
   estado.reproduzindo = false;
-  estado.descoberta = null;
   definirModo(false);
   fecharMenu();
-  mensagens.replaceChildren();
-  estado.clausulas = {};
-  $("#titulo").textContent = "Abrindo cliente…";
-  const r = await fetch("/api/conversas", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ cliente_id: clienteId }) });
-  if (!r.ok) { $("#subtitulo").textContent = "Não foi possível abrir este cliente."; return; }
-  const dados = await r.json();
+  encerrarConversaAtual("Abrindo cliente…");
+  let dados;
+  try {
+    const r = await fetch("/api/conversas", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ cliente_id: clienteId }) });
+    if (!r.ok) throw new Error(`HTTP ${r.status}`);
+    dados = await r.json();
+  } catch (erro) {
+    falhaAoAbrir(`Não foi possível abrir este cliente (${erro.message}).`);
+    return;
+  }
   estado.sessao = dados.sessao_id;
   mostrarCliente(dados.cliente);
   bloquear(false);
@@ -426,8 +461,9 @@ async function abrirCliente(clienteId) {
 
 function bloquear(sim) {
   estado.ocupado = sim;
-  $("#enviar").disabled = sim || estado.reproduzindo;
-  $("#entrada").disabled = estado.reproduzindo;
+  const semConversa = !estado.sessao; // sem conversa aberta, não há para onde enviar
+  $("#enviar").disabled = sim || estado.reproduzindo || semConversa;
+  $("#entrada").disabled = estado.reproduzindo || semConversa;
   document.querySelectorAll(".sugestao").forEach((b) => { b.disabled = sim || estado.reproduzindo; });
 }
 
@@ -605,6 +641,10 @@ async function iniciar() {
   if (saude) {
     $("#saude-texto").textContent = `${saude.decisor} · busca ${saude.busca}`;
     $("#saude").querySelector(".saude-linha").classList.add("ok");
+    estado.recursos = saude.recursos ?? [];
+  }
+  if (!estado.recursos.includes("descoberta")) {
+    $("#nova-descoberta .nav-sub").textContent = "Reinicie o servidor para usar";
   }
   const fronteira = clientes.personas.find((p) => p.tem_pergunta) ?? clientes.personas[0];
   abrirCliente(fronteira.cliente_id);

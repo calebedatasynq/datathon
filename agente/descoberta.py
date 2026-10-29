@@ -466,17 +466,25 @@ class ConversaDescoberta:
             pergunta_texto, opcoes = PERGUNTA_ATIVIDADE, [ROTULO_SEGMENTO[s] for s in SEGMENTOS_DA_BASE]
         elif self.etapa == "cnpj":
             pergunta_texto, opcoes = "Pode digitar o CNPJ? Só os números já servem.", ["Prefiro não informar o CNPJ"]
+        elif self.etapa == "cnpj_de_novo":
+            pergunta_texto = (
+                "Quer me informar o CNPJ? Com ele a recomendação fica mais certeira e mais personalizada. "
+                "Se preferir, é só me contar o que a sua empresa faz."
+            )
+            opcoes = ["Prefiro não informar o CNPJ"]
         else:
             pergunta_texto, opcoes = self.pergunta.texto, [o.rotulo for o in self.pergunta.opcoes] + [NAO_SABE]
         resposta = f"{aviso} {pergunta_texto}".strip()
-        _, _, provisorio = cliente_virtual(self.cliente_id, self.segmento, self.respostas)
-        avisar(
-            "plano",
-            "Plano provisório atualizado",
-            f"pacote {provisorio.plano_base} · {sum(c.origem != 'opcional' for c in provisorio.coberturas)} coberturas "
-            "(o que ainda não perguntei usa a mediana do ramo)",
-            "feito",
-        )
+        provisorio = None
+        if self.segmento:  # sem o ramo, um plano seria só média geral: melhor não mostrar nenhum
+            _, _, provisorio = cliente_virtual(self.cliente_id, self.segmento, self.respostas)
+            avisar(
+                "plano",
+                "Plano provisório atualizado",
+                f"pacote {provisorio.plano_base} · {sum(c.origem != 'opcional' for c in provisorio.coberturas)} coberturas "
+                "(o que ainda não perguntei usa a mediana do ramo)",
+                "feito",
+            )
         estado = EstadoTurno(
             cliente_id=self.cliente_id,
             mensagem=mensagem,
@@ -491,6 +499,8 @@ class ConversaDescoberta:
 
     def _interpretar(self, mensagem: str, avisar) -> tuple[str, bool]:
         """Lê a resposta da etapa atual e avança. Devolve (frase de reconhecimento, recomendar já?)."""
+        if self.etapa == "cnpj_de_novo":
+            self.etapa = "cnpj"
         if self.etapa == "cnpj":
             cnpj = _cnpj_no_texto(mensagem)
             if cnpj:
@@ -527,6 +537,7 @@ class ConversaDescoberta:
                     "nao_quer": "prefere não informar o CNPJ",
                     "descreve": "descreve o ramo ou o que a empresa faz",
                     "vai_informar": "aceita informar o CNPJ, mas ainda não passou o número",
+                    "saudacao": "cumprimenta ou puxa conversa, sem responder sobre o CNPJ",
                     "outro": "outra coisa",
                 },
             )
@@ -535,6 +546,10 @@ class ConversaDescoberta:
                 return "Ótimo.", False
             if r.valor == "descreve":
                 return self._definir_atividade(mensagem, avisar)
+            if r.valor in ("saudacao", "outro") or r.probabilidade < config.LIMIAR_CONFIANCA:
+                # Um "olá" não é uma recusa: cumprimenta e repete o convite do CNPJ.
+                self.etapa = "cnpj_de_novo"
+                return "Olá!", False
             self.etapa = "atividade"
             return "Sem problema, seguimos sem o CNPJ.", False
 
