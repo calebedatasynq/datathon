@@ -1,0 +1,37 @@
+{
+  "estabelecimentos": 2978,
+  "empresas": 2500,
+  "linhas_coberturas": 16470,
+  "planos_condicionais": {
+    "PRATICO": 684,
+    "SEM_PLANO": 753,
+    "TOTAL": 510,
+    "ESSENCIAL": 1031
+  },
+  "elegibilidade": {
+    "PENDENTE_VALIDACAO": 2978
+  },
+  "status": {
+    "PLANO_CONDICIONAL": 2225,
+    "OFERTA_SUSPENSA": 753
+  },
+  "faixas_numericas": 10335,
+  "faixas_ausentes_justificadas": 6135,
+  "coberturas_sem_faixa": {
+    "PERDA_PAGAMENTO_ALUGUEL": 811,
+    "RESPONSABILIDADE_CIVIL_ESTABELECIMENTO": 2225,
+    "DETERIORACAO_MERCADORIAS_FRIGORIFICADAS": 665,
+    "RESPONSABILIDADE_CIVIL_EMPREGADOR": 510,
+    "QUEBRA_DE_VIDROS": 510,
+    "DELIVERY": 1129,
+    "DANOS_ELETRICOS": 254,
+    "INCENDIO_RAIO_EXPLOSAO_FUMACA": 13,
+    "ROUBO_FURTO_ARROMBAMENTO": 9,
+    "VENDAVAL_EVENTOS_CORRELATOS": 9
+  },
+  "adicionais_candidatas": {
+    "DETERIORACAO_MERCADORIAS_FRIGORIFICADAS": 665,
+    "DELIVERY": 1129,
+    "LETREIROS_ANUNCIOS_LUMINOSOS": 143
+  }
+}

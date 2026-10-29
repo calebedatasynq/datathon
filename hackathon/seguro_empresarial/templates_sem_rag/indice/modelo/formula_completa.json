@@ -1,0 +1,135 @@
+{
+  "versao": "ordinal_mock_v2",
+  "formula": "z=sum(beta_j*x_j); score=sigmoid(z); x é a transformação descrita abaixo",
+  "colunas_numericas": [
+    "funcionarios_estimados_empresa",
+    "estoque_medio_estimado",
+    "valor_bens_ponderado_estabelecimento",
+    "faturamento_mensal_empresa",
+    "quantidade_estabelecimentos_empresa",
+    "area_m2"
+  ],
+  "medianas_imputacao": [
+    6.0,
+    25700.0,
+    131575.0,
+    191750.0,
+    1.0,
+    400.0
+  ],
+  "indices_indicadores_ausencia": [
+    5
+  ],
+  "transformacao_numerica": "Imputar; anexar indicadores de ausência; log1p de todas estas colunas; (valor-media)/desvio",
+  "medias_apos_log1p": [
+    2.0901357727829817,
+    10.102767825413773,
+    11.774504398967503,
+    12.200984922915827,
+    0.8233099217793559,
+    5.9186553349555,
+    0.4278054123133577
+  ],
+  "desvios_apos_log1p": [
+    0.9046646004797476,
+    1.7594636346908492,
+    1.3528137825976112,
+    1.1035235118284972,
+    0.18929899824994345,
+    0.44410455153831396,
+    0.33691934430763515
+  ],
+  "colunas_categoricas": [
+    "grupo_atividade",
+    "tipo_unidade"
+  ],
+  "categorias": [
+    [
+      "BELEZA",
+      "CLINICA",
+      "ELETRONICOS",
+      "ESCOLA_CURSO",
+      "ESCRITORIO",
+      "FARMACIA",
+      "MERCADO",
+      "OFICINA",
+      "RESTAURANTE",
+      "VAREJO_MODA"
+    ],
+    [
+      "FILIAL",
+      "MATRIZ"
+    ]
+  ],
+  "categoria_base": [
+    "BELEZA",
+    "FILIAL"
+  ],
+  "transformacao_categorica": "One-hot, excluindo a primeira categoria; categorias novas viram vetor zero e exigem aviso",
+  "ordem": "numéricas e indicadores primeiro, categorias depois; aplicar máscara antes de beta",
+  "mascara_colunas": [
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true
+  ],
+  "termos": [
+    "num__funcionarios_estimados_empresa",
+    "num__estoque_medio_estimado",
+    "num__valor_bens_ponderado_estabelecimento",
+    "num__faturamento_mensal_empresa",
+    "num__quantidade_estabelecimentos_empresa",
+    "num__area_m2",
+    "num__missingindicator_area_m2",
+    "cat__grupo_atividade_CLINICA",
+    "cat__grupo_atividade_ELETRONICOS",
+    "cat__grupo_atividade_ESCOLA_CURSO",
+    "cat__grupo_atividade_ESCRITORIO",
+    "cat__grupo_atividade_FARMACIA",
+    "cat__grupo_atividade_MERCADO",
+    "cat__grupo_atividade_OFICINA",
+    "cat__grupo_atividade_RESTAURANTE",
+    "cat__grupo_atividade_VAREJO_MODA",
+    "cat__tipo_unidade_MATRIZ"
+  ],
+  "pesos": [
+    2.8903234921401584,
+    1.3029319682279525,
+    1.0189843626052268,
+    0.10001187631428225,
+    -0.13733839417932678,
+    0.05961825317050732,
+    0.00336119500914922,
+    0.243811155945854,
+    0.20616035332645907,
+    0.20175539476993484,
+    0.06767368796311103,
+    0.5841328447175022,
+    0.29433235995055723,
+    0.03631587276828045,
+    -0.16212070837654852,
+    0.5884157477650913,
+    0.2278883935641916
+  ],
+  "limiares_z": [
+    -0.9240803156427144,
+    4.563579387879097
+  ],
+  "cortes": [
+    0.2841272318707447,
+    0.9896828745948337
+  ]
+}

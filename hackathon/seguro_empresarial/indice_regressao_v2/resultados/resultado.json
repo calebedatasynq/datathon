@@ -1,0 +1,31 @@
+{
+  "versao": "ordinal_mock_v2",
+  "selecionado": "8_variaveis",
+  "n_variaveis": 8,
+  "variaveis": [
+    "funcionarios_estimados_empresa",
+    "estoque_medio_estimado",
+    "valor_bens_ponderado_estabelecimento",
+    "faturamento_mensal_empresa",
+    "quantidade_estabelecimentos_empresa",
+    "grupo_atividade",
+    "tipo_unidade",
+    "area_m2"
+  ],
+  "alpha": 1.0,
+  "cortes": [
+    0.2841272318707447,
+    0.9896828745948337
+  ],
+  "treino": 2978,
+  "teste": 144,
+  "metricas_teste": {
+    "log_loss": 0.3914672571320163,
+    "log_loss_nulo": 1.0625909773117717,
+    "indice_1_menos_LL_LL0": 0.6315917737958008,
+    "acuracia": 0.7916666666666666,
+    "macro_f1": 0.7695221445221446
+  },
+  "bootstrap_validos": 100,
+  "limite": "Concordância com referências construídas; teste já consultado na v1. Pseudo-R2 não é porcentagem de variância explicada."
+}

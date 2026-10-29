@@ -1,0 +1,30 @@
+[
+  {
+    "base": "desenvolvimento",
+    "arquivo": "template_resultado_times.csv",
+    "linhas": 2978,
+    "colunas": 12,
+    "valores_preservados": true
+  },
+  {
+    "base": "desenvolvimento",
+    "arquivo": "template_coberturas_times.csv",
+    "linhas": 16470,
+    "colunas": 11,
+    "valores_preservados": true
+  },
+  {
+    "base": "teste_comum",
+    "arquivo": "template_resultado_times.csv",
+    "linhas": 144,
+    "colunas": 12,
+    "valores_preservados": true
+  },
+  {
+    "base": "teste_comum",
+    "arquivo": "template_coberturas_times.csv",
+    "linhas": 776,
+    "colunas": 11,
+    "valores_preservados": true
+  }
+]

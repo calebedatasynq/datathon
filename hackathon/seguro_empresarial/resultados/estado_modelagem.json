@@ -1,0 +1,9 @@
+{
+  "treinado": false,
+  "motivo": "As três categorias existem, mas nenhum estabelecimento está associado a um plano de referência.",
+  "n_rotulos": 0,
+  "n_categorias_previstas": 3,
+  "acuracia": null,
+  "coeficientes": null,
+  "limites_score": null
+}

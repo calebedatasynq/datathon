@@ -1,0 +1,11 @@
+{
+  "metricas_medias": {
+    "acuracia": 0.9157130829787002,
+    "acuracia_balanceada": 0.9197622846951705,
+    "macro_f1": 0.9214775972772964,
+    "log_loss": 0.21325336542648396,
+    "erro_ordinal": 0.08428691702129965,
+    "brier_multiclasse": 0.12757680355908715
+  },
+  "observacao": "Comparador flexível; não é teste formal de chances proporcionais. Não substitui automaticamente o índice ordinal."
+}

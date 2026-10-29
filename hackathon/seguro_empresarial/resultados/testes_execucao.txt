@@ -1,0 +1,31 @@
+test_01_contagens_desenvolvimento (__main__.Integridade.test_01_contagens_desenvolvimento) ... ok
+test_02_contagens_comum (__main__.Integridade.test_02_contagens_comum) ... ok
+test_03_chaves_sem_duplicacao (__main__.Integridade.test_03_chaves_sem_duplicacao) ... ok
+test_04_faturamento_sem_rateio (__main__.Integridade.test_04_faturamento_sem_rateio) ... ok
+test_05_funcionarios_sem_rateio (__main__.Integridade.test_05_funcionarios_sem_rateio) ... ok
+test_06_quantidade_unidades (__main__.Integridade.test_06_quantidade_unidades) ... ok
+test_07_estoque_por_estabelecimento (__main__.Integridade.test_07_estoque_por_estabelecimento) ... ok
+test_08_soma_bens_por_estabelecimento (__main__.Integridade.test_08_soma_bens_por_estabelecimento) ... ok
+test_09_contagem_bens (__main__.Integridade.test_09_contagem_bens) ... ok
+test_10_area_indisponivel (__main__.Integridade.test_10_area_indisponivel) ... ok
+test_11_flags_fieis_ao_cadastro (__main__.Integridade.test_11_flags_fieis_ao_cadastro) ... ok
+test_12_classes_catalogo (__main__.Integridade.test_12_classes_catalogo) ... ok
+test_13_planos_referencia_ausentes (__main__.Integridade.test_13_planos_referencia_ausentes) ... ok
+test_14_treinamento_sem_rotulos_bloqueado (__main__.Integridade.test_14_treinamento_sem_rotulos_bloqueado) ... ok
+test_15_rotulo_invalido_rejeitado (__main__.Integridade.test_15_rotulo_invalido_rejeitado) ... ok
+test_16_rotulo_sem_procedencia_rejeitado (__main__.Integridade.test_16_rotulo_sem_procedencia_rejeitado) ... ok
+test_17_rotulo_duplicado_rejeitado (__main__.Integridade.test_17_rotulo_duplicado_rejeitado) ... ok
+test_18_rotulo_imovel_inexistente_rejeitado (__main__.Integridade.test_18_rotulo_imovel_inexistente_rejeitado) ... ok
+test_19_grupos_treino_avaliacao (__main__.Integridade.test_19_grupos_treino_avaliacao) ... ok
+test_20_casos_cobrem_todas_atividades (__main__.Integridade.test_20_casos_cobrem_todas_atividades) ... ok
+test_21_casos_valores_conferidos (__main__.Integridade.test_21_casos_valores_conferidos) ... ok
+test_22_maturidade_duplicada (__main__.Integridade.test_22_maturidade_duplicada) ... ok
+test_23_estoques_nao_sao_identicos (__main__.Integridade.test_23_estoques_nao_sao_identicos) ... ok
+test_24_sem_id_ou_alvo_nos_preditores (__main__.Integridade.test_24_sem_id_ou_alvo_nos_preditores) ... ok
+test_25_hashes_fontes (__main__.Integridade.test_25_hashes_fontes) ... ok
+test_26_sem_resultado_preditivo_inventado (__main__.Integridade.test_26_sem_resultado_preditivo_inventado) ... ok
+
+----------------------------------------------------------------------
+Ran 26 tests in 0.135s
+
+OK

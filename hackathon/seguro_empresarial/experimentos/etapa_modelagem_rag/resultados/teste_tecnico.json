@@ -1,0 +1,82 @@
+{
+  "natureza": "TESTE TECNICO EM SIMULACAO; NAO USAR PARA CLIENTES",
+  "semente": 20261028,
+  "treino_simulado": 1800,
+  "teste_simulado": 600,
+  "rotulos_revisados_disponiveis": 0,
+  "log_loss_baseline_simulado": 1.0923028139651274,
+  "resultados": [
+    {
+      "cenario": "dois_sinais",
+      "log_loss": 0.9204284176258003,
+      "macro_f1": 0.528325249570149,
+      "acuracia_balanceada": 0.5253185526727713,
+      "erro_ordinal_medio": 0.53,
+      "cortes_apenas_simulacao": [
+        0.32698271696041936,
+        0.7035635708961395
+      ],
+      "convergiu": true
+    },
+    {
+      "cenario": "um_sinal",
+      "log_loss": 0.9779316941499003,
+      "macro_f1": 0.48800338233869933,
+      "acuracia_balanceada": 0.49136362269719963,
+      "erro_ordinal_medio": 0.5833333333333334,
+      "cortes_apenas_simulacao": [
+        0.3462492935408775,
+        0.6888820433505747
+      ],
+      "convergiu": true
+    },
+    {
+      "cenario": "somente_ruido",
+      "log_loss": 1.0924016359831068,
+      "macro_f1": 0.14920224234583873,
+      "acuracia_balanceada": 0.3333333333333333,
+      "erro_ordinal_medio": 0.7116666666666667,
+      "cortes_apenas_simulacao": [
+        0.3794383717276279,
+        0.6688817917111749
+      ],
+      "convergiu": true
+    }
+  ],
+  "exemplos_simulados": [
+    {
+      "id_simulado": "SIMULACAO_2045",
+      "referencia_artificial": "ESSENCIAL",
+      "predicao": "ESSENCIAL",
+      "score_simulado": 0.22016011097294813,
+      "probabilidades": {
+        "ESSENCIAL": 0.6324797710343985,
+        "PRATICO": 0.2612158732590991,
+        "TOTAL": 0.10630435570650243
+      }
+    },
+    {
+      "id_simulado": "SIMULACAO_1134",
+      "referencia_artificial": "PRATICO",
+      "predicao": "ESSENCIAL",
+      "score_simulado": 0.22807905271513784,
+      "probabilidades": {
+        "ESSENCIAL": 0.6218307634005796,
+        "PRATICO": 0.2674598349051316,
+        "TOTAL": 0.11070940169428878
+      }
+    },
+    {
+      "id_simulado": "SIMULACAO_1218",
+      "referencia_artificial": "TOTAL",
+      "predicao": "PRATICO",
+      "score_simulado": 0.6715099185581322,
+      "probabilidades": {
+        "ESSENCIAL": 0.1920280579298912,
+        "PRATICO": 0.34522858460425465,
+        "TOTAL": 0.46274335746585415
+      }
+    }
+  ],
+  "limite": "Nenhuma evidencia de adequacao dos planos ou significancia das variaveis empresariais."
+}

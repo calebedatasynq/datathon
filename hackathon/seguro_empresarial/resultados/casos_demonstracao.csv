@@ -1,0 +1,24 @@
+﻿empresa_id,imovel_id,grupo_atividade,tipo_unidade,faturamento_mensal_empresa,funcionarios_estimados_empresa,quantidade_estabelecimentos_empresa,area_m2,area_ausente,estoque_medio_estimado,valor_bens_ponderado_estabelecimento,origem_faturamento,proporcao_bens_baixa_confianca,situacao_imovel_cadastral,endereco_cnpj_compativel,caso,casos_disponiveis,plano_de_referencia,resultado
+EMP_00027,IMO_EMP_00027_01,BELEZA,MATRIZ,120450,6,1,,1,62100,92100,INFORMADO,0.5,EM_OBRA,SIM,atividade_BELEZA,297,SEM ROTULO,Conferido com fontes; recomendação de plano pendente
+EMP_00010,IMO_EMP_00010_01,CLINICA,MATRIZ,190950,4,1,,1,32650,144350,INFORMADO,0.3333333333333333,EM_OBRA,SIM,atividade_CLINICA,322,SEM ROTULO,Conferido com fontes; recomendação de plano pendente
+EMP_00015,IMO_EMP_00015_01,ELETRONICOS,MATRIZ,40600,2,2,,1,3300,53850,INFORMADO,0.0,REGULAR,SIM,atividade_ELETRONICOS,289,SEM ROTULO,Conferido com fontes; recomendação de plano pendente
+EMP_00005,IMO_EMP_00005_01,ESCOLA_CURSO,MATRIZ,138700,3,1,355.0,0,72750,95100,PRESUMIDO_COM_BASE_EM_GASTOS,0.0,REGULAR,SIM,atividade_ESCOLA_CURSO,274,SEM ROTULO,Conferido com fontes; recomendação de plano pendente
+EMP_00032,IMO_EMP_00032_01,ESCRITORIO,MATRIZ,85500,4,1,,1,2250,17950,PRESUMIDO_COM_BASE_EM_GASTOS,1.0,REGULAR,NAO,atividade_ESCRITORIO,300,SEM ROTULO,Conferido com fontes; recomendação de plano pendente
+EMP_00001,IMO_EMP_00001_01,FARMACIA,MATRIZ,388500,11,2,,1,125900,318000,INFORMADO,0.0,REGULAR,SIM,atividade_FARMACIA,305,SEM ROTULO,Conferido com fontes; recomendação de plano pendente
+EMP_00002,IMO_EMP_00002_01,MERCADO,MATRIZ,986150,26,2,395.0,0,138950,1525050,PRESUMIDO_COM_BASE_EM_GASTOS,0.5,REGULAR,NAO,atividade_MERCADO,304,SEM ROTULO,Conferido com fontes; recomendação de plano pendente
+EMP_00008,IMO_EMP_00008_01,OFICINA,MATRIZ,289850,15,2,175.0,0,15400,237200,INFORMADO,0.0,REGULAR,SIM,atividade_OFICINA,309,SEM ROTULO,Conferido com fontes; recomendação de plano pendente
+EMP_00072,IMO_EMP_00072_01,RESTAURANTE,MATRIZ,269000,11,2,,1,131200,77850,INFORMADO,0.3333333333333333,REGULAR,SIM,atividade_RESTAURANTE,304,SEM ROTULO,Conferido com fontes; recomendação de plano pendente
+EMP_00009,IMO_EMP_00009_01,VAREJO_MODA,MATRIZ,36000,2,1,,1,24300,41150,INFORMADO,0.6,EM_OBRA,SIM,atividade_VAREJO_MODA,274,SEM ROTULO,Conferido com fontes; recomendação de plano pendente
+EMP_00001,IMO_EMP_00001_02,FARMACIA,FILIAL,388500,11,2,250.0,0,63000,413750,INFORMADO,0.0,REGULAR,SIM,area_disponivel,1140,SEM ROTULO,Conferido com fontes; recomendação de plano pendente
+EMP_00001,IMO_EMP_00001_01,FARMACIA,MATRIZ,388500,11,2,,1,125900,318000,INFORMADO,0.0,REGULAR,SIM,area_indisponivel,1838,SEM ROTULO,Conferido com fontes; recomendação de plano pendente
+EMP_00003,IMO_EMP_00003_01,FARMACIA,MATRIZ,1034900,36,1,,1,355000,511850,PRESUMIDO_COM_BASE_EM_GASTOS,0.5,REGULAR,NAO,empresa_unica_unidade,2022,SEM ROTULO,Conferido com fontes; recomendação de plano pendente
+EMP_00001,IMO_EMP_00001_01,FARMACIA,MATRIZ,388500,11,2,,1,125900,318000,INFORMADO,0.0,REGULAR,SIM,empresa_varias_unidades,956,SEM ROTULO,Conferido com fontes; recomendação de plano pendente
+EMP_00001,IMO_EMP_00001_01,FARMACIA,MATRIZ,388500,11,2,,1,125900,318000,INFORMADO,0.0,REGULAR,SIM,matriz,2500,SEM ROTULO,Conferido com fontes; recomendação de plano pendente
+EMP_00001,IMO_EMP_00001_02,FARMACIA,FILIAL,388500,11,2,250.0,0,63000,413750,INFORMADO,0.0,REGULAR,SIM,filial,478,SEM ROTULO,Conferido com fontes; recomendação de plano pendente
+EMP_00001,IMO_EMP_00001_01,FARMACIA,MATRIZ,388500,11,2,,1,125900,318000,INFORMADO,0.0,REGULAR,SIM,faturamento_informado,1464,SEM ROTULO,Conferido com fontes; recomendação de plano pendente
+EMP_00002,IMO_EMP_00002_01,MERCADO,MATRIZ,986150,26,2,395.0,0,138950,1525050,PRESUMIDO_COM_BASE_EM_GASTOS,0.5,REGULAR,NAO,faturamento_presumido,1514,SEM ROTULO,Conferido com fontes; recomendação de plano pendente
+EMP_00002,IMO_EMP_00002_01,MERCADO,MATRIZ,986150,26,2,395.0,0,138950,1525050,PRESUMIDO_COM_BASE_EM_GASTOS,0.5,REGULAR,NAO,algum_bem_baixa_confianca,1827,SEM ROTULO,Conferido com fontes; recomendação de plano pendente
+EMP_00001,IMO_EMP_00001_01,FARMACIA,MATRIZ,388500,11,2,,1,125900,318000,INFORMADO,0.0,REGULAR,SIM,nenhum_bem_baixa_confianca,1151,SEM ROTULO,Conferido com fontes; recomendação de plano pendente
+EMP_00009,IMO_EMP_00009_01,VAREJO_MODA,MATRIZ,36000,2,1,,1,24300,41150,INFORMADO,0.6,EM_OBRA,SIM,imovel_em_obra,78,SEM ROTULO,Conferido com fontes; recomendação de plano pendente
+EMP_00036,IMO_EMP_00036_02,MERCADO,FILIAL,208150,11,2,545.0,0,135600,318650,PRESUMIDO_COM_BASE_EM_GASTOS,0.0,IRREGULAR,NAO,imovel_irregular,52,SEM ROTULO,Conferido com fontes; recomendação de plano pendente
+EMP_00002,IMO_EMP_00002_01,MERCADO,MATRIZ,986150,26,2,395.0,0,138950,1525050,PRESUMIDO_COM_BASE_EM_GASTOS,0.5,REGULAR,NAO,endereco_incompativel,656,SEM ROTULO,Conferido com fontes; recomendação de plano pendente

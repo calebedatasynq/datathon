@@ -1,0 +1,19 @@
+{
+  "total": 150,
+  "desenvolvimento": 100,
+  "avaliacao": 50,
+  "empresas_unicas": 150,
+  "rotulos_criados": 0,
+  "por_atividade": {
+    "BELEZA": 15,
+    "CLINICA": 15,
+    "ELETRONICOS": 15,
+    "ESCOLA_CURSO": 15,
+    "ESCRITORIO": 15,
+    "FARMACIA": 15,
+    "MERCADO": 15,
+    "OFICINA": 15,
+    "RESTAURANTE": 15,
+    "VAREJO_MODA": 15
+  }
+}

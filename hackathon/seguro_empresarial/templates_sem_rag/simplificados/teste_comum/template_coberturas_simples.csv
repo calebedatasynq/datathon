@@ -1,0 +1,777 @@
+﻿Empresa,Estabelecimento,Cobertura,Tipo,Mínimo (R$),Máximo (R$),Situação,Confirmar
+CASO_00001,IMO_CASO_00001_01,"Incêndio, raio, explosão e fumaça",Fixa do plano,661250,948500,Faixa preliminar,"Inventário, reposição e interesse em prédio/conteúdo."
+CASO_00001,IMO_CASO_00001_01,Danos elétricos,Fixa do plano,,,Faltam dados,Equipamentos locais e valores de reposição.
+CASO_00001,IMO_CASO_00001_01,Aluguel,Fixa do plano,38100,76200,Faixa preliminar,"Contrato, aluguel e prazo de recuperação."
+CASO_00001,IMO_CASO_00001_01,RC estabelecimento,Fixa do plano,,,Faltam dados,"Atividade, terceiros e limite necessário."
+CASO_00001,IMO_CASO_00001_01,Despesas fixas,Fixa do plano,1042500,2085000,Faixa preliminar,Despesas que continuam na paralisação e prazo.
+CASO_00001,IMO_CASO_00001_01,Roubo/furto com arrombamento,Fixa do plano,661250,948500,Faixa preliminar,Bens locais e valores de reposição.
+CASO_00001,IMO_CASO_00001_01,Vendaval e correlatos,Fixa do plano,661250,948500,Faixa preliminar,Conteúdo exposto e necessidade de proteger o prédio.
+CASO_00001,IMO_CASO_00001_01,RC empregador,Fixa do plano,,,Faltam dados,Empregados locais e limite necessário.
+CASO_00001,IMO_CASO_00001_01,Vidros,Fixa do plano,,,Faltam dados,"Itens, medidas e custo de reposição."
+CASO_00001,IMO_CASO_00001_01,Delivery,Adicional a confirmar,,,Faltam dados,Operação local e valores por envio.
+CASO_00001,IMO_CASO_00001_01,Mercadorias refrigeradas,Adicional a confirmar,,,Faltam dados,Mercadorias refrigeradas e valor máximo armazenado.
+CASO_00003,IMO_CASO_00003_01,"Incêndio, raio, explosão e fumaça",Fixa do plano,251650,373600,Faixa preliminar,"Inventário, reposição e interesse em prédio/conteúdo."
+CASO_00003,IMO_CASO_00003_01,Danos elétricos,Fixa do plano,69450,105250,Faixa preliminar,Equipamentos locais e valores de reposição.
+CASO_00003,IMO_CASO_00003_01,Aluguel,Fixa do plano,71100,142200,Faixa preliminar,"Contrato, aluguel e prazo de recuperação."
+CASO_00003,IMO_CASO_00003_01,RC estabelecimento,Fixa do plano,,,Faltam dados,"Atividade, terceiros e limite necessário."
+CASO_00003,IMO_CASO_00003_01,Despesas fixas,Fixa do plano,541350,1082700,Faixa preliminar,Despesas que continuam na paralisação e prazo.
+CASO_00003,IMO_CASO_00003_01,Roubo/furto com arrombamento,Fixa do plano,251650,373600,Faixa preliminar,Bens locais e valores de reposição.
+CASO_00003,IMO_CASO_00003_01,Vendaval e correlatos,Fixa do plano,251650,373600,Faixa preliminar,Conteúdo exposto e necessidade de proteger o prédio.
+CASO_00005,IMO_CASO_00005_01,"Incêndio, raio, explosão e fumaça",Fixa do plano,899250,1192550,Faixa preliminar,"Inventário, reposição e interesse em prédio/conteúdo."
+CASO_00005,IMO_CASO_00005_01,Danos elétricos,Fixa do plano,269400,388450,Faixa preliminar,Equipamentos locais e valores de reposição.
+CASO_00005,IMO_CASO_00005_01,Aluguel,Fixa do plano,78900,157800,Faixa preliminar,"Contrato, aluguel e prazo de recuperação."
+CASO_00005,IMO_CASO_00005_01,RC estabelecimento,Fixa do plano,,,Faltam dados,"Atividade, terceiros e limite necessário."
+CASO_00005,IMO_CASO_00005_01,Despesas fixas,Fixa do plano,380850,761700,Faixa preliminar,Despesas que continuam na paralisação e prazo.
+CASO_00005,IMO_CASO_00005_01,Roubo/furto com arrombamento,Fixa do plano,899250,1192550,Faixa preliminar,Bens locais e valores de reposição.
+CASO_00005,IMO_CASO_00005_01,Vendaval e correlatos,Fixa do plano,899250,1192550,Faixa preliminar,Conteúdo exposto e necessidade de proteger o prédio.
+CASO_00005,IMO_CASO_00005_01,RC empregador,Fixa do plano,,,Faltam dados,Empregados locais e limite necessário.
+CASO_00005,IMO_CASO_00005_01,Vidros,Fixa do plano,,,Faltam dados,"Itens, medidas e custo de reposição."
+CASO_00005,IMO_CASO_00005_01,Delivery,Adicional a confirmar,,,Faltam dados,Operação local e valores por envio.
+CASO_00005,IMO_CASO_00005_01,Mercadorias refrigeradas,Adicional a confirmar,,,Faltam dados,Mercadorias refrigeradas e valor máximo armazenado.
+CASO_00006,IMO_CASO_00006_02,"Incêndio, raio, explosão e fumaça",Fixa do plano,40650,55750,Faixa preliminar,"Inventário, reposição e interesse em prédio/conteúdo."
+CASO_00006,IMO_CASO_00006_02,Danos elétricos,Fixa do plano,21850,32600,Faixa preliminar,Equipamentos locais e valores de reposição.
+CASO_00006,IMO_CASO_00006_02,Aluguel,Fixa do plano,,,Faltam dados,"Contrato, aluguel e prazo de recuperação."
+CASO_00006,IMO_CASO_00006_02,RC estabelecimento,Fixa do plano,,,Faltam dados,"Atividade, terceiros e limite necessário."
+CASO_00006,IMO_CASO_00006_02,Despesas fixas,Fixa do plano,45900,91800,Faixa preliminar,Despesas que continuam na paralisação e prazo.
+CASO_00006,IMO_CASO_00006_02,Delivery,Adicional a confirmar,,,Faltam dados,Operação local e valores por envio.
+CASO_00006,IMO_CASO_00006_02,Mercadorias refrigeradas,Adicional a confirmar,,,Faltam dados,Mercadorias refrigeradas e valor máximo armazenado.
+CASO_00008,IMO_CASO_00008_01,"Incêndio, raio, explosão e fumaça",Fixa do plano,934900,1116400,Faixa preliminar,"Inventário, reposição e interesse em prédio/conteúdo."
+CASO_00008,IMO_CASO_00008_01,Danos elétricos,Fixa do plano,183600,241600,Faixa preliminar,Equipamentos locais e valores de reposição.
+CASO_00008,IMO_CASO_00008_01,Aluguel,Fixa do plano,159600,319200,Faixa preliminar,"Contrato, aluguel e prazo de recuperação."
+CASO_00008,IMO_CASO_00008_01,RC estabelecimento,Fixa do plano,,,Faltam dados,"Atividade, terceiros e limite necessário."
+CASO_00008,IMO_CASO_00008_01,Despesas fixas,Fixa do plano,921150,1842300,Faixa preliminar,Despesas que continuam na paralisação e prazo.
+CASO_00008,IMO_CASO_00008_01,Roubo/furto com arrombamento,Fixa do plano,934900,1116400,Faixa preliminar,Bens locais e valores de reposição.
+CASO_00008,IMO_CASO_00008_01,Vendaval e correlatos,Fixa do plano,934900,1116400,Faixa preliminar,Conteúdo exposto e necessidade de proteger o prédio.
+CASO_00008,IMO_CASO_00008_01,RC empregador,Fixa do plano,,,Faltam dados,Empregados locais e limite necessário.
+CASO_00008,IMO_CASO_00008_01,Vidros,Fixa do plano,,,Faltam dados,"Itens, medidas e custo de reposição."
+CASO_00008,IMO_CASO_00008_01,Mercadorias refrigeradas,Adicional a confirmar,,,Faltam dados,Mercadorias refrigeradas e valor máximo armazenado.
+CASO_00010,IMO_CASO_00010_01,"Incêndio, raio, explosão e fumaça",Fixa do plano,215200,297700,Faixa preliminar,"Inventário, reposição e interesse em prédio/conteúdo."
+CASO_00010,IMO_CASO_00010_01,Danos elétricos,Fixa do plano,6650,10100,Faixa preliminar,Equipamentos locais e valores de reposição.
+CASO_00010,IMO_CASO_00010_01,Aluguel,Fixa do plano,62100,124200,Faixa preliminar,"Contrato, aluguel e prazo de recuperação."
+CASO_00010,IMO_CASO_00010_01,RC estabelecimento,Fixa do plano,,,Faltam dados,"Atividade, terceiros e limite necessário."
+CASO_00010,IMO_CASO_00010_01,Despesas fixas,Fixa do plano,84750,169500,Faixa preliminar,Despesas que continuam na paralisação e prazo.
+CASO_00010,IMO_CASO_00010_01,Delivery,Adicional a confirmar,,,Faltam dados,Operação local e valores por envio.
+CASO_00010,IMO_CASO_00010_01,Mercadorias refrigeradas,Adicional a confirmar,,,Faltam dados,Mercadorias refrigeradas e valor máximo armazenado.
+CASO_00012,IMO_CASO_00012_02,"Incêndio, raio, explosão e fumaça",Fixa do plano,285400,503700,Faixa preliminar,"Inventário, reposição e interesse em prédio/conteúdo."
+CASO_00012,IMO_CASO_00012_02,Danos elétricos,Fixa do plano,223150,425100,Faixa preliminar,Equipamentos locais e valores de reposição.
+CASO_00012,IMO_CASO_00012_02,Aluguel,Fixa do plano,60600,121200,Faixa preliminar,"Contrato, aluguel e prazo de recuperação."
+CASO_00012,IMO_CASO_00012_02,RC estabelecimento,Fixa do plano,,,Faltam dados,"Atividade, terceiros e limite necessário."
+CASO_00012,IMO_CASO_00012_02,Despesas fixas,Fixa do plano,79050,158100,Faixa preliminar,Despesas que continuam na paralisação e prazo.
+CASO_00012,IMO_CASO_00012_02,Roubo/furto com arrombamento,Fixa do plano,285400,503700,Faixa preliminar,Bens locais e valores de reposição.
+CASO_00012,IMO_CASO_00012_02,Vendaval e correlatos,Fixa do plano,285400,503700,Faixa preliminar,Conteúdo exposto e necessidade de proteger o prédio.
+CASO_00013,IMO_CASO_00013_01,"Incêndio, raio, explosão e fumaça",Fixa do plano,129150,163350,Faixa preliminar,"Inventário, reposição e interesse em prédio/conteúdo."
+CASO_00013,IMO_CASO_00013_01,Danos elétricos,Fixa do plano,89700,112500,Faixa preliminar,Equipamentos locais e valores de reposição.
+CASO_00013,IMO_CASO_00013_01,Aluguel,Fixa do plano,,,Faltam dados,"Contrato, aluguel e prazo de recuperação."
+CASO_00013,IMO_CASO_00013_01,RC estabelecimento,Fixa do plano,,,Faltam dados,"Atividade, terceiros e limite necessário."
+CASO_00013,IMO_CASO_00013_01,Despesas fixas,Fixa do plano,115500,231000,Faixa preliminar,Despesas que continuam na paralisação e prazo.
+CASO_00013,IMO_CASO_00013_01,Delivery,Adicional a confirmar,,,Faltam dados,Operação local e valores por envio.
+CASO_00014,IMO_CASO_00014_01,"Incêndio, raio, explosão e fumaça",Fixa do plano,116050,167700,Faixa preliminar,"Inventário, reposição e interesse em prédio/conteúdo."
+CASO_00014,IMO_CASO_00014_01,Danos elétricos,Fixa do plano,23800,49600,Faixa preliminar,Equipamentos locais e valores de reposição.
+CASO_00014,IMO_CASO_00014_01,Aluguel,Fixa do plano,,,Faltam dados,"Contrato, aluguel e prazo de recuperação."
+CASO_00014,IMO_CASO_00014_01,RC estabelecimento,Fixa do plano,,,Faltam dados,"Atividade, terceiros e limite necessário."
+CASO_00014,IMO_CASO_00014_01,Despesas fixas,Fixa do plano,79950,159900,Faixa preliminar,Despesas que continuam na paralisação e prazo.
+CASO_00014,IMO_CASO_00014_01,Delivery,Adicional a confirmar,,,Faltam dados,Operação local e valores por envio.
+CASO_00016,IMO_CASO_00016_01,"Incêndio, raio, explosão e fumaça",Fixa do plano,32700,45850,Faixa preliminar,"Inventário, reposição e interesse em prédio/conteúdo."
+CASO_00016,IMO_CASO_00016_01,Danos elétricos,Fixa do plano,25950,35750,Faixa preliminar,Equipamentos locais e valores de reposição.
+CASO_00016,IMO_CASO_00016_01,Aluguel,Fixa do plano,,,Faltam dados,"Contrato, aluguel e prazo de recuperação."
+CASO_00016,IMO_CASO_00016_01,RC estabelecimento,Fixa do plano,,,Faltam dados,"Atividade, terceiros e limite necessário."
+CASO_00016,IMO_CASO_00016_01,Despesas fixas,Fixa do plano,139200,278400,Faixa preliminar,Despesas que continuam na paralisação e prazo.
+CASO_00016,IMO_CASO_00016_01,Mercadorias refrigeradas,Adicional a confirmar,,,Faltam dados,Mercadorias refrigeradas e valor máximo armazenado.
+CASO_00017,IMO_CASO_00017_01,"Incêndio, raio, explosão e fumaça",Fixa do plano,1149800,1433650,Faixa preliminar,"Inventário, reposição e interesse em prédio/conteúdo."
+CASO_00017,IMO_CASO_00017_01,Danos elétricos,Fixa do plano,885650,1129400,Faixa preliminar,Equipamentos locais e valores de reposição.
+CASO_00017,IMO_CASO_00017_01,Aluguel,Fixa do plano,131100,262200,Faixa preliminar,"Contrato, aluguel e prazo de recuperação."
+CASO_00017,IMO_CASO_00017_01,RC estabelecimento,Fixa do plano,,,Faltam dados,"Atividade, terceiros e limite necessário."
+CASO_00017,IMO_CASO_00017_01,Despesas fixas,Fixa do plano,756000,1512000,Faixa preliminar,Despesas que continuam na paralisação e prazo.
+CASO_00017,IMO_CASO_00017_01,Roubo/furto com arrombamento,Fixa do plano,1149800,1433650,Faixa preliminar,Bens locais e valores de reposição.
+CASO_00017,IMO_CASO_00017_01,Vendaval e correlatos,Fixa do plano,1149800,1433650,Faixa preliminar,Conteúdo exposto e necessidade de proteger o prédio.
+CASO_00017,IMO_CASO_00017_01,RC empregador,Fixa do plano,,,Faltam dados,Empregados locais e limite necessário.
+CASO_00017,IMO_CASO_00017_01,Vidros,Fixa do plano,,,Faltam dados,"Itens, medidas e custo de reposição."
+CASO_00017,IMO_CASO_00017_01,Delivery,Adicional a confirmar,,,Faltam dados,Operação local e valores por envio.
+CASO_00017,IMO_CASO_00017_01,Mercadorias refrigeradas,Adicional a confirmar,,,Faltam dados,Mercadorias refrigeradas e valor máximo armazenado.
+CASO_00019,IMO_CASO_00019_01,"Incêndio, raio, explosão e fumaça",Fixa do plano,1117850,1402100,Faixa preliminar,"Inventário, reposição e interesse em prédio/conteúdo."
+CASO_00019,IMO_CASO_00019_01,Danos elétricos,Fixa do plano,657500,699450,Faixa preliminar,Equipamentos locais e valores de reposição.
+CASO_00019,IMO_CASO_00019_01,Aluguel,Fixa do plano,29700,59400,Faixa preliminar,"Contrato, aluguel e prazo de recuperação."
+CASO_00019,IMO_CASO_00019_01,RC estabelecimento,Fixa do plano,,,Faltam dados,"Atividade, terceiros e limite necessário."
+CASO_00019,IMO_CASO_00019_01,Despesas fixas,Fixa do plano,535650,1071300,Faixa preliminar,Despesas que continuam na paralisação e prazo.
+CASO_00019,IMO_CASO_00019_01,Roubo/furto com arrombamento,Fixa do plano,1117850,1402100,Faixa preliminar,Bens locais e valores de reposição.
+CASO_00019,IMO_CASO_00019_01,Vendaval e correlatos,Fixa do plano,1117850,1402100,Faixa preliminar,Conteúdo exposto e necessidade de proteger o prédio.
+CASO_00019,IMO_CASO_00019_01,RC empregador,Fixa do plano,,,Faltam dados,Empregados locais e limite necessário.
+CASO_00019,IMO_CASO_00019_01,Vidros,Fixa do plano,,,Faltam dados,"Itens, medidas e custo de reposição."
+CASO_00019,IMO_CASO_00019_01,Delivery,Adicional a confirmar,,,Faltam dados,Operação local e valores por envio.
+CASO_00020,IMO_CASO_00020_01,"Incêndio, raio, explosão e fumaça",Fixa do plano,656750,902650,Faixa preliminar,"Inventário, reposição e interesse em prédio/conteúdo."
+CASO_00020,IMO_CASO_00020_01,Danos elétricos,Fixa do plano,429000,603700,Faixa preliminar,Equipamentos locais e valores de reposição.
+CASO_00020,IMO_CASO_00020_01,Aluguel,Fixa do plano,,,Faltam dados,"Contrato, aluguel e prazo de recuperação."
+CASO_00020,IMO_CASO_00020_01,RC estabelecimento,Fixa do plano,,,Faltam dados,"Atividade, terceiros e limite necessário."
+CASO_00020,IMO_CASO_00020_01,Despesas fixas,Fixa do plano,267900,535800,Faixa preliminar,Despesas que continuam na paralisação e prazo.
+CASO_00020,IMO_CASO_00020_01,Roubo/furto com arrombamento,Fixa do plano,656750,902650,Faixa preliminar,Bens locais e valores de reposição.
+CASO_00020,IMO_CASO_00020_01,Vendaval e correlatos,Fixa do plano,656750,902650,Faixa preliminar,Conteúdo exposto e necessidade de proteger o prédio.
+CASO_00022,IMO_CASO_00022_01,"Incêndio, raio, explosão e fumaça",Fixa do plano,101750,176250,Faixa preliminar,"Inventário, reposição e interesse em prédio/conteúdo."
+CASO_00022,IMO_CASO_00022_01,Danos elétricos,Fixa do plano,50750,75500,Faixa preliminar,Equipamentos locais e valores de reposição.
+CASO_00022,IMO_CASO_00022_01,Aluguel,Fixa do plano,225600,451200,Faixa preliminar,"Contrato, aluguel e prazo de recuperação."
+CASO_00022,IMO_CASO_00022_01,RC estabelecimento,Fixa do plano,,,Faltam dados,"Atividade, terceiros e limite necessário."
+CASO_00022,IMO_CASO_00022_01,Despesas fixas,Fixa do plano,122550,245100,Faixa preliminar,Despesas que continuam na paralisação e prazo.
+CASO_00022,IMO_CASO_00022_02,"Incêndio, raio, explosão e fumaça",Fixa do plano,81600,128350,Faixa preliminar,"Inventário, reposição e interesse em prédio/conteúdo."
+CASO_00022,IMO_CASO_00022_02,Danos elétricos,Fixa do plano,41850,85550,Faixa preliminar,Equipamentos locais e valores de reposição.
+CASO_00022,IMO_CASO_00022_02,Aluguel,Fixa do plano,,,Faltam dados,"Contrato, aluguel e prazo de recuperação."
+CASO_00022,IMO_CASO_00022_02,RC estabelecimento,Fixa do plano,,,Faltam dados,"Atividade, terceiros e limite necessário."
+CASO_00022,IMO_CASO_00022_02,Despesas fixas,Fixa do plano,77850,155700,Faixa preliminar,Despesas que continuam na paralisação e prazo.
+CASO_00023,IMO_CASO_00023_01,"Incêndio, raio, explosão e fumaça",Fixa do plano,61500,81650,Faixa preliminar,"Inventário, reposição e interesse em prédio/conteúdo."
+CASO_00023,IMO_CASO_00023_01,Danos elétricos,Fixa do plano,58800,77350,Faixa preliminar,Equipamentos locais e valores de reposição.
+CASO_00023,IMO_CASO_00023_01,Aluguel,Fixa do plano,,,Faltam dados,"Contrato, aluguel e prazo de recuperação."
+CASO_00023,IMO_CASO_00023_01,RC estabelecimento,Fixa do plano,,,Faltam dados,"Atividade, terceiros e limite necessário."
+CASO_00023,IMO_CASO_00023_01,Despesas fixas,Fixa do plano,118200,236400,Faixa preliminar,Despesas que continuam na paralisação e prazo.
+CASO_00023,IMO_CASO_00023_01,Mercadorias refrigeradas,Adicional a confirmar,,,Faltam dados,Mercadorias refrigeradas e valor máximo armazenado.
+CASO_00023,IMO_CASO_00023_02,"Incêndio, raio, explosão e fumaça",Fixa do plano,217250,302800,Faixa preliminar,"Inventário, reposição e interesse em prédio/conteúdo."
+CASO_00023,IMO_CASO_00023_02,Danos elétricos,Fixa do plano,91250,111850,Faixa preliminar,Equipamentos locais e valores de reposição.
+CASO_00023,IMO_CASO_00023_02,Aluguel,Fixa do plano,65100,130200,Faixa preliminar,"Contrato, aluguel e prazo de recuperação."
+CASO_00023,IMO_CASO_00023_02,RC estabelecimento,Fixa do plano,,,Faltam dados,"Atividade, terceiros e limite necessário."
+CASO_00023,IMO_CASO_00023_02,Despesas fixas,Fixa do plano,72000,144000,Faixa preliminar,Despesas que continuam na paralisação e prazo.
+CASO_00023,IMO_CASO_00023_02,Mercadorias refrigeradas,Adicional a confirmar,,,Faltam dados,Mercadorias refrigeradas e valor máximo armazenado.
+CASO_00024,IMO_CASO_00024_01,"Incêndio, raio, explosão e fumaça",Fixa do plano,63550,96450,Faixa preliminar,"Inventário, reposição e interesse em prédio/conteúdo."
+CASO_00024,IMO_CASO_00024_01,Danos elétricos,Fixa do plano,49650,75250,Faixa preliminar,Equipamentos locais e valores de reposição.
+CASO_00024,IMO_CASO_00024_01,Aluguel,Fixa do plano,,,Faltam dados,"Contrato, aluguel e prazo de recuperação."
+CASO_00024,IMO_CASO_00024_01,RC estabelecimento,Fixa do plano,,,Faltam dados,"Atividade, terceiros e limite necessário."
+CASO_00024,IMO_CASO_00024_01,Despesas fixas,Fixa do plano,144600,289200,Faixa preliminar,Despesas que continuam na paralisação e prazo.
+CASO_00024,IMO_CASO_00024_01,Delivery,Adicional a confirmar,,,Faltam dados,Operação local e valores por envio.
+CASO_00024,IMO_CASO_00024_01,Mercadorias refrigeradas,Adicional a confirmar,,,Faltam dados,Mercadorias refrigeradas e valor máximo armazenado.
+CASO_00027,IMO_CASO_00027_01,"Incêndio, raio, explosão e fumaça",Fixa do plano,1031950,2076500,Faixa preliminar,"Inventário, reposição e interesse em prédio/conteúdo."
+CASO_00027,IMO_CASO_00027_01,Danos elétricos,Fixa do plano,,,Faltam dados,Equipamentos locais e valores de reposição.
+CASO_00027,IMO_CASO_00027_01,Aluguel,Fixa do plano,,,Faltam dados,"Contrato, aluguel e prazo de recuperação."
+CASO_00027,IMO_CASO_00027_01,RC estabelecimento,Fixa do plano,,,Faltam dados,"Atividade, terceiros e limite necessário."
+CASO_00027,IMO_CASO_00027_01,Despesas fixas,Fixa do plano,521700,1043400,Faixa preliminar,Despesas que continuam na paralisação e prazo.
+CASO_00027,IMO_CASO_00027_01,Roubo/furto com arrombamento,Fixa do plano,1031950,2076500,Faixa preliminar,Bens locais e valores de reposição.
+CASO_00027,IMO_CASO_00027_01,Vendaval e correlatos,Fixa do plano,1031950,2076500,Faixa preliminar,Conteúdo exposto e necessidade de proteger o prédio.
+CASO_00027,IMO_CASO_00027_01,RC empregador,Fixa do plano,,,Faltam dados,Empregados locais e limite necessário.
+CASO_00027,IMO_CASO_00027_01,Vidros,Fixa do plano,,,Faltam dados,"Itens, medidas e custo de reposição."
+CASO_00027,IMO_CASO_00027_01,Delivery,Adicional a confirmar,,,Faltam dados,Operação local e valores por envio.
+CASO_00028,IMO_CASO_00028_01,"Incêndio, raio, explosão e fumaça",Fixa do plano,452300,710550,Faixa preliminar,"Inventário, reposição e interesse em prédio/conteúdo."
+CASO_00028,IMO_CASO_00028_01,Danos elétricos,Fixa do plano,305400,486700,Faixa preliminar,Equipamentos locais e valores de reposição.
+CASO_00028,IMO_CASO_00028_01,Aluguel,Fixa do plano,96900,193800,Faixa preliminar,"Contrato, aluguel e prazo de recuperação."
+CASO_00028,IMO_CASO_00028_01,RC estabelecimento,Fixa do plano,,,Faltam dados,"Atividade, terceiros e limite necessário."
+CASO_00028,IMO_CASO_00028_01,Despesas fixas,Fixa do plano,307350,614700,Faixa preliminar,Despesas que continuam na paralisação e prazo.
+CASO_00028,IMO_CASO_00028_01,Roubo/furto com arrombamento,Fixa do plano,452300,710550,Faixa preliminar,Bens locais e valores de reposição.
+CASO_00028,IMO_CASO_00028_01,Vendaval e correlatos,Fixa do plano,452300,710550,Faixa preliminar,Conteúdo exposto e necessidade de proteger o prédio.
+CASO_00028,IMO_CASO_00028_01,Mercadorias refrigeradas,Adicional a confirmar,,,Faltam dados,Mercadorias refrigeradas e valor máximo armazenado.
+CASO_00029,IMO_CASO_00029_01,"Incêndio, raio, explosão e fumaça",Fixa do plano,137350,195300,Faixa preliminar,"Inventário, reposição e interesse em prédio/conteúdo."
+CASO_00029,IMO_CASO_00029_01,Danos elétricos,Fixa do plano,83350,116850,Faixa preliminar,Equipamentos locais e valores de reposição.
+CASO_00029,IMO_CASO_00029_01,Aluguel,Fixa do plano,180900,361800,Faixa preliminar,"Contrato, aluguel e prazo de recuperação."
+CASO_00029,IMO_CASO_00029_01,RC estabelecimento,Fixa do plano,,,Faltam dados,"Atividade, terceiros e limite necessário."
+CASO_00029,IMO_CASO_00029_01,Despesas fixas,Fixa do plano,211350,422700,Faixa preliminar,Despesas que continuam na paralisação e prazo.
+CASO_00029,IMO_CASO_00029_01,Mercadorias refrigeradas,Adicional a confirmar,,,Faltam dados,Mercadorias refrigeradas e valor máximo armazenado.
+CASO_00029,IMO_CASO_00029_02,"Incêndio, raio, explosão e fumaça",Fixa do plano,174200,227900,Faixa preliminar,"Inventário, reposição e interesse em prédio/conteúdo."
+CASO_00029,IMO_CASO_00029_02,Danos elétricos,Fixa do plano,102250,135800,Faixa preliminar,Equipamentos locais e valores de reposição.
+CASO_00029,IMO_CASO_00029_02,Aluguel,Fixa do plano,196200,392400,Faixa preliminar,"Contrato, aluguel e prazo de recuperação."
+CASO_00029,IMO_CASO_00029_02,RC estabelecimento,Fixa do plano,,,Faltam dados,"Atividade, terceiros e limite necessário."
+CASO_00029,IMO_CASO_00029_02,Despesas fixas,Fixa do plano,197400,394800,Faixa preliminar,Despesas que continuam na paralisação e prazo.
+CASO_00029,IMO_CASO_00029_02,Mercadorias refrigeradas,Adicional a confirmar,,,Faltam dados,Mercadorias refrigeradas e valor máximo armazenado.
+CASO_00030,IMO_CASO_00030_01,"Incêndio, raio, explosão e fumaça",Fixa do plano,357900,521700,Faixa preliminar,"Inventário, reposição e interesse em prédio/conteúdo."
+CASO_00030,IMO_CASO_00030_01,Danos elétricos,Fixa do plano,233100,306700,Faixa preliminar,Equipamentos locais e valores de reposição.
+CASO_00030,IMO_CASO_00030_01,Aluguel,Fixa do plano,78000,156000,Faixa preliminar,"Contrato, aluguel e prazo de recuperação."
+CASO_00030,IMO_CASO_00030_01,RC estabelecimento,Fixa do plano,,,Faltam dados,"Atividade, terceiros e limite necessário."
+CASO_00030,IMO_CASO_00030_01,Despesas fixas,Fixa do plano,273000,546000,Faixa preliminar,Despesas que continuam na paralisação e prazo.
+CASO_00030,IMO_CASO_00030_01,Roubo/furto com arrombamento,Fixa do plano,357900,521700,Faixa preliminar,Bens locais e valores de reposição.
+CASO_00030,IMO_CASO_00030_01,Vendaval e correlatos,Fixa do plano,357900,521700,Faixa preliminar,Conteúdo exposto e necessidade de proteger o prédio.
+CASO_00030,IMO_CASO_00030_01,Delivery,Adicional a confirmar,,,Faltam dados,Operação local e valores por envio.
+CASO_00031,IMO_CASO_00031_01,"Incêndio, raio, explosão e fumaça",Fixa do plano,1586950,2313050,Faixa preliminar,"Inventário, reposição e interesse em prédio/conteúdo."
+CASO_00031,IMO_CASO_00031_01,Danos elétricos,Fixa do plano,1512950,2212600,Faixa preliminar,Equipamentos locais e valores de reposição.
+CASO_00031,IMO_CASO_00031_01,Aluguel,Fixa do plano,171300,342600,Faixa preliminar,"Contrato, aluguel e prazo de recuperação."
+CASO_00031,IMO_CASO_00031_01,RC estabelecimento,Fixa do plano,,,Faltam dados,"Atividade, terceiros e limite necessário."
+CASO_00031,IMO_CASO_00031_01,Despesas fixas,Fixa do plano,589650,1179300,Faixa preliminar,Despesas que continuam na paralisação e prazo.
+CASO_00031,IMO_CASO_00031_01,Roubo/furto com arrombamento,Fixa do plano,1586950,2313050,Faixa preliminar,Bens locais e valores de reposição.
+CASO_00031,IMO_CASO_00031_01,Vendaval e correlatos,Fixa do plano,1586950,2313050,Faixa preliminar,Conteúdo exposto e necessidade de proteger o prédio.
+CASO_00031,IMO_CASO_00031_01,RC empregador,Fixa do plano,,,Faltam dados,Empregados locais e limite necessário.
+CASO_00031,IMO_CASO_00031_01,Vidros,Fixa do plano,,,Faltam dados,"Itens, medidas e custo de reposição."
+CASO_00032,IMO_CASO_00032_01,"Incêndio, raio, explosão e fumaça",Fixa do plano,956350,1308000,Faixa preliminar,"Inventário, reposição e interesse em prédio/conteúdo."
+CASO_00032,IMO_CASO_00032_01,Danos elétricos,Fixa do plano,119800,181500,Faixa preliminar,Equipamentos locais e valores de reposição.
+CASO_00032,IMO_CASO_00032_01,Aluguel,Fixa do plano,242700,485400,Faixa preliminar,"Contrato, aluguel e prazo de recuperação."
+CASO_00032,IMO_CASO_00032_01,RC estabelecimento,Fixa do plano,,,Faltam dados,"Atividade, terceiros e limite necessário."
+CASO_00032,IMO_CASO_00032_01,Despesas fixas,Fixa do plano,371100,742200,Faixa preliminar,Despesas que continuam na paralisação e prazo.
+CASO_00032,IMO_CASO_00032_01,Roubo/furto com arrombamento,Fixa do plano,956350,1308000,Faixa preliminar,Bens locais e valores de reposição.
+CASO_00032,IMO_CASO_00032_01,Vendaval e correlatos,Fixa do plano,956350,1308000,Faixa preliminar,Conteúdo exposto e necessidade de proteger o prédio.
+CASO_00032,IMO_CASO_00032_01,RC empregador,Fixa do plano,,,Faltam dados,Empregados locais e limite necessário.
+CASO_00032,IMO_CASO_00032_01,Vidros,Fixa do plano,,,Faltam dados,"Itens, medidas e custo de reposição."
+CASO_00032,IMO_CASO_00032_01,Delivery,Adicional a confirmar,,,Faltam dados,Operação local e valores por envio.
+CASO_00033,IMO_CASO_00033_01,"Incêndio, raio, explosão e fumaça",Fixa do plano,50050,65400,Faixa preliminar,"Inventário, reposição e interesse em prédio/conteúdo."
+CASO_00033,IMO_CASO_00033_01,Danos elétricos,Fixa do plano,,,Faltam dados,Equipamentos locais e valores de reposição.
+CASO_00033,IMO_CASO_00033_01,Aluguel,Fixa do plano,145800,291600,Faixa preliminar,"Contrato, aluguel e prazo de recuperação."
+CASO_00033,IMO_CASO_00033_01,RC estabelecimento,Fixa do plano,,,Faltam dados,"Atividade, terceiros e limite necessário."
+CASO_00033,IMO_CASO_00033_01,Despesas fixas,Fixa do plano,100200,200400,Faixa preliminar,Despesas que continuam na paralisação e prazo.
+CASO_00033,IMO_CASO_00033_02,"Incêndio, raio, explosão e fumaça",Fixa do plano,28250,39650,Faixa preliminar,"Inventário, reposição e interesse em prédio/conteúdo."
+CASO_00033,IMO_CASO_00033_02,Danos elétricos,Fixa do plano,14500,19100,Faixa preliminar,Equipamentos locais e valores de reposição.
+CASO_00033,IMO_CASO_00033_02,Aluguel,Fixa do plano,194700,389400,Faixa preliminar,"Contrato, aluguel e prazo de recuperação."
+CASO_00033,IMO_CASO_00033_02,RC estabelecimento,Fixa do plano,,,Faltam dados,"Atividade, terceiros e limite necessário."
+CASO_00033,IMO_CASO_00033_02,Despesas fixas,Fixa do plano,126600,253200,Faixa preliminar,Despesas que continuam na paralisação e prazo.
+CASO_00034,IMO_CASO_00034_01,"Incêndio, raio, explosão e fumaça",Fixa do plano,75250,159950,Faixa preliminar,"Inventário, reposição e interesse em prédio/conteúdo."
+CASO_00034,IMO_CASO_00034_01,Danos elétricos,Fixa do plano,24800,82600,Faixa preliminar,Equipamentos locais e valores de reposição.
+CASO_00034,IMO_CASO_00034_01,Aluguel,Fixa do plano,29700,59400,Faixa preliminar,"Contrato, aluguel e prazo de recuperação."
+CASO_00034,IMO_CASO_00034_01,RC estabelecimento,Fixa do plano,,,Faltam dados,"Atividade, terceiros e limite necessário."
+CASO_00034,IMO_CASO_00034_01,Despesas fixas,Fixa do plano,402000,804000,Faixa preliminar,Despesas que continuam na paralisação e prazo.
+CASO_00034,IMO_CASO_00034_01,Roubo/furto com arrombamento,Fixa do plano,75250,159950,Faixa preliminar,Bens locais e valores de reposição.
+CASO_00034,IMO_CASO_00034_01,Vendaval e correlatos,Fixa do plano,75250,159950,Faixa preliminar,Conteúdo exposto e necessidade de proteger o prédio.
+CASO_00034,IMO_CASO_00034_01,Delivery,Adicional a confirmar,,,Faltam dados,Operação local e valores por envio.
+CASO_00037,IMO_CASO_00037_01,"Incêndio, raio, explosão e fumaça",Fixa do plano,1397450,2584400,Faixa preliminar,"Inventário, reposição e interesse em prédio/conteúdo."
+CASO_00037,IMO_CASO_00037_01,Danos elétricos,Fixa do plano,392850,983400,Faixa preliminar,Equipamentos locais e valores de reposição.
+CASO_00037,IMO_CASO_00037_01,Aluguel,Fixa do plano,107700,215400,Faixa preliminar,"Contrato, aluguel e prazo de recuperação."
+CASO_00037,IMO_CASO_00037_01,RC estabelecimento,Fixa do plano,,,Faltam dados,"Atividade, terceiros e limite necessário."
+CASO_00037,IMO_CASO_00037_01,Despesas fixas,Fixa do plano,312750,625500,Faixa preliminar,Despesas que continuam na paralisação e prazo.
+CASO_00037,IMO_CASO_00037_01,Roubo/furto com arrombamento,Fixa do plano,1397450,2584400,Faixa preliminar,Bens locais e valores de reposição.
+CASO_00037,IMO_CASO_00037_01,Vendaval e correlatos,Fixa do plano,1397450,2584400,Faixa preliminar,Conteúdo exposto e necessidade de proteger o prédio.
+CASO_00037,IMO_CASO_00037_01,RC empregador,Fixa do plano,,,Faltam dados,Empregados locais e limite necessário.
+CASO_00037,IMO_CASO_00037_01,Vidros,Fixa do plano,,,Faltam dados,"Itens, medidas e custo de reposição."
+CASO_00037,IMO_CASO_00037_02,"Incêndio, raio, explosão e fumaça",Fixa do plano,702350,840800,Faixa preliminar,"Inventário, reposição e interesse em prédio/conteúdo."
+CASO_00037,IMO_CASO_00037_02,Danos elétricos,Fixa do plano,641000,763100,Faixa preliminar,Equipamentos locais e valores de reposição.
+CASO_00037,IMO_CASO_00037_02,Aluguel,Fixa do plano,,,Faltam dados,"Contrato, aluguel e prazo de recuperação."
+CASO_00037,IMO_CASO_00037_02,RC estabelecimento,Fixa do plano,,,Faltam dados,"Atividade, terceiros e limite necessário."
+CASO_00037,IMO_CASO_00037_02,Despesas fixas,Fixa do plano,494850,989700,Faixa preliminar,Despesas que continuam na paralisação e prazo.
+CASO_00037,IMO_CASO_00037_02,Roubo/furto com arrombamento,Fixa do plano,702350,840800,Faixa preliminar,Bens locais e valores de reposição.
+CASO_00037,IMO_CASO_00037_02,Vendaval e correlatos,Fixa do plano,702350,840800,Faixa preliminar,Conteúdo exposto e necessidade de proteger o prédio.
+CASO_00037,IMO_CASO_00037_02,RC empregador,Fixa do plano,,,Faltam dados,Empregados locais e limite necessário.
+CASO_00037,IMO_CASO_00037_02,Vidros,Fixa do plano,,,Faltam dados,"Itens, medidas e custo de reposição."
+CASO_00038,IMO_CASO_00038_01,"Incêndio, raio, explosão e fumaça",Fixa do plano,33700,43500,Faixa preliminar,"Inventário, reposição e interesse em prédio/conteúdo."
+CASO_00038,IMO_CASO_00038_01,Danos elétricos,Fixa do plano,,,Faltam dados,Equipamentos locais e valores de reposição.
+CASO_00038,IMO_CASO_00038_01,Aluguel,Fixa do plano,384300,768600,Faixa preliminar,"Contrato, aluguel e prazo de recuperação."
+CASO_00038,IMO_CASO_00038_01,RC estabelecimento,Fixa do plano,,,Faltam dados,"Atividade, terceiros e limite necessário."
+CASO_00038,IMO_CASO_00038_01,Despesas fixas,Fixa do plano,119400,238800,Faixa preliminar,Despesas que continuam na paralisação e prazo.
+CASO_00039,IMO_CASO_00039_01,"Incêndio, raio, explosão e fumaça",Fixa do plano,15550,23700,Faixa preliminar,"Inventário, reposição e interesse em prédio/conteúdo."
+CASO_00039,IMO_CASO_00039_01,Danos elétricos,Fixa do plano,6650,10050,Faixa preliminar,Equipamentos locais e valores de reposição.
+CASO_00039,IMO_CASO_00039_01,Aluguel,Fixa do plano,314100,628200,Faixa preliminar,"Contrato, aluguel e prazo de recuperação."
+CASO_00039,IMO_CASO_00039_01,RC estabelecimento,Fixa do plano,,,Faltam dados,"Atividade, terceiros e limite necessário."
+CASO_00039,IMO_CASO_00039_01,Despesas fixas,Fixa do plano,95850,191700,Faixa preliminar,Despesas que continuam na paralisação e prazo.
+CASO_00039,IMO_CASO_00039_01,Delivery,Adicional a confirmar,,,Faltam dados,Operação local e valores por envio.
+CASO_00039,IMO_CASO_00039_02,"Incêndio, raio, explosão e fumaça",Fixa do plano,33200,48150,Faixa preliminar,"Inventário, reposição e interesse em prédio/conteúdo."
+CASO_00039,IMO_CASO_00039_02,Danos elétricos,Fixa do plano,19200,32900,Faixa preliminar,Equipamentos locais e valores de reposição.
+CASO_00039,IMO_CASO_00039_02,Aluguel,Fixa do plano,,,Faltam dados,"Contrato, aluguel e prazo de recuperação."
+CASO_00039,IMO_CASO_00039_02,RC estabelecimento,Fixa do plano,,,Faltam dados,"Atividade, terceiros e limite necessário."
+CASO_00039,IMO_CASO_00039_02,Despesas fixas,Fixa do plano,46800,93600,Faixa preliminar,Despesas que continuam na paralisação e prazo.
+CASO_00039,IMO_CASO_00039_02,Delivery,Adicional a confirmar,,,Faltam dados,Operação local e valores por envio.
+CASO_00041,IMO_CASO_00041_01,"Incêndio, raio, explosão e fumaça",Fixa do plano,267450,334800,Faixa preliminar,"Inventário, reposição e interesse em prédio/conteúdo."
+CASO_00041,IMO_CASO_00041_01,Danos elétricos,Fixa do plano,87450,115050,Faixa preliminar,Equipamentos locais e valores de reposição.
+CASO_00041,IMO_CASO_00041_01,Aluguel,Fixa do plano,,,Faltam dados,"Contrato, aluguel e prazo de recuperação."
+CASO_00041,IMO_CASO_00041_01,RC estabelecimento,Fixa do plano,,,Faltam dados,"Atividade, terceiros e limite necessário."
+CASO_00041,IMO_CASO_00041_01,Despesas fixas,Fixa do plano,290100,580200,Faixa preliminar,Despesas que continuam na paralisação e prazo.
+CASO_00041,IMO_CASO_00041_01,Roubo/furto com arrombamento,Fixa do plano,267450,334800,Faixa preliminar,Bens locais e valores de reposição.
+CASO_00041,IMO_CASO_00041_01,Vendaval e correlatos,Fixa do plano,267450,334800,Faixa preliminar,Conteúdo exposto e necessidade de proteger o prédio.
+CASO_00043,IMO_CASO_00043_01,"Incêndio, raio, explosão e fumaça",Fixa do plano,408750,662300,Faixa preliminar,"Inventário, reposição e interesse em prédio/conteúdo."
+CASO_00043,IMO_CASO_00043_01,Danos elétricos,Fixa do plano,123850,258050,Faixa preliminar,Equipamentos locais e valores de reposição.
+CASO_00043,IMO_CASO_00043_01,Aluguel,Fixa do plano,260400,520800,Faixa preliminar,"Contrato, aluguel e prazo de recuperação."
+CASO_00043,IMO_CASO_00043_01,RC estabelecimento,Fixa do plano,,,Faltam dados,"Atividade, terceiros e limite necessário."
+CASO_00043,IMO_CASO_00043_01,Despesas fixas,Fixa do plano,218250,436500,Faixa preliminar,Despesas que continuam na paralisação e prazo.
+CASO_00043,IMO_CASO_00043_01,Roubo/furto com arrombamento,Fixa do plano,408750,662300,Faixa preliminar,Bens locais e valores de reposição.
+CASO_00043,IMO_CASO_00043_01,Vendaval e correlatos,Fixa do plano,408750,662300,Faixa preliminar,Conteúdo exposto e necessidade de proteger o prédio.
+CASO_00043,IMO_CASO_00043_01,Delivery,Adicional a confirmar,,,Faltam dados,Operação local e valores por envio.
+CASO_00043,IMO_CASO_00043_02,"Incêndio, raio, explosão e fumaça",Fixa do plano,61750,88750,Faixa preliminar,"Inventário, reposição e interesse em prédio/conteúdo."
+CASO_00043,IMO_CASO_00043_02,Danos elétricos,Fixa do plano,23000,27400,Faixa preliminar,Equipamentos locais e valores de reposição.
+CASO_00043,IMO_CASO_00043_02,Aluguel,Fixa do plano,54900,109800,Faixa preliminar,"Contrato, aluguel e prazo de recuperação."
+CASO_00043,IMO_CASO_00043_02,RC estabelecimento,Fixa do plano,,,Faltam dados,"Atividade, terceiros e limite necessário."
+CASO_00043,IMO_CASO_00043_02,Despesas fixas,Fixa do plano,158100,316200,Faixa preliminar,Despesas que continuam na paralisação e prazo.
+CASO_00043,IMO_CASO_00043_02,Roubo/furto com arrombamento,Fixa do plano,61750,88750,Faixa preliminar,Bens locais e valores de reposição.
+CASO_00043,IMO_CASO_00043_02,Vendaval e correlatos,Fixa do plano,61750,88750,Faixa preliminar,Conteúdo exposto e necessidade de proteger o prédio.
+CASO_00043,IMO_CASO_00043_02,Delivery,Adicional a confirmar,,,Faltam dados,Operação local e valores por envio.
+CASO_00043,IMO_CASO_00043_02,Mercadorias refrigeradas,Adicional a confirmar,,,Faltam dados,Mercadorias refrigeradas e valor máximo armazenado.
+CASO_00045,IMO_CASO_00045_01,"Incêndio, raio, explosão e fumaça",Fixa do plano,109050,145400,Faixa preliminar,"Inventário, reposição e interesse em prédio/conteúdo."
+CASO_00045,IMO_CASO_00045_01,Danos elétricos,Fixa do plano,,,Faltam dados,Equipamentos locais e valores de reposição.
+CASO_00045,IMO_CASO_00045_01,Aluguel,Fixa do plano,72300,144600,Faixa preliminar,"Contrato, aluguel e prazo de recuperação."
+CASO_00045,IMO_CASO_00045_01,RC estabelecimento,Fixa do plano,,,Faltam dados,"Atividade, terceiros e limite necessário."
+CASO_00045,IMO_CASO_00045_01,Despesas fixas,Fixa do plano,67650,135300,Faixa preliminar,Despesas que continuam na paralisação e prazo.
+CASO_00045,IMO_CASO_00045_01,Mercadorias refrigeradas,Adicional a confirmar,,,Faltam dados,Mercadorias refrigeradas e valor máximo armazenado.
+CASO_00046,IMO_CASO_00046_01,"Incêndio, raio, explosão e fumaça",Fixa do plano,644050,1100100,Faixa preliminar,"Inventário, reposição e interesse em prédio/conteúdo."
+CASO_00046,IMO_CASO_00046_01,Danos elétricos,Fixa do plano,488300,731650,Faixa preliminar,Equipamentos locais e valores de reposição.
+CASO_00046,IMO_CASO_00046_01,Aluguel,Fixa do plano,,,Faltam dados,"Contrato, aluguel e prazo de recuperação."
+CASO_00046,IMO_CASO_00046_01,RC estabelecimento,Fixa do plano,,,Faltam dados,"Atividade, terceiros e limite necessário."
+CASO_00046,IMO_CASO_00046_01,Despesas fixas,Fixa do plano,477450,954900,Faixa preliminar,Despesas que continuam na paralisação e prazo.
+CASO_00046,IMO_CASO_00046_01,Roubo/furto com arrombamento,Fixa do plano,644050,1100100,Faixa preliminar,Bens locais e valores de reposição.
+CASO_00046,IMO_CASO_00046_01,Vendaval e correlatos,Fixa do plano,644050,1100100,Faixa preliminar,Conteúdo exposto e necessidade de proteger o prédio.
+CASO_00048,IMO_CASO_00048_01,"Incêndio, raio, explosão e fumaça",Fixa do plano,90900,113400,Faixa preliminar,"Inventário, reposição e interesse em prédio/conteúdo."
+CASO_00048,IMO_CASO_00048_01,Danos elétricos,Fixa do plano,,,Faltam dados,Equipamentos locais e valores de reposição.
+CASO_00048,IMO_CASO_00048_01,Aluguel,Fixa do plano,141300,282600,Faixa preliminar,"Contrato, aluguel e prazo de recuperação."
+CASO_00048,IMO_CASO_00048_01,RC estabelecimento,Fixa do plano,,,Faltam dados,"Atividade, terceiros e limite necessário."
+CASO_00048,IMO_CASO_00048_01,Despesas fixas,Fixa do plano,168900,337800,Faixa preliminar,Despesas que continuam na paralisação e prazo.
+CASO_00048,IMO_CASO_00048_01,Delivery,Adicional a confirmar,,,Faltam dados,Operação local e valores por envio.
+CASO_00048,IMO_CASO_00048_01,Mercadorias refrigeradas,Adicional a confirmar,,,Faltam dados,Mercadorias refrigeradas e valor máximo armazenado.
+CASO_00050,IMO_CASO_00050_01,"Incêndio, raio, explosão e fumaça",Fixa do plano,28450,37200,Faixa preliminar,"Inventário, reposição e interesse em prédio/conteúdo."
+CASO_00050,IMO_CASO_00050_01,Danos elétricos,Fixa do plano,25750,33850,Faixa preliminar,Equipamentos locais e valores de reposição.
+CASO_00050,IMO_CASO_00050_01,Aluguel,Fixa do plano,375600,751200,Faixa preliminar,"Contrato, aluguel e prazo de recuperação."
+CASO_00050,IMO_CASO_00050_01,RC estabelecimento,Fixa do plano,,,Faltam dados,"Atividade, terceiros e limite necessário."
+CASO_00050,IMO_CASO_00050_01,Despesas fixas,Fixa do plano,92550,185100,Faixa preliminar,Despesas que continuam na paralisação e prazo.
+CASO_00050,IMO_CASO_00050_01,Delivery,Adicional a confirmar,,,Faltam dados,Operação local e valores por envio.
+CASO_00050,IMO_CASO_00050_02,"Incêndio, raio, explosão e fumaça",Fixa do plano,87000,148350,Faixa preliminar,"Inventário, reposição e interesse em prédio/conteúdo."
+CASO_00050,IMO_CASO_00050_02,Danos elétricos,Fixa do plano,22850,34650,Faixa preliminar,Equipamentos locais e valores de reposição.
+CASO_00050,IMO_CASO_00050_02,Aluguel,Fixa do plano,,,Faltam dados,"Contrato, aluguel e prazo de recuperação."
+CASO_00050,IMO_CASO_00050_02,RC estabelecimento,Fixa do plano,,,Faltam dados,"Atividade, terceiros e limite necessário."
+CASO_00050,IMO_CASO_00050_02,Despesas fixas,Fixa do plano,83100,166200,Faixa preliminar,Despesas que continuam na paralisação e prazo.
+CASO_00050,IMO_CASO_00050_02,Delivery,Adicional a confirmar,,,Faltam dados,Operação local e valores por envio.
+CASO_00051,IMO_CASO_00051_01,"Incêndio, raio, explosão e fumaça",Fixa do plano,290200,382050,Faixa preliminar,"Inventário, reposição e interesse em prédio/conteúdo."
+CASO_00051,IMO_CASO_00051_01,Danos elétricos,Fixa do plano,225150,246950,Faixa preliminar,Equipamentos locais e valores de reposição.
+CASO_00051,IMO_CASO_00051_01,Aluguel,Fixa do plano,,,Faltam dados,"Contrato, aluguel e prazo de recuperação."
+CASO_00051,IMO_CASO_00051_01,RC estabelecimento,Fixa do plano,,,Faltam dados,"Atividade, terceiros e limite necessário."
+CASO_00051,IMO_CASO_00051_01,Despesas fixas,Fixa do plano,203100,406200,Faixa preliminar,Despesas que continuam na paralisação e prazo.
+CASO_00053,IMO_CASO_00053_01,"Incêndio, raio, explosão e fumaça",Fixa do plano,23550,43400,Faixa preliminar,"Inventário, reposição e interesse em prédio/conteúdo."
+CASO_00053,IMO_CASO_00053_01,Danos elétricos,Fixa do plano,4100,10850,Faixa preliminar,Equipamentos locais e valores de reposição.
+CASO_00053,IMO_CASO_00053_01,Aluguel,Fixa do plano,96000,192000,Faixa preliminar,"Contrato, aluguel e prazo de recuperação."
+CASO_00053,IMO_CASO_00053_01,RC estabelecimento,Fixa do plano,,,Faltam dados,"Atividade, terceiros e limite necessário."
+CASO_00053,IMO_CASO_00053_01,Despesas fixas,Fixa do plano,43200,86400,Faixa preliminar,Despesas que continuam na paralisação e prazo.
+CASO_00053,IMO_CASO_00053_01,Delivery,Adicional a confirmar,,,Faltam dados,Operação local e valores por envio.
+CASO_00053,IMO_CASO_00053_02,"Incêndio, raio, explosão e fumaça",Fixa do plano,55800,88350,Faixa preliminar,"Inventário, reposição e interesse em prédio/conteúdo."
+CASO_00053,IMO_CASO_00053_02,Danos elétricos,Fixa do plano,42200,61000,Faixa preliminar,Equipamentos locais e valores de reposição.
+CASO_00053,IMO_CASO_00053_02,Aluguel,Fixa do plano,,,Faltam dados,"Contrato, aluguel e prazo de recuperação."
+CASO_00053,IMO_CASO_00053_02,RC estabelecimento,Fixa do plano,,,Faltam dados,"Atividade, terceiros e limite necessário."
+CASO_00053,IMO_CASO_00053_02,Despesas fixas,Fixa do plano,89400,178800,Faixa preliminar,Despesas que continuam na paralisação e prazo.
+CASO_00053,IMO_CASO_00053_02,Delivery,Adicional a confirmar,,,Faltam dados,Operação local e valores por envio.
+CASO_00053,IMO_CASO_00053_02,Mercadorias refrigeradas,Adicional a confirmar,,,Faltam dados,Mercadorias refrigeradas e valor máximo armazenado.
+CASO_00054,IMO_CASO_00054_01,"Incêndio, raio, explosão e fumaça",Fixa do plano,109800,152800,Faixa preliminar,"Inventário, reposição e interesse em prédio/conteúdo."
+CASO_00054,IMO_CASO_00054_01,Danos elétricos,Fixa do plano,40050,59600,Faixa preliminar,Equipamentos locais e valores de reposição.
+CASO_00054,IMO_CASO_00054_01,Aluguel,Fixa do plano,,,Faltam dados,"Contrato, aluguel e prazo de recuperação."
+CASO_00054,IMO_CASO_00054_01,RC estabelecimento,Fixa do plano,,,Faltam dados,"Atividade, terceiros e limite necessário."
+CASO_00054,IMO_CASO_00054_01,Despesas fixas,Fixa do plano,51450,102900,Faixa preliminar,Despesas que continuam na paralisação e prazo.
+CASO_00054,IMO_CASO_00054_01,Delivery,Adicional a confirmar,,,Faltam dados,Operação local e valores por envio.
+CASO_00055,IMO_CASO_00055_02,"Incêndio, raio, explosão e fumaça",Fixa do plano,115850,168350,Faixa preliminar,"Inventário, reposição e interesse em prédio/conteúdo."
+CASO_00055,IMO_CASO_00055_02,Danos elétricos,Fixa do plano,80950,117900,Faixa preliminar,Equipamentos locais e valores de reposição.
+CASO_00055,IMO_CASO_00055_02,Aluguel,Fixa do plano,95100,190200,Faixa preliminar,"Contrato, aluguel e prazo de recuperação."
+CASO_00055,IMO_CASO_00055_02,RC estabelecimento,Fixa do plano,,,Faltam dados,"Atividade, terceiros e limite necessário."
+CASO_00055,IMO_CASO_00055_02,Despesas fixas,Fixa do plano,79500,159000,Faixa preliminar,Despesas que continuam na paralisação e prazo.
+CASO_00055,IMO_CASO_00055_02,Delivery,Adicional a confirmar,,,Faltam dados,Operação local e valores por envio.
+CASO_00055,IMO_CASO_00055_02,Mercadorias refrigeradas,Adicional a confirmar,,,Faltam dados,Mercadorias refrigeradas e valor máximo armazenado.
+CASO_00056,IMO_CASO_00056_01,"Incêndio, raio, explosão e fumaça",Fixa do plano,88300,150750,Faixa preliminar,"Inventário, reposição e interesse em prédio/conteúdo."
+CASO_00056,IMO_CASO_00056_01,Danos elétricos,Fixa do plano,11650,38850,Faixa preliminar,Equipamentos locais e valores de reposição.
+CASO_00056,IMO_CASO_00056_01,Aluguel,Fixa do plano,111600,223200,Faixa preliminar,"Contrato, aluguel e prazo de recuperação."
+CASO_00056,IMO_CASO_00056_01,RC estabelecimento,Fixa do plano,,,Faltam dados,"Atividade, terceiros e limite necessário."
+CASO_00056,IMO_CASO_00056_01,Despesas fixas,Fixa do plano,248250,496500,Faixa preliminar,Despesas que continuam na paralisação e prazo.
+CASO_00056,IMO_CASO_00056_01,Roubo/furto com arrombamento,Fixa do plano,88300,150750,Faixa preliminar,Bens locais e valores de reposição.
+CASO_00056,IMO_CASO_00056_01,Vendaval e correlatos,Fixa do plano,88300,150750,Faixa preliminar,Conteúdo exposto e necessidade de proteger o prédio.
+CASO_00056,IMO_CASO_00056_01,Delivery,Adicional a confirmar,,,Faltam dados,Operação local e valores por envio.
+CASO_00057,IMO_CASO_00057_01,"Incêndio, raio, explosão e fumaça",Fixa do plano,86800,134050,Faixa preliminar,"Inventário, reposição e interesse em prédio/conteúdo."
+CASO_00057,IMO_CASO_00057_01,Danos elétricos,Fixa do plano,14150,37300,Faixa preliminar,Equipamentos locais e valores de reposição.
+CASO_00057,IMO_CASO_00057_01,Aluguel,Fixa do plano,25500,51000,Faixa preliminar,"Contrato, aluguel e prazo de recuperação."
+CASO_00057,IMO_CASO_00057_01,RC estabelecimento,Fixa do plano,,,Faltam dados,"Atividade, terceiros e limite necessário."
+CASO_00057,IMO_CASO_00057_01,Despesas fixas,Fixa do plano,50700,101400,Faixa preliminar,Despesas que continuam na paralisação e prazo.
+CASO_00057,IMO_CASO_00057_01,Roubo/furto com arrombamento,Fixa do plano,86800,134050,Faixa preliminar,Bens locais e valores de reposição.
+CASO_00057,IMO_CASO_00057_01,Vendaval e correlatos,Fixa do plano,86800,134050,Faixa preliminar,Conteúdo exposto e necessidade de proteger o prédio.
+CASO_00057,IMO_CASO_00057_01,Delivery,Adicional a confirmar,,,Faltam dados,Operação local e valores por envio.
+CASO_00057,IMO_CASO_00057_01,Mercadorias refrigeradas,Adicional a confirmar,,,Faltam dados,Mercadorias refrigeradas e valor máximo armazenado.
+CASO_00058,IMO_CASO_00058_01,"Incêndio, raio, explosão e fumaça",Fixa do plano,1282100,1620250,Faixa preliminar,"Inventário, reposição e interesse em prédio/conteúdo."
+CASO_00058,IMO_CASO_00058_01,Danos elétricos,Fixa do plano,650450,794650,Faixa preliminar,Equipamentos locais e valores de reposição.
+CASO_00058,IMO_CASO_00058_01,Aluguel,Fixa do plano,,,Faltam dados,"Contrato, aluguel e prazo de recuperação."
+CASO_00058,IMO_CASO_00058_01,RC estabelecimento,Fixa do plano,,,Faltam dados,"Atividade, terceiros e limite necessário."
+CASO_00058,IMO_CASO_00058_01,Despesas fixas,Fixa do plano,603450,1206900,Faixa preliminar,Despesas que continuam na paralisação e prazo.
+CASO_00058,IMO_CASO_00058_01,Roubo/furto com arrombamento,Fixa do plano,1282100,1620250,Faixa preliminar,Bens locais e valores de reposição.
+CASO_00058,IMO_CASO_00058_01,Vendaval e correlatos,Fixa do plano,1282100,1620250,Faixa preliminar,Conteúdo exposto e necessidade de proteger o prédio.
+CASO_00058,IMO_CASO_00058_01,RC empregador,Fixa do plano,,,Faltam dados,Empregados locais e limite necessário.
+CASO_00058,IMO_CASO_00058_01,Vidros,Fixa do plano,,,Faltam dados,"Itens, medidas e custo de reposição."
+CASO_00058,IMO_CASO_00058_01,Mercadorias refrigeradas,Adicional a confirmar,,,Faltam dados,Mercadorias refrigeradas e valor máximo armazenado.
+CASO_00059,IMO_CASO_00059_01,"Incêndio, raio, explosão e fumaça",Fixa do plano,110000,130050,Faixa preliminar,"Inventário, reposição e interesse em prédio/conteúdo."
+CASO_00059,IMO_CASO_00059_01,Danos elétricos,Fixa do plano,83200,94200,Faixa preliminar,Equipamentos locais e valores de reposição.
+CASO_00059,IMO_CASO_00059_01,Aluguel,Fixa do plano,,,Faltam dados,"Contrato, aluguel e prazo de recuperação."
+CASO_00059,IMO_CASO_00059_01,RC estabelecimento,Fixa do plano,,,Faltam dados,"Atividade, terceiros e limite necessário."
+CASO_00059,IMO_CASO_00059_01,Despesas fixas,Fixa do plano,118950,237900,Faixa preliminar,Despesas que continuam na paralisação e prazo.
+CASO_00059,IMO_CASO_00059_01,Letreiros,Adicional a confirmar,8300,10950,Faixa preliminar,"Tipo, localização e custo de reposição."
+CASO_00060,IMO_CASO_00060_01,"Incêndio, raio, explosão e fumaça",Fixa do plano,356800,608700,Faixa preliminar,"Inventário, reposição e interesse em prédio/conteúdo."
+CASO_00060,IMO_CASO_00060_01,Danos elétricos,Fixa do plano,204300,376850,Faixa preliminar,Equipamentos locais e valores de reposição.
+CASO_00060,IMO_CASO_00060_01,Aluguel,Fixa do plano,86400,172800,Faixa preliminar,"Contrato, aluguel e prazo de recuperação."
+CASO_00060,IMO_CASO_00060_01,RC estabelecimento,Fixa do plano,,,Faltam dados,"Atividade, terceiros e limite necessário."
+CASO_00060,IMO_CASO_00060_01,Despesas fixas,Fixa do plano,168900,337800,Faixa preliminar,Despesas que continuam na paralisação e prazo.
+CASO_00060,IMO_CASO_00060_01,Roubo/furto com arrombamento,Fixa do plano,356800,608700,Faixa preliminar,Bens locais e valores de reposição.
+CASO_00060,IMO_CASO_00060_01,Vendaval e correlatos,Fixa do plano,356800,608700,Faixa preliminar,Conteúdo exposto e necessidade de proteger o prédio.
+CASO_00061,IMO_CASO_00061_01,"Incêndio, raio, explosão e fumaça",Fixa do plano,46800,78250,Faixa preliminar,"Inventário, reposição e interesse em prédio/conteúdo."
+CASO_00061,IMO_CASO_00061_01,Danos elétricos,Fixa do plano,7100,14750,Faixa preliminar,Equipamentos locais e valores de reposição.
+CASO_00061,IMO_CASO_00061_01,Aluguel,Fixa do plano,,,Faltam dados,"Contrato, aluguel e prazo de recuperação."
+CASO_00061,IMO_CASO_00061_01,RC estabelecimento,Fixa do plano,,,Faltam dados,"Atividade, terceiros e limite necessário."
+CASO_00061,IMO_CASO_00061_01,Despesas fixas,Fixa do plano,185850,371700,Faixa preliminar,Despesas que continuam na paralisação e prazo.
+CASO_00061,IMO_CASO_00061_01,Delivery,Adicional a confirmar,,,Faltam dados,Operação local e valores por envio.
+CASO_00062,IMO_CASO_00062_01,"Incêndio, raio, explosão e fumaça",Fixa do plano,837100,949550,Faixa preliminar,"Inventário, reposição e interesse em prédio/conteúdo."
+CASO_00062,IMO_CASO_00062_01,Danos elétricos,Fixa do plano,484000,536050,Faixa preliminar,Equipamentos locais e valores de reposição.
+CASO_00062,IMO_CASO_00062_01,Aluguel,Fixa do plano,,,Faltam dados,"Contrato, aluguel e prazo de recuperação."
+CASO_00062,IMO_CASO_00062_01,RC estabelecimento,Fixa do plano,,,Faltam dados,"Atividade, terceiros e limite necessário."
+CASO_00062,IMO_CASO_00062_01,Despesas fixas,Fixa do plano,279600,559200,Faixa preliminar,Despesas que continuam na paralisação e prazo.
+CASO_00062,IMO_CASO_00062_01,Roubo/furto com arrombamento,Fixa do plano,837100,949550,Faixa preliminar,Bens locais e valores de reposição.
+CASO_00062,IMO_CASO_00062_01,Vendaval e correlatos,Fixa do plano,837100,949550,Faixa preliminar,Conteúdo exposto e necessidade de proteger o prédio.
+CASO_00062,IMO_CASO_00062_01,Mercadorias refrigeradas,Adicional a confirmar,,,Faltam dados,Mercadorias refrigeradas e valor máximo armazenado.
+CASO_00064,IMO_CASO_00064_01,"Incêndio, raio, explosão e fumaça",Fixa do plano,113800,158500,Faixa preliminar,"Inventário, reposição e interesse em prédio/conteúdo."
+CASO_00064,IMO_CASO_00064_01,Danos elétricos,Fixa do plano,71050,96750,Faixa preliminar,Equipamentos locais e valores de reposição.
+CASO_00064,IMO_CASO_00064_01,Aluguel,Fixa do plano,,,Faltam dados,"Contrato, aluguel e prazo de recuperação."
+CASO_00064,IMO_CASO_00064_01,RC estabelecimento,Fixa do plano,,,Faltam dados,"Atividade, terceiros e limite necessário."
+CASO_00064,IMO_CASO_00064_01,Despesas fixas,Fixa do plano,94200,188400,Faixa preliminar,Despesas que continuam na paralisação e prazo.
+CASO_00064,IMO_CASO_00064_01,Delivery,Adicional a confirmar,,,Faltam dados,Operação local e valores por envio.
+CASO_00064,IMO_CASO_00064_01,Mercadorias refrigeradas,Adicional a confirmar,,,Faltam dados,Mercadorias refrigeradas e valor máximo armazenado.
+CASO_00066,IMO_CASO_00066_01,"Incêndio, raio, explosão e fumaça",Fixa do plano,489800,660850,Faixa preliminar,"Inventário, reposição e interesse em prédio/conteúdo."
+CASO_00066,IMO_CASO_00066_01,Danos elétricos,Fixa do plano,255300,316350,Faixa preliminar,Equipamentos locais e valores de reposição.
+CASO_00066,IMO_CASO_00066_01,Aluguel,Fixa do plano,,,Faltam dados,"Contrato, aluguel e prazo de recuperação."
+CASO_00066,IMO_CASO_00066_01,RC estabelecimento,Fixa do plano,,,Faltam dados,"Atividade, terceiros e limite necessário."
+CASO_00066,IMO_CASO_00066_01,Despesas fixas,Fixa do plano,238950,477900,Faixa preliminar,Despesas que continuam na paralisação e prazo.
+CASO_00066,IMO_CASO_00066_01,Roubo/furto com arrombamento,Fixa do plano,489800,660850,Faixa preliminar,Bens locais e valores de reposição.
+CASO_00066,IMO_CASO_00066_01,Vendaval e correlatos,Fixa do plano,489800,660850,Faixa preliminar,Conteúdo exposto e necessidade de proteger o prédio.
+CASO_00066,IMO_CASO_00066_01,Delivery,Adicional a confirmar,,,Faltam dados,Operação local e valores por envio.
+CASO_00066,IMO_CASO_00066_01,Mercadorias refrigeradas,Adicional a confirmar,,,Faltam dados,Mercadorias refrigeradas e valor máximo armazenado.
+CASO_00067,IMO_CASO_00067_01,"Incêndio, raio, explosão e fumaça",Fixa do plano,133750,218100,Faixa preliminar,"Inventário, reposição e interesse em prédio/conteúdo."
+CASO_00067,IMO_CASO_00067_01,Danos elétricos,Fixa do plano,53050,106700,Faixa preliminar,Equipamentos locais e valores de reposição.
+CASO_00067,IMO_CASO_00067_01,Aluguel,Fixa do plano,113100,226200,Faixa preliminar,"Contrato, aluguel e prazo de recuperação."
+CASO_00067,IMO_CASO_00067_01,RC estabelecimento,Fixa do plano,,,Faltam dados,"Atividade, terceiros e limite necessário."
+CASO_00067,IMO_CASO_00067_01,Despesas fixas,Fixa do plano,93300,186600,Faixa preliminar,Despesas que continuam na paralisação e prazo.
+CASO_00068,IMO_CASO_00068_01,"Incêndio, raio, explosão e fumaça",Fixa do plano,679550,971050,Faixa preliminar,"Inventário, reposição e interesse em prédio/conteúdo."
+CASO_00068,IMO_CASO_00068_01,Danos elétricos,Fixa do plano,356650,540400,Faixa preliminar,Equipamentos locais e valores de reposição.
+CASO_00068,IMO_CASO_00068_01,Aluguel,Fixa do plano,311100,622200,Faixa preliminar,"Contrato, aluguel e prazo de recuperação."
+CASO_00068,IMO_CASO_00068_01,RC estabelecimento,Fixa do plano,,,Faltam dados,"Atividade, terceiros e limite necessário."
+CASO_00068,IMO_CASO_00068_01,Despesas fixas,Fixa do plano,906600,1813200,Faixa preliminar,Despesas que continuam na paralisação e prazo.
+CASO_00068,IMO_CASO_00068_01,Roubo/furto com arrombamento,Fixa do plano,679550,971050,Faixa preliminar,Bens locais e valores de reposição.
+CASO_00068,IMO_CASO_00068_01,Vendaval e correlatos,Fixa do plano,679550,971050,Faixa preliminar,Conteúdo exposto e necessidade de proteger o prédio.
+CASO_00068,IMO_CASO_00068_01,RC empregador,Fixa do plano,,,Faltam dados,Empregados locais e limite necessário.
+CASO_00068,IMO_CASO_00068_01,Vidros,Fixa do plano,,,Faltam dados,"Itens, medidas e custo de reposição."
+CASO_00068,IMO_CASO_00068_01,Delivery,Adicional a confirmar,,,Faltam dados,Operação local e valores por envio.
+CASO_00070,IMO_CASO_00070_01,"Incêndio, raio, explosão e fumaça",Fixa do plano,908050,1180400,Faixa preliminar,"Inventário, reposição e interesse em prédio/conteúdo."
+CASO_00070,IMO_CASO_00070_01,Danos elétricos,Fixa do plano,285600,375800,Faixa preliminar,Equipamentos locais e valores de reposição.
+CASO_00070,IMO_CASO_00070_01,Aluguel,Fixa do plano,203400,406800,Faixa preliminar,"Contrato, aluguel e prazo de recuperação."
+CASO_00070,IMO_CASO_00070_01,RC estabelecimento,Fixa do plano,,,Faltam dados,"Atividade, terceiros e limite necessário."
+CASO_00070,IMO_CASO_00070_01,Despesas fixas,Fixa do plano,439350,878700,Faixa preliminar,Despesas que continuam na paralisação e prazo.
+CASO_00070,IMO_CASO_00070_01,Roubo/furto com arrombamento,Fixa do plano,908050,1180400,Faixa preliminar,Bens locais e valores de reposição.
+CASO_00070,IMO_CASO_00070_01,Vendaval e correlatos,Fixa do plano,908050,1180400,Faixa preliminar,Conteúdo exposto e necessidade de proteger o prédio.
+CASO_00070,IMO_CASO_00070_01,RC empregador,Fixa do plano,,,Faltam dados,Empregados locais e limite necessário.
+CASO_00070,IMO_CASO_00070_01,Vidros,Fixa do plano,,,Faltam dados,"Itens, medidas e custo de reposição."
+CASO_00070,IMO_CASO_00070_01,Mercadorias refrigeradas,Adicional a confirmar,,,Faltam dados,Mercadorias refrigeradas e valor máximo armazenado.
+CASO_00071,IMO_CASO_00071_01,"Incêndio, raio, explosão e fumaça",Fixa do plano,34050,39900,Faixa preliminar,"Inventário, reposição e interesse em prédio/conteúdo."
+CASO_00071,IMO_CASO_00071_01,Danos elétricos,Fixa do plano,,,Faltam dados,Equipamentos locais e valores de reposição.
+CASO_00071,IMO_CASO_00071_01,Aluguel,Fixa do plano,,,Faltam dados,"Contrato, aluguel e prazo de recuperação."
+CASO_00071,IMO_CASO_00071_01,RC estabelecimento,Fixa do plano,,,Faltam dados,"Atividade, terceiros e limite necessário."
+CASO_00071,IMO_CASO_00071_01,Despesas fixas,Fixa do plano,25650,51300,Faixa preliminar,Despesas que continuam na paralisação e prazo.
+CASO_00071,IMO_CASO_00071_02,"Incêndio, raio, explosão e fumaça",Fixa do plano,15900,23600,Faixa preliminar,"Inventário, reposição e interesse em prédio/conteúdo."
+CASO_00071,IMO_CASO_00071_02,Danos elétricos,Fixa do plano,13150,19950,Faixa preliminar,Equipamentos locais e valores de reposição.
+CASO_00071,IMO_CASO_00071_02,Aluguel,Fixa do plano,,,Faltam dados,"Contrato, aluguel e prazo de recuperação."
+CASO_00071,IMO_CASO_00071_02,RC estabelecimento,Fixa do plano,,,Faltam dados,"Atividade, terceiros e limite necessário."
+CASO_00071,IMO_CASO_00071_02,Despesas fixas,Fixa do plano,59850,119700,Faixa preliminar,Despesas que continuam na paralisação e prazo.
+CASO_00072,IMO_CASO_00072_01,"Incêndio, raio, explosão e fumaça",Fixa do plano,910050,1353750,Faixa preliminar,"Inventário, reposição e interesse em prédio/conteúdo."
+CASO_00072,IMO_CASO_00072_01,Danos elétricos,Fixa do plano,541850,768550,Faixa preliminar,Equipamentos locais e valores de reposição.
+CASO_00072,IMO_CASO_00072_01,Aluguel,Fixa do plano,,,Faltam dados,"Contrato, aluguel e prazo de recuperação."
+CASO_00072,IMO_CASO_00072_01,RC estabelecimento,Fixa do plano,,,Faltam dados,"Atividade, terceiros e limite necessário."
+CASO_00072,IMO_CASO_00072_01,Despesas fixas,Fixa do plano,668550,1337100,Faixa preliminar,Despesas que continuam na paralisação e prazo.
+CASO_00072,IMO_CASO_00072_01,Roubo/furto com arrombamento,Fixa do plano,910050,1353750,Faixa preliminar,Bens locais e valores de reposição.
+CASO_00072,IMO_CASO_00072_01,Vendaval e correlatos,Fixa do plano,910050,1353750,Faixa preliminar,Conteúdo exposto e necessidade de proteger o prédio.
+CASO_00072,IMO_CASO_00072_01,RC empregador,Fixa do plano,,,Faltam dados,Empregados locais e limite necessário.
+CASO_00072,IMO_CASO_00072_01,Vidros,Fixa do plano,,,Faltam dados,"Itens, medidas e custo de reposição."
+CASO_00075,IMO_CASO_00075_01,"Incêndio, raio, explosão e fumaça",Fixa do plano,85050,95950,Faixa preliminar,"Inventário, reposição e interesse em prédio/conteúdo."
+CASO_00075,IMO_CASO_00075_01,Danos elétricos,Fixa do plano,78250,85250,Faixa preliminar,Equipamentos locais e valores de reposição.
+CASO_00075,IMO_CASO_00075_01,Aluguel,Fixa do plano,177600,355200,Faixa preliminar,"Contrato, aluguel e prazo de recuperação."
+CASO_00075,IMO_CASO_00075_01,RC estabelecimento,Fixa do plano,,,Faltam dados,"Atividade, terceiros e limite necessário."
+CASO_00075,IMO_CASO_00075_01,Despesas fixas,Fixa do plano,205800,411600,Faixa preliminar,Despesas que continuam na paralisação e prazo.
+CASO_00075,IMO_CASO_00075_01,Delivery,Adicional a confirmar,,,Faltam dados,Operação local e valores por envio.
+CASO_00075,IMO_CASO_00075_01,Mercadorias refrigeradas,Adicional a confirmar,,,Faltam dados,Mercadorias refrigeradas e valor máximo armazenado.
+CASO_00076,IMO_CASO_00076_01,"Incêndio, raio, explosão e fumaça",Fixa do plano,1178250,1613350,Faixa preliminar,"Inventário, reposição e interesse em prédio/conteúdo."
+CASO_00076,IMO_CASO_00076_01,Danos elétricos,Fixa do plano,454750,600250,Faixa preliminar,Equipamentos locais e valores de reposição.
+CASO_00076,IMO_CASO_00076_01,Aluguel,Fixa do plano,178200,356400,Faixa preliminar,"Contrato, aluguel e prazo de recuperação."
+CASO_00076,IMO_CASO_00076_01,RC estabelecimento,Fixa do plano,,,Faltam dados,"Atividade, terceiros e limite necessário."
+CASO_00076,IMO_CASO_00076_01,Despesas fixas,Fixa do plano,408900,817800,Faixa preliminar,Despesas que continuam na paralisação e prazo.
+CASO_00076,IMO_CASO_00076_01,Roubo/furto com arrombamento,Fixa do plano,1178250,1613350,Faixa preliminar,Bens locais e valores de reposição.
+CASO_00076,IMO_CASO_00076_01,Vendaval e correlatos,Fixa do plano,1178250,1613350,Faixa preliminar,Conteúdo exposto e necessidade de proteger o prédio.
+CASO_00076,IMO_CASO_00076_01,RC empregador,Fixa do plano,,,Faltam dados,Empregados locais e limite necessário.
+CASO_00076,IMO_CASO_00076_01,Vidros,Fixa do plano,,,Faltam dados,"Itens, medidas e custo de reposição."
+CASO_00076,IMO_CASO_00076_01,Delivery,Adicional a confirmar,,,Faltam dados,Operação local e valores por envio.
+CASO_00077,IMO_CASO_00077_01,"Incêndio, raio, explosão e fumaça",Fixa do plano,257350,378200,Faixa preliminar,"Inventário, reposição e interesse em prédio/conteúdo."
+CASO_00077,IMO_CASO_00077_01,Danos elétricos,Fixa do plano,114500,178700,Faixa preliminar,Equipamentos locais e valores de reposição.
+CASO_00077,IMO_CASO_00077_01,Aluguel,Fixa do plano,319500,639000,Faixa preliminar,"Contrato, aluguel e prazo de recuperação."
+CASO_00077,IMO_CASO_00077_01,RC estabelecimento,Fixa do plano,,,Faltam dados,"Atividade, terceiros e limite necessário."
+CASO_00077,IMO_CASO_00077_01,Despesas fixas,Fixa do plano,240750,481500,Faixa preliminar,Despesas que continuam na paralisação e prazo.
+CASO_00077,IMO_CASO_00077_01,Delivery,Adicional a confirmar,,,Faltam dados,Operação local e valores por envio.
+CASO_00078,IMO_CASO_00078_01,"Incêndio, raio, explosão e fumaça",Fixa do plano,291750,630050,Faixa preliminar,"Inventário, reposição e interesse em prédio/conteúdo."
+CASO_00078,IMO_CASO_00078_01,Danos elétricos,Fixa do plano,192350,487000,Faixa preliminar,Equipamentos locais e valores de reposição.
+CASO_00078,IMO_CASO_00078_01,Aluguel,Fixa do plano,,,Faltam dados,"Contrato, aluguel e prazo de recuperação."
+CASO_00078,IMO_CASO_00078_01,RC estabelecimento,Fixa do plano,,,Faltam dados,"Atividade, terceiros e limite necessário."
+CASO_00078,IMO_CASO_00078_01,Despesas fixas,Fixa do plano,475350,950700,Faixa preliminar,Despesas que continuam na paralisação e prazo.
+CASO_00078,IMO_CASO_00078_01,Roubo/furto com arrombamento,Fixa do plano,291750,630050,Faixa preliminar,Bens locais e valores de reposição.
+CASO_00078,IMO_CASO_00078_01,Vendaval e correlatos,Fixa do plano,291750,630050,Faixa preliminar,Conteúdo exposto e necessidade de proteger o prédio.
+CASO_00078,IMO_CASO_00078_01,RC empregador,Fixa do plano,,,Faltam dados,Empregados locais e limite necessário.
+CASO_00078,IMO_CASO_00078_01,Vidros,Fixa do plano,,,Faltam dados,"Itens, medidas e custo de reposição."
+CASO_00078,IMO_CASO_00078_01,Mercadorias refrigeradas,Adicional a confirmar,,,Faltam dados,Mercadorias refrigeradas e valor máximo armazenado.
+CASO_00079,IMO_CASO_00079_01,"Incêndio, raio, explosão e fumaça",Fixa do plano,113050,141950,Faixa preliminar,"Inventário, reposição e interesse em prédio/conteúdo."
+CASO_00079,IMO_CASO_00079_01,Danos elétricos,Fixa do plano,22550,29700,Faixa preliminar,Equipamentos locais e valores de reposição.
+CASO_00079,IMO_CASO_00079_01,Aluguel,Fixa do plano,98100,196200,Faixa preliminar,"Contrato, aluguel e prazo de recuperação."
+CASO_00079,IMO_CASO_00079_01,RC estabelecimento,Fixa do plano,,,Faltam dados,"Atividade, terceiros e limite necessário."
+CASO_00079,IMO_CASO_00079_01,Despesas fixas,Fixa do plano,83550,167100,Faixa preliminar,Despesas que continuam na paralisação e prazo.
+CASO_00079,IMO_CASO_00079_01,Delivery,Adicional a confirmar,,,Faltam dados,Operação local e valores por envio.
+CASO_00079,IMO_CASO_00079_01,Mercadorias refrigeradas,Adicional a confirmar,,,Faltam dados,Mercadorias refrigeradas e valor máximo armazenado.
+CASO_00080,IMO_CASO_00080_01,"Incêndio, raio, explosão e fumaça",Fixa do plano,119050,196950,Faixa preliminar,"Inventário, reposição e interesse em prédio/conteúdo."
+CASO_00080,IMO_CASO_00080_01,Danos elétricos,Fixa do plano,14500,19050,Faixa preliminar,Equipamentos locais e valores de reposição.
+CASO_00080,IMO_CASO_00080_01,Aluguel,Fixa do plano,114600,229200,Faixa preliminar,"Contrato, aluguel e prazo de recuperação."
+CASO_00080,IMO_CASO_00080_01,RC estabelecimento,Fixa do plano,,,Faltam dados,"Atividade, terceiros e limite necessário."
+CASO_00080,IMO_CASO_00080_01,Despesas fixas,Fixa do plano,102000,204000,Faixa preliminar,Despesas que continuam na paralisação e prazo.
+CASO_00080,IMO_CASO_00080_01,Delivery,Adicional a confirmar,,,Faltam dados,Operação local e valores por envio.
+CASO_00081,IMO_CASO_00081_01,"Incêndio, raio, explosão e fumaça",Fixa do plano,27800,48350,Faixa preliminar,"Inventário, reposição e interesse em prédio/conteúdo."
+CASO_00081,IMO_CASO_00081_01,Danos elétricos,Fixa do plano,26000,45850,Faixa preliminar,Equipamentos locais e valores de reposição.
+CASO_00081,IMO_CASO_00081_01,Aluguel,Fixa do plano,33300,66600,Faixa preliminar,"Contrato, aluguel e prazo de recuperação."
+CASO_00081,IMO_CASO_00081_01,RC estabelecimento,Fixa do plano,,,Faltam dados,"Atividade, terceiros e limite necessário."
+CASO_00081,IMO_CASO_00081_01,Despesas fixas,Fixa do plano,31050,62100,Faixa preliminar,Despesas que continuam na paralisação e prazo.
+CASO_00082,IMO_CASO_00082_01,"Incêndio, raio, explosão e fumaça",Fixa do plano,65400,141000,Faixa preliminar,"Inventário, reposição e interesse em prédio/conteúdo."
+CASO_00082,IMO_CASO_00082_01,Danos elétricos,Fixa do plano,22550,42900,Faixa preliminar,Equipamentos locais e valores de reposição.
+CASO_00082,IMO_CASO_00082_01,Aluguel,Fixa do plano,,,Faltam dados,"Contrato, aluguel e prazo de recuperação."
+CASO_00082,IMO_CASO_00082_01,RC estabelecimento,Fixa do plano,,,Faltam dados,"Atividade, terceiros e limite necessário."
+CASO_00082,IMO_CASO_00082_01,Despesas fixas,Fixa do plano,54000,108000,Faixa preliminar,Despesas que continuam na paralisação e prazo.
+CASO_00082,IMO_CASO_00082_01,Delivery,Adicional a confirmar,,,Faltam dados,Operação local e valores por envio.
+CASO_00082,IMO_CASO_00082_01,Letreiros,Adicional a confirmar,27150,32300,Faixa preliminar,"Tipo, localização e custo de reposição."
+CASO_00082,IMO_CASO_00082_02,"Incêndio, raio, explosão e fumaça",Fixa do plano,50700,60000,Faixa preliminar,"Inventário, reposição e interesse em prédio/conteúdo."
+CASO_00082,IMO_CASO_00082_02,Danos elétricos,Fixa do plano,13500,14350,Faixa preliminar,Equipamentos locais e valores de reposição.
+CASO_00082,IMO_CASO_00082_02,Aluguel,Fixa do plano,145500,291000,Faixa preliminar,"Contrato, aluguel e prazo de recuperação."
+CASO_00082,IMO_CASO_00082_02,RC estabelecimento,Fixa do plano,,,Faltam dados,"Atividade, terceiros e limite necessário."
+CASO_00082,IMO_CASO_00082_02,Despesas fixas,Fixa do plano,76050,152100,Faixa preliminar,Despesas que continuam na paralisação e prazo.
+CASO_00082,IMO_CASO_00082_02,Delivery,Adicional a confirmar,,,Faltam dados,Operação local e valores por envio.
+CASO_00082,IMO_CASO_00082_02,Letreiros,Adicional a confirmar,22900,30100,Faixa preliminar,"Tipo, localização e custo de reposição."
+CASO_00083,IMO_CASO_00083_01,"Incêndio, raio, explosão e fumaça",Fixa do plano,62250,92700,Faixa preliminar,"Inventário, reposição e interesse em prédio/conteúdo."
+CASO_00083,IMO_CASO_00083_01,Danos elétricos,Fixa do plano,31450,50900,Faixa preliminar,Equipamentos locais e valores de reposição.
+CASO_00083,IMO_CASO_00083_01,Aluguel,Fixa do plano,118500,237000,Faixa preliminar,"Contrato, aluguel e prazo de recuperação."
+CASO_00083,IMO_CASO_00083_01,RC estabelecimento,Fixa do plano,,,Faltam dados,"Atividade, terceiros e limite necessário."
+CASO_00083,IMO_CASO_00083_01,Despesas fixas,Fixa do plano,44700,89400,Faixa preliminar,Despesas que continuam na paralisação e prazo.
+CASO_00083,IMO_CASO_00083_01,Delivery,Adicional a confirmar,,,Faltam dados,Operação local e valores por envio.
+CASO_00084,IMO_CASO_00084_01,"Incêndio, raio, explosão e fumaça",Fixa do plano,43750,66550,Faixa preliminar,"Inventário, reposição e interesse em prédio/conteúdo."
+CASO_00084,IMO_CASO_00084_01,Danos elétricos,Fixa do plano,,,Faltam dados,Equipamentos locais e valores de reposição.
+CASO_00084,IMO_CASO_00084_01,Aluguel,Fixa do plano,180300,360600,Faixa preliminar,"Contrato, aluguel e prazo de recuperação."
+CASO_00084,IMO_CASO_00084_01,RC estabelecimento,Fixa do plano,,,Faltam dados,"Atividade, terceiros e limite necessário."
+CASO_00084,IMO_CASO_00084_01,Despesas fixas,Fixa do plano,122850,245700,Faixa preliminar,Despesas que continuam na paralisação e prazo.
+CASO_00084,IMO_CASO_00084_01,Roubo/furto com arrombamento,Fixa do plano,43750,66550,Faixa preliminar,Bens locais e valores de reposição.
+CASO_00084,IMO_CASO_00084_01,Vendaval e correlatos,Fixa do plano,43750,66550,Faixa preliminar,Conteúdo exposto e necessidade de proteger o prédio.
+CASO_00084,IMO_CASO_00084_01,Delivery,Adicional a confirmar,,,Faltam dados,Operação local e valores por envio.
+CASO_00084,IMO_CASO_00084_01,Mercadorias refrigeradas,Adicional a confirmar,,,Faltam dados,Mercadorias refrigeradas e valor máximo armazenado.
+CASO_00084,IMO_CASO_00084_01,Letreiros,Adicional a confirmar,27000,105250,Faixa preliminar,"Tipo, localização e custo de reposição."
+CASO_00085,IMO_CASO_00085_01,"Incêndio, raio, explosão e fumaça",Fixa do plano,61600,82400,Faixa preliminar,"Inventário, reposição e interesse em prédio/conteúdo."
+CASO_00085,IMO_CASO_00085_01,Danos elétricos,Fixa do plano,45100,57600,Faixa preliminar,Equipamentos locais e valores de reposição.
+CASO_00085,IMO_CASO_00085_01,Aluguel,Fixa do plano,,,Faltam dados,"Contrato, aluguel e prazo de recuperação."
+CASO_00085,IMO_CASO_00085_01,RC estabelecimento,Fixa do plano,,,Faltam dados,"Atividade, terceiros e limite necessário."
+CASO_00085,IMO_CASO_00085_01,Despesas fixas,Fixa do plano,54450,108900,Faixa preliminar,Despesas que continuam na paralisação e prazo.
+CASO_00085,IMO_CASO_00085_02,"Incêndio, raio, explosão e fumaça",Fixa do plano,86050,121850,Faixa preliminar,"Inventário, reposição e interesse em prédio/conteúdo."
+CASO_00085,IMO_CASO_00085_02,Danos elétricos,Fixa do plano,17700,21700,Faixa preliminar,Equipamentos locais e valores de reposição.
+CASO_00085,IMO_CASO_00085_02,Aluguel,Fixa do plano,114600,229200,Faixa preliminar,"Contrato, aluguel e prazo de recuperação."
+CASO_00085,IMO_CASO_00085_02,RC estabelecimento,Fixa do plano,,,Faltam dados,"Atividade, terceiros e limite necessário."
+CASO_00085,IMO_CASO_00085_02,Despesas fixas,Fixa do plano,75450,150900,Faixa preliminar,Despesas que continuam na paralisação e prazo.
+CASO_00086,IMO_CASO_00086_01,"Incêndio, raio, explosão e fumaça",Fixa do plano,768850,905850,Faixa preliminar,"Inventário, reposição e interesse em prédio/conteúdo."
+CASO_00086,IMO_CASO_00086_01,Danos elétricos,Fixa do plano,205350,244450,Faixa preliminar,Equipamentos locais e valores de reposição.
+CASO_00086,IMO_CASO_00086_01,Aluguel,Fixa do plano,189000,378000,Faixa preliminar,"Contrato, aluguel e prazo de recuperação."
+CASO_00086,IMO_CASO_00086_01,RC estabelecimento,Fixa do plano,,,Faltam dados,"Atividade, terceiros e limite necessário."
+CASO_00086,IMO_CASO_00086_01,Despesas fixas,Fixa do plano,362850,725700,Faixa preliminar,Despesas que continuam na paralisação e prazo.
+CASO_00086,IMO_CASO_00086_01,Roubo/furto com arrombamento,Fixa do plano,768850,905850,Faixa preliminar,Bens locais e valores de reposição.
+CASO_00086,IMO_CASO_00086_01,Vendaval e correlatos,Fixa do plano,768850,905850,Faixa preliminar,Conteúdo exposto e necessidade de proteger o prédio.
+CASO_00086,IMO_CASO_00086_01,RC empregador,Fixa do plano,,,Faltam dados,Empregados locais e limite necessário.
+CASO_00086,IMO_CASO_00086_01,Vidros,Fixa do plano,,,Faltam dados,"Itens, medidas e custo de reposição."
+CASO_00086,IMO_CASO_00086_01,Delivery,Adicional a confirmar,,,Faltam dados,Operação local e valores por envio.
+CASO_00086,IMO_CASO_00086_02,"Incêndio, raio, explosão e fumaça",Fixa do plano,1081500,1340950,Faixa preliminar,"Inventário, reposição e interesse em prédio/conteúdo."
+CASO_00086,IMO_CASO_00086_02,Danos elétricos,Fixa do plano,704450,916850,Faixa preliminar,Equipamentos locais e valores de reposição.
+CASO_00086,IMO_CASO_00086_02,Aluguel,Fixa do plano,213300,426600,Faixa preliminar,"Contrato, aluguel e prazo de recuperação."
+CASO_00086,IMO_CASO_00086_02,RC estabelecimento,Fixa do plano,,,Faltam dados,"Atividade, terceiros e limite necessário."
+CASO_00086,IMO_CASO_00086_02,Despesas fixas,Fixa do plano,420150,840300,Faixa preliminar,Despesas que continuam na paralisação e prazo.
+CASO_00086,IMO_CASO_00086_02,Roubo/furto com arrombamento,Fixa do plano,1081500,1340950,Faixa preliminar,Bens locais e valores de reposição.
+CASO_00086,IMO_CASO_00086_02,Vendaval e correlatos,Fixa do plano,1081500,1340950,Faixa preliminar,Conteúdo exposto e necessidade de proteger o prédio.
+CASO_00086,IMO_CASO_00086_02,RC empregador,Fixa do plano,,,Faltam dados,Empregados locais e limite necessário.
+CASO_00086,IMO_CASO_00086_02,Vidros,Fixa do plano,,,Faltam dados,"Itens, medidas e custo de reposição."
+CASO_00086,IMO_CASO_00086_02,Delivery,Adicional a confirmar,,,Faltam dados,Operação local e valores por envio.
+CASO_00086,IMO_CASO_00086_02,Mercadorias refrigeradas,Adicional a confirmar,,,Faltam dados,Mercadorias refrigeradas e valor máximo armazenado.
+CASO_00088,IMO_CASO_00088_01,"Incêndio, raio, explosão e fumaça",Fixa do plano,1156100,1498050,Faixa preliminar,"Inventário, reposição e interesse em prédio/conteúdo."
+CASO_00088,IMO_CASO_00088_01,Danos elétricos,Fixa do plano,151750,199700,Faixa preliminar,Equipamentos locais e valores de reposição.
+CASO_00088,IMO_CASO_00088_01,Aluguel,Fixa do plano,,,Faltam dados,"Contrato, aluguel e prazo de recuperação."
+CASO_00088,IMO_CASO_00088_01,RC estabelecimento,Fixa do plano,,,Faltam dados,"Atividade, terceiros e limite necessário."
+CASO_00088,IMO_CASO_00088_01,Despesas fixas,Fixa do plano,277200,554400,Faixa preliminar,Despesas que continuam na paralisação e prazo.
+CASO_00088,IMO_CASO_00088_01,Roubo/furto com arrombamento,Fixa do plano,1156100,1498050,Faixa preliminar,Bens locais e valores de reposição.
+CASO_00088,IMO_CASO_00088_01,Vendaval e correlatos,Fixa do plano,1156100,1498050,Faixa preliminar,Conteúdo exposto e necessidade de proteger o prédio.
+CASO_00088,IMO_CASO_00088_01,RC empregador,Fixa do plano,,,Faltam dados,Empregados locais e limite necessário.
+CASO_00088,IMO_CASO_00088_01,Vidros,Fixa do plano,,,Faltam dados,"Itens, medidas e custo de reposição."
+CASO_00088,IMO_CASO_00088_01,Delivery,Adicional a confirmar,,,Faltam dados,Operação local e valores por envio.
+CASO_00088,IMO_CASO_00088_01,Mercadorias refrigeradas,Adicional a confirmar,,,Faltam dados,Mercadorias refrigeradas e valor máximo armazenado.
+CASO_00089,IMO_CASO_00089_01,"Incêndio, raio, explosão e fumaça",Fixa do plano,100950,180350,Faixa preliminar,"Inventário, reposição e interesse em prédio/conteúdo."
+CASO_00089,IMO_CASO_00089_01,Danos elétricos,Fixa do plano,44100,91850,Faixa preliminar,Equipamentos locais e valores de reposição.
+CASO_00089,IMO_CASO_00089_01,Aluguel,Fixa do plano,240300,480600,Faixa preliminar,"Contrato, aluguel e prazo de recuperação."
+CASO_00089,IMO_CASO_00089_01,RC estabelecimento,Fixa do plano,,,Faltam dados,"Atividade, terceiros e limite necessário."
+CASO_00089,IMO_CASO_00089_01,Despesas fixas,Fixa do plano,241500,483000,Faixa preliminar,Despesas que continuam na paralisação e prazo.
+CASO_00089,IMO_CASO_00089_01,Roubo/furto com arrombamento,Fixa do plano,100950,180350,Faixa preliminar,Bens locais e valores de reposição.
+CASO_00089,IMO_CASO_00089_01,Vendaval e correlatos,Fixa do plano,100950,180350,Faixa preliminar,Conteúdo exposto e necessidade de proteger o prédio.
+CASO_00089,IMO_CASO_00089_01,Delivery,Adicional a confirmar,,,Faltam dados,Operação local e valores por envio.
+CASO_00089,IMO_CASO_00089_01,Mercadorias refrigeradas,Adicional a confirmar,,,Faltam dados,Mercadorias refrigeradas e valor máximo armazenado.
+CASO_00090,IMO_CASO_00090_01,"Incêndio, raio, explosão e fumaça",Fixa do plano,477550,659150,Faixa preliminar,"Inventário, reposição e interesse em prédio/conteúdo."
+CASO_00090,IMO_CASO_00090_01,Danos elétricos,Fixa do plano,106000,126200,Faixa preliminar,Equipamentos locais e valores de reposição.
+CASO_00090,IMO_CASO_00090_01,Aluguel,Fixa do plano,132600,265200,Faixa preliminar,"Contrato, aluguel e prazo de recuperação."
+CASO_00090,IMO_CASO_00090_01,RC estabelecimento,Fixa do plano,,,Faltam dados,"Atividade, terceiros e limite necessário."
+CASO_00090,IMO_CASO_00090_01,Despesas fixas,Fixa do plano,130350,260700,Faixa preliminar,Despesas que continuam na paralisação e prazo.
+CASO_00090,IMO_CASO_00090_01,Roubo/furto com arrombamento,Fixa do plano,477550,659150,Faixa preliminar,Bens locais e valores de reposição.
+CASO_00090,IMO_CASO_00090_01,Vendaval e correlatos,Fixa do plano,477550,659150,Faixa preliminar,Conteúdo exposto e necessidade de proteger o prédio.
+CASO_00090,IMO_CASO_00090_01,Delivery,Adicional a confirmar,,,Faltam dados,Operação local e valores por envio.
+CASO_00090,IMO_CASO_00090_02,"Incêndio, raio, explosão e fumaça",Fixa do plano,150050,205650,Faixa preliminar,"Inventário, reposição e interesse em prédio/conteúdo."
+CASO_00090,IMO_CASO_00090_02,Danos elétricos,Fixa do plano,,,Faltam dados,Equipamentos locais e valores de reposição.
+CASO_00090,IMO_CASO_00090_02,Aluguel,Fixa do plano,84600,169200,Faixa preliminar,"Contrato, aluguel e prazo de recuperação."
+CASO_00090,IMO_CASO_00090_02,RC estabelecimento,Fixa do plano,,,Faltam dados,"Atividade, terceiros e limite necessário."
+CASO_00090,IMO_CASO_00090_02,Despesas fixas,Fixa do plano,109650,219300,Faixa preliminar,Despesas que continuam na paralisação e prazo.
+CASO_00090,IMO_CASO_00090_02,Roubo/furto com arrombamento,Fixa do plano,150050,205650,Faixa preliminar,Bens locais e valores de reposição.
+CASO_00090,IMO_CASO_00090_02,Vendaval e correlatos,Fixa do plano,150050,205650,Faixa preliminar,Conteúdo exposto e necessidade de proteger o prédio.
+CASO_00090,IMO_CASO_00090_02,Delivery,Adicional a confirmar,,,Faltam dados,Operação local e valores por envio.
+CASO_00092,IMO_CASO_00092_01,"Incêndio, raio, explosão e fumaça",Fixa do plano,137200,207950,Faixa preliminar,"Inventário, reposição e interesse em prédio/conteúdo."
+CASO_00092,IMO_CASO_00092_01,Danos elétricos,Fixa do plano,67500,107250,Faixa preliminar,Equipamentos locais e valores de reposição.
+CASO_00092,IMO_CASO_00092_01,Aluguel,Fixa do plano,180600,361200,Faixa preliminar,"Contrato, aluguel e prazo de recuperação."
+CASO_00092,IMO_CASO_00092_01,RC estabelecimento,Fixa do plano,,,Faltam dados,"Atividade, terceiros e limite necessário."
+CASO_00092,IMO_CASO_00092_01,Despesas fixas,Fixa do plano,183300,366600,Faixa preliminar,Despesas que continuam na paralisação e prazo.
+CASO_00093,IMO_CASO_00093_01,"Incêndio, raio, explosão e fumaça",Fixa do plano,99800,170350,Faixa preliminar,"Inventário, reposição e interesse em prédio/conteúdo."
+CASO_00093,IMO_CASO_00093_01,Danos elétricos,Fixa do plano,96000,160750,Faixa preliminar,Equipamentos locais e valores de reposição.
+CASO_00093,IMO_CASO_00093_01,Aluguel,Fixa do plano,37200,74400,Faixa preliminar,"Contrato, aluguel e prazo de recuperação."
+CASO_00093,IMO_CASO_00093_01,RC estabelecimento,Fixa do plano,,,Faltam dados,"Atividade, terceiros e limite necessário."
+CASO_00093,IMO_CASO_00093_01,Despesas fixas,Fixa do plano,117000,234000,Faixa preliminar,Despesas que continuam na paralisação e prazo.
+CASO_00094,IMO_CASO_00094_01,"Incêndio, raio, explosão e fumaça",Fixa do plano,67550,98050,Faixa preliminar,"Inventário, reposição e interesse em prédio/conteúdo."
+CASO_00094,IMO_CASO_00094_01,Danos elétricos,Fixa do plano,22350,33850,Faixa preliminar,Equipamentos locais e valores de reposição.
+CASO_00094,IMO_CASO_00094_01,Aluguel,Fixa do plano,,,Faltam dados,"Contrato, aluguel e prazo de recuperação."
+CASO_00094,IMO_CASO_00094_01,RC estabelecimento,Fixa do plano,,,Faltam dados,"Atividade, terceiros e limite necessário."
+CASO_00094,IMO_CASO_00094_01,Despesas fixas,Fixa do plano,160050,320100,Faixa preliminar,Despesas que continuam na paralisação e prazo.
+CASO_00094,IMO_CASO_00094_01,Delivery,Adicional a confirmar,,,Faltam dados,Operação local e valores por envio.
+CASO_00095,IMO_CASO_00095_01,"Incêndio, raio, explosão e fumaça",Fixa do plano,89700,136250,Faixa preliminar,"Inventário, reposição e interesse em prédio/conteúdo."
+CASO_00095,IMO_CASO_00095_01,Danos elétricos,Fixa do plano,23300,48450,Faixa preliminar,Equipamentos locais e valores de reposição.
+CASO_00095,IMO_CASO_00095_01,Aluguel,Fixa do plano,36600,73200,Faixa preliminar,"Contrato, aluguel e prazo de recuperação."
+CASO_00095,IMO_CASO_00095_01,RC estabelecimento,Fixa do plano,,,Faltam dados,"Atividade, terceiros e limite necessário."
+CASO_00095,IMO_CASO_00095_01,Despesas fixas,Fixa do plano,52650,105300,Faixa preliminar,Despesas que continuam na paralisação e prazo.
+CASO_00095,IMO_CASO_00095_01,Delivery,Adicional a confirmar,,,Faltam dados,Operação local e valores por envio.
+CASO_00096,IMO_CASO_00096_01,"Incêndio, raio, explosão e fumaça",Fixa do plano,1222750,1877300,Faixa preliminar,"Inventário, reposição e interesse em prédio/conteúdo."
+CASO_00096,IMO_CASO_00096_01,Danos elétricos,Fixa do plano,705650,846550,Faixa preliminar,Equipamentos locais e valores de reposição.
+CASO_00096,IMO_CASO_00096_01,Aluguel,Fixa do plano,156600,313200,Faixa preliminar,"Contrato, aluguel e prazo de recuperação."
+CASO_00096,IMO_CASO_00096_01,RC estabelecimento,Fixa do plano,,,Faltam dados,"Atividade, terceiros e limite necessário."
+CASO_00096,IMO_CASO_00096_01,Despesas fixas,Fixa do plano,495000,990000,Faixa preliminar,Despesas que continuam na paralisação e prazo.
+CASO_00096,IMO_CASO_00096_01,Roubo/furto com arrombamento,Fixa do plano,1222750,1877300,Faixa preliminar,Bens locais e valores de reposição.
+CASO_00096,IMO_CASO_00096_01,Vendaval e correlatos,Fixa do plano,1222750,1877300,Faixa preliminar,Conteúdo exposto e necessidade de proteger o prédio.
+CASO_00096,IMO_CASO_00096_01,RC empregador,Fixa do plano,,,Faltam dados,Empregados locais e limite necessário.
+CASO_00096,IMO_CASO_00096_01,Vidros,Fixa do plano,,,Faltam dados,"Itens, medidas e custo de reposição."
+CASO_00096,IMO_CASO_00096_01,Delivery,Adicional a confirmar,,,Faltam dados,Operação local e valores por envio.
+CASO_00096,IMO_CASO_00096_01,Mercadorias refrigeradas,Adicional a confirmar,,,Faltam dados,Mercadorias refrigeradas e valor máximo armazenado.
+CASO_00098,IMO_CASO_00098_01,"Incêndio, raio, explosão e fumaça",Fixa do plano,187100,284250,Faixa preliminar,"Inventário, reposição e interesse em prédio/conteúdo."
+CASO_00098,IMO_CASO_00098_01,Danos elétricos,Fixa do plano,13450,44900,Faixa preliminar,Equipamentos locais e valores de reposição.
+CASO_00098,IMO_CASO_00098_01,Aluguel,Fixa do plano,29400,58800,Faixa preliminar,"Contrato, aluguel e prazo de recuperação."
+CASO_00098,IMO_CASO_00098_01,RC estabelecimento,Fixa do plano,,,Faltam dados,"Atividade, terceiros e limite necessário."
+CASO_00098,IMO_CASO_00098_01,Despesas fixas,Fixa do plano,198300,396600,Faixa preliminar,Despesas que continuam na paralisação e prazo.
+CASO_00098,IMO_CASO_00098_01,Roubo/furto com arrombamento,Fixa do plano,187100,284250,Faixa preliminar,Bens locais e valores de reposição.
+CASO_00098,IMO_CASO_00098_01,Vendaval e correlatos,Fixa do plano,187100,284250,Faixa preliminar,Conteúdo exposto e necessidade de proteger o prédio.
+CASO_00098,IMO_CASO_00098_01,Mercadorias refrigeradas,Adicional a confirmar,,,Faltam dados,Mercadorias refrigeradas e valor máximo armazenado.
+CASO_00099,IMO_CASO_00099_01,"Incêndio, raio, explosão e fumaça",Fixa do plano,2593250,3293000,Faixa preliminar,"Inventário, reposição e interesse em prédio/conteúdo."
+CASO_00099,IMO_CASO_00099_01,Danos elétricos,Fixa do plano,879250,1019900,Faixa preliminar,Equipamentos locais e valores de reposição.
+CASO_00099,IMO_CASO_00099_01,Aluguel,Fixa do plano,,,Faltam dados,"Contrato, aluguel e prazo de recuperação."
+CASO_00099,IMO_CASO_00099_01,RC estabelecimento,Fixa do plano,,,Faltam dados,"Atividade, terceiros e limite necessário."
+CASO_00099,IMO_CASO_00099_01,Despesas fixas,Fixa do plano,351000,702000,Faixa preliminar,Despesas que continuam na paralisação e prazo.
+CASO_00099,IMO_CASO_00099_01,Roubo/furto com arrombamento,Fixa do plano,2593250,3293000,Faixa preliminar,Bens locais e valores de reposição.
+CASO_00099,IMO_CASO_00099_01,Vendaval e correlatos,Fixa do plano,2593250,3293000,Faixa preliminar,Conteúdo exposto e necessidade de proteger o prédio.
+CASO_00099,IMO_CASO_00099_01,RC empregador,Fixa do plano,,,Faltam dados,Empregados locais e limite necessário.
+CASO_00099,IMO_CASO_00099_01,Vidros,Fixa do plano,,,Faltam dados,"Itens, medidas e custo de reposição."
+CASO_00099,IMO_CASO_00099_01,Mercadorias refrigeradas,Adicional a confirmar,,,Faltam dados,Mercadorias refrigeradas e valor máximo armazenado.
+CASO_00101,IMO_CASO_00101_01,"Incêndio, raio, explosão e fumaça",Fixa do plano,82500,115450,Faixa preliminar,"Inventário, reposição e interesse em prédio/conteúdo."
+CASO_00101,IMO_CASO_00101_01,Danos elétricos,Fixa do plano,70900,98450,Faixa preliminar,Equipamentos locais e valores de reposição.
+CASO_00101,IMO_CASO_00101_01,Aluguel,Fixa do plano,36000,72000,Faixa preliminar,"Contrato, aluguel e prazo de recuperação."
+CASO_00101,IMO_CASO_00101_01,RC estabelecimento,Fixa do plano,,,Faltam dados,"Atividade, terceiros e limite necessário."
+CASO_00101,IMO_CASO_00101_01,Despesas fixas,Fixa do plano,90900,181800,Faixa preliminar,Despesas que continuam na paralisação e prazo.
+CASO_00101,IMO_CASO_00101_01,Delivery,Adicional a confirmar,,,Faltam dados,Operação local e valores por envio.
+CASO_00102,IMO_CASO_00102_01,"Incêndio, raio, explosão e fumaça",Fixa do plano,128200,260700,Faixa preliminar,"Inventário, reposição e interesse em prédio/conteúdo."
+CASO_00102,IMO_CASO_00102_01,Danos elétricos,Fixa do plano,116150,242000,Faixa preliminar,Equipamentos locais e valores de reposição.
+CASO_00102,IMO_CASO_00102_01,Aluguel,Fixa do plano,,,Faltam dados,"Contrato, aluguel e prazo de recuperação."
+CASO_00102,IMO_CASO_00102_01,RC estabelecimento,Fixa do plano,,,Faltam dados,"Atividade, terceiros e limite necessário."
+CASO_00102,IMO_CASO_00102_01,Despesas fixas,Fixa do plano,583350,1166700,Faixa preliminar,Despesas que continuam na paralisação e prazo.
+CASO_00102,IMO_CASO_00102_01,Roubo/furto com arrombamento,Fixa do plano,128200,260700,Faixa preliminar,Bens locais e valores de reposição.
+CASO_00102,IMO_CASO_00102_01,Vendaval e correlatos,Fixa do plano,128200,260700,Faixa preliminar,Conteúdo exposto e necessidade de proteger o prédio.
+CASO_00103,IMO_CASO_00103_01,"Incêndio, raio, explosão e fumaça",Fixa do plano,612550,975900,Faixa preliminar,"Inventário, reposição e interesse em prédio/conteúdo."
+CASO_00103,IMO_CASO_00103_01,Danos elétricos,Fixa do plano,536200,866300,Faixa preliminar,Equipamentos locais e valores de reposição.
+CASO_00103,IMO_CASO_00103_01,Aluguel,Fixa do plano,,,Faltam dados,"Contrato, aluguel e prazo de recuperação."
+CASO_00103,IMO_CASO_00103_01,RC estabelecimento,Fixa do plano,,,Faltam dados,"Atividade, terceiros e limite necessário."
+CASO_00103,IMO_CASO_00103_01,Despesas fixas,Fixa do plano,345150,690300,Faixa preliminar,Despesas que continuam na paralisação e prazo.
+CASO_00103,IMO_CASO_00103_01,Roubo/furto com arrombamento,Fixa do plano,612550,975900,Faixa preliminar,Bens locais e valores de reposição.
+CASO_00103,IMO_CASO_00103_01,Vendaval e correlatos,Fixa do plano,612550,975900,Faixa preliminar,Conteúdo exposto e necessidade de proteger o prédio.
+CASO_00104,IMO_CASO_00104_01,"Incêndio, raio, explosão e fumaça",Fixa do plano,35550,67050,Faixa preliminar,"Inventário, reposição e interesse em prédio/conteúdo."
+CASO_00104,IMO_CASO_00104_01,Danos elétricos,Fixa do plano,9500,31700,Faixa preliminar,Equipamentos locais e valores de reposição.
+CASO_00104,IMO_CASO_00104_01,Aluguel,Fixa do plano,250800,501600,Faixa preliminar,"Contrato, aluguel e prazo de recuperação."
+CASO_00104,IMO_CASO_00104_01,RC estabelecimento,Fixa do plano,,,Faltam dados,"Atividade, terceiros e limite necessário."
+CASO_00104,IMO_CASO_00104_01,Despesas fixas,Fixa do plano,92550,185100,Faixa preliminar,Despesas que continuam na paralisação e prazo.
+CASO_00104,IMO_CASO_00104_01,Delivery,Adicional a confirmar,,,Faltam dados,Operação local e valores por envio.
+CASO_00104,IMO_CASO_00104_02,"Incêndio, raio, explosão e fumaça",Fixa do plano,62900,80400,Faixa preliminar,"Inventário, reposição e interesse em prédio/conteúdo."
+CASO_00104,IMO_CASO_00104_02,Danos elétricos,Fixa do plano,26700,30150,Faixa preliminar,Equipamentos locais e valores de reposição.
+CASO_00104,IMO_CASO_00104_02,Aluguel,Fixa do plano,,,Faltam dados,"Contrato, aluguel e prazo de recuperação."
+CASO_00104,IMO_CASO_00104_02,RC estabelecimento,Fixa do plano,,,Faltam dados,"Atividade, terceiros e limite necessário."
+CASO_00104,IMO_CASO_00104_02,Despesas fixas,Fixa do plano,69300,138600,Faixa preliminar,Despesas que continuam na paralisação e prazo.
+CASO_00104,IMO_CASO_00104_02,Delivery,Adicional a confirmar,,,Faltam dados,Operação local e valores por envio.
+CASO_00106,IMO_CASO_00106_01,"Incêndio, raio, explosão e fumaça",Fixa do plano,463500,571100,Faixa preliminar,"Inventário, reposição e interesse em prédio/conteúdo."
+CASO_00106,IMO_CASO_00106_01,Danos elétricos,Fixa do plano,426350,519000,Faixa preliminar,Equipamentos locais e valores de reposição.
+CASO_00106,IMO_CASO_00106_01,Aluguel,Fixa do plano,221400,442800,Faixa preliminar,"Contrato, aluguel e prazo de recuperação."
+CASO_00106,IMO_CASO_00106_01,RC estabelecimento,Fixa do plano,,,Faltam dados,"Atividade, terceiros e limite necessário."
+CASO_00106,IMO_CASO_00106_01,Despesas fixas,Fixa do plano,179700,359400,Faixa preliminar,Despesas que continuam na paralisação e prazo.
+CASO_00106,IMO_CASO_00106_01,Roubo/furto com arrombamento,Fixa do plano,463500,571100,Faixa preliminar,Bens locais e valores de reposição.
+CASO_00106,IMO_CASO_00106_01,Vendaval e correlatos,Fixa do plano,463500,571100,Faixa preliminar,Conteúdo exposto e necessidade de proteger o prédio.
+CASO_00106,IMO_CASO_00106_01,Delivery,Adicional a confirmar,,,Faltam dados,Operação local e valores por envio.
+CASO_00107,IMO_CASO_00107_01,"Incêndio, raio, explosão e fumaça",Fixa do plano,76600,97950,Faixa preliminar,"Inventário, reposição e interesse em prédio/conteúdo."
+CASO_00107,IMO_CASO_00107_01,Danos elétricos,Fixa do plano,33250,43750,Faixa preliminar,Equipamentos locais e valores de reposição.
+CASO_00107,IMO_CASO_00107_01,Aluguel,Fixa do plano,,,Faltam dados,"Contrato, aluguel e prazo de recuperação."
+CASO_00107,IMO_CASO_00107_01,RC estabelecimento,Fixa do plano,,,Faltam dados,"Atividade, terceiros e limite necessário."
+CASO_00107,IMO_CASO_00107_01,Despesas fixas,Fixa do plano,75600,151200,Faixa preliminar,Despesas que continuam na paralisação e prazo.
+CASO_00107,IMO_CASO_00107_01,Delivery,Adicional a confirmar,,,Faltam dados,Operação local e valores por envio.
+CASO_00107,IMO_CASO_00107_01,Mercadorias refrigeradas,Adicional a confirmar,,,Faltam dados,Mercadorias refrigeradas e valor máximo armazenado.
+CASO_00108,IMO_CASO_00108_01,"Incêndio, raio, explosão e fumaça",Fixa do plano,108450,149600,Faixa preliminar,"Inventário, reposição e interesse em prédio/conteúdo."
+CASO_00108,IMO_CASO_00108_01,Danos elétricos,Fixa do plano,35450,48900,Faixa preliminar,Equipamentos locais e valores de reposição.
+CASO_00108,IMO_CASO_00108_01,Aluguel,Fixa do plano,,,Faltam dados,"Contrato, aluguel e prazo de recuperação."
+CASO_00108,IMO_CASO_00108_01,RC estabelecimento,Fixa do plano,,,Faltam dados,"Atividade, terceiros e limite necessário."
+CASO_00108,IMO_CASO_00108_01,Despesas fixas,Fixa do plano,125400,250800,Faixa preliminar,Despesas que continuam na paralisação e prazo.
+CASO_00108,IMO_CASO_00108_01,Mercadorias refrigeradas,Adicional a confirmar,,,Faltam dados,Mercadorias refrigeradas e valor máximo armazenado.
+CASO_00108,IMO_CASO_00108_02,"Incêndio, raio, explosão e fumaça",Fixa do plano,83450,108600,Faixa preliminar,"Inventário, reposição e interesse em prédio/conteúdo."
+CASO_00108,IMO_CASO_00108_02,Danos elétricos,Fixa do plano,23350,30750,Faixa preliminar,Equipamentos locais e valores de reposição.
+CASO_00108,IMO_CASO_00108_02,Aluguel,Fixa do plano,,,Faltam dados,"Contrato, aluguel e prazo de recuperação."
+CASO_00108,IMO_CASO_00108_02,RC estabelecimento,Fixa do plano,,,Faltam dados,"Atividade, terceiros e limite necessário."
+CASO_00108,IMO_CASO_00108_02,Despesas fixas,Fixa do plano,156750,313500,Faixa preliminar,Despesas que continuam na paralisação e prazo.
+CASO_00108,IMO_CASO_00108_02,Mercadorias refrigeradas,Adicional a confirmar,,,Faltam dados,Mercadorias refrigeradas e valor máximo armazenado.
+CASO_00109,IMO_CASO_00109_01,"Incêndio, raio, explosão e fumaça",Fixa do plano,111900,126300,Faixa preliminar,"Inventário, reposição e interesse em prédio/conteúdo."
+CASO_00109,IMO_CASO_00109_01,Danos elétricos,Fixa do plano,84200,89600,Faixa preliminar,Equipamentos locais e valores de reposição.
+CASO_00109,IMO_CASO_00109_01,Aluguel,Fixa do plano,177600,355200,Faixa preliminar,"Contrato, aluguel e prazo de recuperação."
+CASO_00109,IMO_CASO_00109_01,RC estabelecimento,Fixa do plano,,,Faltam dados,"Atividade, terceiros e limite necessário."
+CASO_00109,IMO_CASO_00109_01,Despesas fixas,Fixa do plano,160350,320700,Faixa preliminar,Despesas que continuam na paralisação e prazo.
+CASO_00109,IMO_CASO_00109_01,Delivery,Adicional a confirmar,,,Faltam dados,Operação local e valores por envio.
+CASO_00112,IMO_CASO_00112_01,"Incêndio, raio, explosão e fumaça",Fixa do plano,1435650,2103950,Faixa preliminar,"Inventário, reposição e interesse em prédio/conteúdo."
+CASO_00112,IMO_CASO_00112_01,Danos elétricos,Fixa do plano,969650,1474200,Faixa preliminar,Equipamentos locais e valores de reposição.
+CASO_00112,IMO_CASO_00112_01,Aluguel,Fixa do plano,204000,408000,Faixa preliminar,"Contrato, aluguel e prazo de recuperação."
+CASO_00112,IMO_CASO_00112_01,RC estabelecimento,Fixa do plano,,,Faltam dados,"Atividade, terceiros e limite necessário."
+CASO_00112,IMO_CASO_00112_01,Despesas fixas,Fixa do plano,787050,1574100,Faixa preliminar,Despesas que continuam na paralisação e prazo.
+CASO_00112,IMO_CASO_00112_01,Roubo/furto com arrombamento,Fixa do plano,1435650,2103950,Faixa preliminar,Bens locais e valores de reposição.
+CASO_00112,IMO_CASO_00112_01,Vendaval e correlatos,Fixa do plano,1435650,2103950,Faixa preliminar,Conteúdo exposto e necessidade de proteger o prédio.
+CASO_00112,IMO_CASO_00112_01,RC empregador,Fixa do plano,,,Faltam dados,Empregados locais e limite necessário.
+CASO_00112,IMO_CASO_00112_01,Vidros,Fixa do plano,,,Faltam dados,"Itens, medidas e custo de reposição."
+CASO_00112,IMO_CASO_00112_01,Mercadorias refrigeradas,Adicional a confirmar,,,Faltam dados,Mercadorias refrigeradas e valor máximo armazenado.
+CASO_00113,IMO_CASO_00113_01,"Incêndio, raio, explosão e fumaça",Fixa do plano,31200,39550,Faixa preliminar,"Inventário, reposição e interesse em prédio/conteúdo."
+CASO_00113,IMO_CASO_00113_01,Danos elétricos,Fixa do plano,29300,35050,Faixa preliminar,Equipamentos locais e valores de reposição.
+CASO_00113,IMO_CASO_00113_01,Aluguel,Fixa do plano,,,Faltam dados,"Contrato, aluguel e prazo de recuperação."
+CASO_00113,IMO_CASO_00113_01,RC estabelecimento,Fixa do plano,,,Faltam dados,"Atividade, terceiros e limite necessário."
+CASO_00113,IMO_CASO_00113_01,Despesas fixas,Fixa do plano,87150,174300,Faixa preliminar,Despesas que continuam na paralisação e prazo.
+CASO_00114,IMO_CASO_00114_01,"Incêndio, raio, explosão e fumaça",Fixa do plano,818300,1406850,Faixa preliminar,"Inventário, reposição e interesse em prédio/conteúdo."
+CASO_00114,IMO_CASO_00114_01,Danos elétricos,Fixa do plano,504650,851350,Faixa preliminar,Equipamentos locais e valores de reposição.
+CASO_00114,IMO_CASO_00114_01,Aluguel,Fixa do plano,145500,291000,Faixa preliminar,"Contrato, aluguel e prazo de recuperação."
+CASO_00114,IMO_CASO_00114_01,RC estabelecimento,Fixa do plano,,,Faltam dados,"Atividade, terceiros e limite necessário."
+CASO_00114,IMO_CASO_00114_01,Despesas fixas,Fixa do plano,721800,1443600,Faixa preliminar,Despesas que continuam na paralisação e prazo.
+CASO_00114,IMO_CASO_00114_01,Roubo/furto com arrombamento,Fixa do plano,818300,1406850,Faixa preliminar,Bens locais e valores de reposição.
+CASO_00114,IMO_CASO_00114_01,Vendaval e correlatos,Fixa do plano,818300,1406850,Faixa preliminar,Conteúdo exposto e necessidade de proteger o prédio.
+CASO_00114,IMO_CASO_00114_01,RC empregador,Fixa do plano,,,Faltam dados,Empregados locais e limite necessário.
+CASO_00114,IMO_CASO_00114_01,Vidros,Fixa do plano,,,Faltam dados,"Itens, medidas e custo de reposição."
+CASO_00114,IMO_CASO_00114_01,Delivery,Adicional a confirmar,,,Faltam dados,Operação local e valores por envio.
+CASO_00115,IMO_CASO_00115_01,"Incêndio, raio, explosão e fumaça",Fixa do plano,865600,1179400,Faixa preliminar,"Inventário, reposição e interesse em prédio/conteúdo."
+CASO_00115,IMO_CASO_00115_01,Danos elétricos,Fixa do plano,280350,358700,Faixa preliminar,Equipamentos locais e valores de reposição.
+CASO_00115,IMO_CASO_00115_01,Aluguel,Fixa do plano,113400,226800,Faixa preliminar,"Contrato, aluguel e prazo de recuperação."
+CASO_00115,IMO_CASO_00115_01,RC estabelecimento,Fixa do plano,,,Faltam dados,"Atividade, terceiros e limite necessário."
+CASO_00115,IMO_CASO_00115_01,Despesas fixas,Fixa do plano,201150,402300,Faixa preliminar,Despesas que continuam na paralisação e prazo.
+CASO_00115,IMO_CASO_00115_01,Roubo/furto com arrombamento,Fixa do plano,865600,1179400,Faixa preliminar,Bens locais e valores de reposição.
+CASO_00115,IMO_CASO_00115_01,Vendaval e correlatos,Fixa do plano,865600,1179400,Faixa preliminar,Conteúdo exposto e necessidade de proteger o prédio.
+CASO_00115,IMO_CASO_00115_01,RC empregador,Fixa do plano,,,Faltam dados,Empregados locais e limite necessário.
+CASO_00115,IMO_CASO_00115_01,Vidros,Fixa do plano,,,Faltam dados,"Itens, medidas e custo de reposição."
+CASO_00115,IMO_CASO_00115_02,"Incêndio, raio, explosão e fumaça",Fixa do plano,79300,181350,Faixa preliminar,"Inventário, reposição e interesse em prédio/conteúdo."
+CASO_00115,IMO_CASO_00115_02,Danos elétricos,Fixa do plano,33650,112200,Faixa preliminar,Equipamentos locais e valores de reposição.
+CASO_00115,IMO_CASO_00115_02,Aluguel,Fixa do plano,135600,271200,Faixa preliminar,"Contrato, aluguel e prazo de recuperação."
+CASO_00115,IMO_CASO_00115_02,RC estabelecimento,Fixa do plano,,,Faltam dados,"Atividade, terceiros e limite necessário."
+CASO_00115,IMO_CASO_00115_02,Despesas fixas,Fixa do plano,281550,563100,Faixa preliminar,Despesas que continuam na paralisação e prazo.
+CASO_00115,IMO_CASO_00115_02,Roubo/furto com arrombamento,Fixa do plano,79300,181350,Faixa preliminar,Bens locais e valores de reposição.
+CASO_00115,IMO_CASO_00115_02,Vendaval e correlatos,Fixa do plano,79300,181350,Faixa preliminar,Conteúdo exposto e necessidade de proteger o prédio.
+CASO_00116,IMO_CASO_00116_01,"Incêndio, raio, explosão e fumaça",Fixa do plano,25800,33750,Faixa preliminar,"Inventário, reposição e interesse em prédio/conteúdo."
+CASO_00116,IMO_CASO_00116_01,Danos elétricos,Fixa do plano,24700,32500,Faixa preliminar,Equipamentos locais e valores de reposição.
+CASO_00116,IMO_CASO_00116_01,Aluguel,Fixa do plano,,,Faltam dados,"Contrato, aluguel e prazo de recuperação."
+CASO_00116,IMO_CASO_00116_01,RC estabelecimento,Fixa do plano,,,Faltam dados,"Atividade, terceiros e limite necessário."
+CASO_00116,IMO_CASO_00116_01,Despesas fixas,Fixa do plano,106650,213300,Faixa preliminar,Despesas que continuam na paralisação e prazo.
+CASO_00117,IMO_CASO_00117_01,"Incêndio, raio, explosão e fumaça",Fixa do plano,247750,320350,Faixa preliminar,"Inventário, reposição e interesse em prédio/conteúdo."
+CASO_00117,IMO_CASO_00117_01,Danos elétricos,Fixa do plano,76850,124000,Faixa preliminar,Equipamentos locais e valores de reposição.
+CASO_00117,IMO_CASO_00117_01,Aluguel,Fixa do plano,195600,391200,Faixa preliminar,"Contrato, aluguel e prazo de recuperação."
+CASO_00117,IMO_CASO_00117_01,RC estabelecimento,Fixa do plano,,,Faltam dados,"Atividade, terceiros e limite necessário."
+CASO_00117,IMO_CASO_00117_01,Despesas fixas,Fixa do plano,89550,179100,Faixa preliminar,Despesas que continuam na paralisação e prazo.
+CASO_00117,IMO_CASO_00117_01,Letreiros,Adicional a confirmar,36200,38500,Faixa preliminar,"Tipo, localização e custo de reposição."
+CASO_00119,IMO_CASO_00119_01,"Incêndio, raio, explosão e fumaça",Fixa do plano,76650,90450,Faixa preliminar,"Inventário, reposição e interesse em prédio/conteúdo."
+CASO_00119,IMO_CASO_00119_01,Danos elétricos,Fixa do plano,43900,48900,Faixa preliminar,Equipamentos locais e valores de reposição.
+CASO_00119,IMO_CASO_00119_01,Aluguel,Fixa do plano,170400,340800,Faixa preliminar,"Contrato, aluguel e prazo de recuperação."
+CASO_00119,IMO_CASO_00119_01,RC estabelecimento,Fixa do plano,,,Faltam dados,"Atividade, terceiros e limite necessário."
+CASO_00119,IMO_CASO_00119_01,Despesas fixas,Fixa do plano,101100,202200,Faixa preliminar,Despesas que continuam na paralisação e prazo.
+CASO_00119,IMO_CASO_00119_01,Delivery,Adicional a confirmar,,,Faltam dados,Operação local e valores por envio.
+CASO_00120,IMO_CASO_00120_01,"Incêndio, raio, explosão e fumaça",Fixa do plano,350150,399650,Faixa preliminar,"Inventário, reposição e interesse em prédio/conteúdo."
+CASO_00120,IMO_CASO_00120_01,Danos elétricos,Fixa do plano,170200,197050,Faixa preliminar,Equipamentos locais e valores de reposição.
+CASO_00120,IMO_CASO_00120_01,Aluguel,Fixa do plano,,,Faltam dados,"Contrato, aluguel e prazo de recuperação."
+CASO_00120,IMO_CASO_00120_01,RC estabelecimento,Fixa do plano,,,Faltam dados,"Atividade, terceiros e limite necessário."
+CASO_00120,IMO_CASO_00120_01,Despesas fixas,Fixa do plano,185550,371100,Faixa preliminar,Despesas que continuam na paralisação e prazo.
+CASO_00120,IMO_CASO_00120_01,Roubo/furto com arrombamento,Fixa do plano,350150,399650,Faixa preliminar,Bens locais e valores de reposição.
+CASO_00120,IMO_CASO_00120_01,Vendaval e correlatos,Fixa do plano,350150,399650,Faixa preliminar,Conteúdo exposto e necessidade de proteger o prédio.
+CASO_00120,IMO_CASO_00120_01,Delivery,Adicional a confirmar,,,Faltam dados,Operação local e valores por envio.

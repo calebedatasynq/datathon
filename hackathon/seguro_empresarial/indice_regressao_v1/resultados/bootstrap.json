@@ -1,0 +1,14 @@
+{
+  "replicas_validas": 100,
+  "ic_cortes": [
+    [
+      0.1799045398625571,
+      0.980375491723653
+    ],
+    [
+      0.24996327897737705,
+      0.9879511159852068
+    ]
+  ],
+  "limite": "Intervalos condicionais à política, variáveis e transformação escolhidas. Não são significância confirmatória nem validação comercial."
+}
