@@ -1,4 +1,4 @@
-"""Roda um turno de cada persona (decidir → regras → buscar → redigir) e mostra a resposta.
+"""Roda um turno de cada persona pelo pipeline completo e mostra decisões, plano personalizado e resposta.
 
 Uso: python scripts/rodar_personas.py
 """
@@ -11,11 +11,9 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 warnings.filterwarnings("ignore")
 
-from agente import config, rag  # noqa: E402
-from agente.decisor import confirmacao_aplicavel, criar_decisor, decidir_turno  # noqa: E402
-from agente.perfil import get_perfil_cliente  # noqa: E402
-from agente.redator import montar_entrada, redigir  # noqa: E402
-from agente.regras import aplicar_confirmacao  # noqa: E402
+from agente import config  # noqa: E402
+from agente.decisor import criar_decisor  # noqa: E402
+from agente.pipeline import Conversa  # noqa: E402
 
 PERSONAS = json.loads((config.RAIZ / "dados" / "fixtures" / "personas.json").read_text(encoding="utf-8"))
 MENSAGENS = {
@@ -25,39 +23,18 @@ MENSAGENS = {
 }
 
 
-def turno(cliente_id: str, mensagem: str, decisor) -> dict:
-    perfil = get_perfil_cliente(cliente_id)
-    decisoes, motivo = decidir_turno(perfil, mensagem, decisor)
-    confirmacao = decisoes.confirmacao if confirmacao_aplicavel(decisoes) else None
-    atualizado, perfil_novo = aplicar_confirmacao(perfil, confirmacao)
-    clausulas = rag.buscar_para_turno(mensagem, atualizado.plano, perfil.segmento)
-    respondida = perfil.perguntas_pendentes[0] if confirmacao else None
-    entrada = montar_entrada(
-        perfil_novo, mensagem, clausulas, atualizado, decisoes, motivo is not None, pergunta_respondida=respondida
-    )
-    redacao = redigir(entrada)
-    return {
-        "perfil": perfil,
-        "decisoes": decisoes,
-        "motivo": motivo,
-        "atualizado": atualizado,
-        "clausulas": clausulas,
-        "redacao": redacao,
-    }
+def turno(cliente_id: str, mensagem: str, decisor, arquivo_log: Path | None = None):
+    return Conversa(cliente_id, decisor=decisor, arquivo_log=arquivo_log).turno(mensagem)
 
 
 if __name__ == "__main__":
     decisor = criar_decisor()
     for plano, persona in PERSONAS.items():
-        r = turno(persona["cliente_id"], MENSAGENS[plano], decisor)
-        d, a = r["decisoes"], r["atualizado"]
-        print(f"\n===== {plano} · {persona['cliente_id']} · {r['perfil'].segmento}")
+        e = turno(persona["cliente_id"], MENSAGENS[plano], decisor)
+        d, a, p = e.decisoes, e.perfil_atualizado, e.plano_personalizado
+        print(f"\n===== {plano} · {persona['cliente_id']} · {e.perfil.segmento}")
         print(f"cliente: {MENSAGENS[plano]}")
-        print(f"decisor ({decisor.ultima_execucao.get('modelo')}): intenção={d.intencao.valor} {d.intencao.probabilidade:.2f}", end="")
-        if d.confirmacao:
-            print(f" | confirmação={d.confirmacao.valor} {d.confirmacao.probabilidade:.2f}", end="")
-        print(f" | rota={d.rota.valor} | gerente: {r['motivo']}")
-        print(f"plano: {a.plano_anterior} → {a.plano} | próxima pergunta: {a.proxima_pergunta.texto if a.proxima_pergunta else '-'}")
-        print(f"cláusulas: {[c.id for c in r['clausulas']]}")
-        print(f"citadas: {r['redacao'].citacoes} ({r['redacao'].segundos}s)")
-        print(f"\n{r['redacao'].texto}")
+        print(f"intenção={d.intencao.valor}", f"| confirmação={d.confirmacao.valor}" if d.confirmacao else "", f"| gerente: {e.motivo_humano}")
+        print(f"plano base: {a.plano_anterior} → {a.plano} | adicionais: {[c.cobertura for c in p.adicionais]}")
+        print(f"guardrail: {'ok' if e.guardrail.aprovado else 'REPROVOU'} (tentativas {e.guardrail.tentativas}) {e.guardrail.motivo or ''}")
+        print(f"\n{e.resposta}")

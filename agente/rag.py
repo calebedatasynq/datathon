@@ -57,7 +57,7 @@ def tokenizar(texto: str) -> list[str]:
 EXPANSOES = [
     (r"\bfogo\b|queimou tudo|incendi", "incêndio"),
     (r"\braio\b.*(queim|estrag)|(queim|estrag).*\braio\b|curto|pico de (luz|energia)|oscila", "danos elétricos variações de tensão"),
-    (r"hacker|ransomware|v[ií]rus|ciber|invad\w* (o )?sistema|sistema travad", "ataques cibernéticos tecnologia panes"),
+    (r"hacker|ransomware|v[ií]rus|ciber|invad\w* (o )?sistema|sistema travad", "ampla proteção cibernética ataques cibernéticos"),
     (r"\bpix\b|golpe|engan", "estelionato fraude"),
     (r"enchente|alag|inund|transbord", "alagamento inundação"),
     (r"funcion[aá]ri|empregad|colaborador", "empregados"),
@@ -88,8 +88,12 @@ def texto_indexado(c: Clausula) -> str:
 
 @cache
 def clausulas() -> list[Clausula]:
-    with open(config.CLAUSULAS, encoding="utf-8") as f:
-        return [Clausula.model_validate_json(linha) for linha in f]
+    """Cláusulas das Condições Gerais + fontes públicas curadas do produto."""
+    resultado = []
+    for arquivo in (config.CLAUSULAS, config.FONTES_PRODUTO):
+        with open(arquivo, encoding="utf-8") as f:
+            resultado += [Clausula.model_validate_json(linha) for linha in f if linha.strip()]
+    return resultado
 
 
 @cache
@@ -98,7 +102,7 @@ def por_id() -> dict[str, Clausula]:
 
 
 def hash_clausulas() -> str:
-    return hashlib.sha256(config.CLAUSULAS.read_bytes()).hexdigest()
+    return hashlib.sha256(config.CLAUSULAS.read_bytes() + config.FONTES_PRODUTO.read_bytes()).hexdigest()
 
 
 @cache

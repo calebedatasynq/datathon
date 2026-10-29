@@ -2,6 +2,8 @@
 
 ## Objetivo
 Um agente que faz uma pergunta em vez de vinte e nunca promete o que a apólice não cobre.
+ESSENCIAL, PRATICO e TOTAL são os planos vigentes da BB Seguros; o agente monta um plano
+personalizado: plano base (motor de score) + coberturas adicionais + faixa de limite por cobertura.
 
 ## Arquitetura (cascata)
 1. Decisor (Jev ou plano B) classifica a mensagem e extrai confirmações, com probabilidade.
@@ -54,6 +56,17 @@ Um agente que faz uma pergunta em vez de vinte e nunca promete o que a apólice 
 - guardrail.py: determinístico (citação fora das recuperadas ou resposta sem citação) + Decisor (promete sem cláusula, informa preço, dado sensível; reprova com p ≥ LIMIAR_CONFIANCA). Reprovou: reescreve uma vez; de novo: MENSAGEM_GERENTE e requer_humano.
 - Objeção: identificar_objecao (Decisor) junta as cláusulas da objeção às recuperadas.
 - log.py: logs/turnos.jsonl com estado completo, versões, tempos por etapa e tokens (base do modo de reprodução).
+
+## Plano personalizado (decisões da equipe, out/2026)
+- agente/personalizacao.py (sem LLM): plano base do motor + todas as coberturas fixas do plano (catálogo CSV do desafio, fonte única da composição dos planos) + adicionais disparados pelos dados (roubo no ESSENCIAL, RC empregador, vidros, frigorificados, delivery, roubo de valores) + faixa mín–máx em R$ por cobertura com confiança, dados, regra, justificativa e o que confirmar.
+- Premissas de dimensionamento são constantes no topo do módulo; onde a CG fixa período/limite, a regra segue a cláusula (aluguel ≤ 12 meses, despesas fixas ≤ 180 dias, valores = dia + dia útil anterior).
+- Inconsistência financeira (aluguel > 50% ou despesa fixa > faturamento do endereço) baixa a confiança e vira confirmação.
+- Elegibilidade: SIM ou A_CONFIRMAR pelas cl. CG-6 e CG-7.1 (nunca NAO automático).
+- Dados finos do estabelecimento: agente/dados_base.py (CSVs de Seguro_Empresarial_Teste_Comum).
+- Entrega do desafio: python scripts/exportar_templates.py → saidas/template_resultado_times.csv e template_coberturas_times.csv.
+- Cibernético: os planos incluem a Ampla Proteção Cibernética (site e comunicado BB Seguros, mar/2026); fonte curada SITE-CIBERNETICA em conhecimento/fontes_produto.jsonl; detalhes com o gerente; não negar citando CG-8.2.a (CG v1.1 é anterior).
+- Preço: o agente nunca informa preço (decisão da equipe); limite de indenização não é preço.
+- Redator: Haiku com output_config effort "low" e max_tokens 8000 (o raciocínio do Haiku conta no max_tokens e já cortou respostas); resposta cortada é reprovada pelo guardrail.
 
 ## Comandos
 - Instalar: `.venv/Scripts/python -m pip install -r requirements.txt`

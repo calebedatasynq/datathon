@@ -20,7 +20,10 @@ CHECAGENS = {
         )
     ),
     "informa_preco": Afirmacao(
-        instrucao="`resposta` informa preço, valor do prêmio, valor de parcela ou valor de franquia do seguro?"
+        instrucao=(
+            "`resposta` informa quanto o cliente vai pagar pelo seguro (preço, prêmio, parcela) ou o valor da "
+            "franquia? Limite de indenização ou faixa sugerida de cobertura não é preço."
+        )
     ),
     "dado_sensivel": Afirmacao(
         instrucao=(
@@ -36,8 +39,12 @@ MOTIVOS = {
 }
 
 
-def conferir_citacoes(texto: str, clausulas: list[ClausulaRecuperada], encaminhando: bool) -> str | None:
+def conferir_citacoes(
+    texto: str, clausulas: list[ClausulaRecuperada], encaminhando: bool, cortada: bool = False
+) -> str | None:
     """Motivo da reprovação determinística, ou None."""
+    if cortada or texto.count("[") != texto.count("]"):
+        return "a resposta está incompleta (geração cortada)"
     citadas = citacoes(texto)
     recuperadas = {c.id for c in clausulas}
     inexistentes = [c for c in citadas if c not in recuperadas]
@@ -49,9 +56,14 @@ def conferir_citacoes(texto: str, clausulas: list[ClausulaRecuperada], encaminha
 
 
 def conferir(
-    texto: str, clausulas: list[ClausulaRecuperada], decisor: Decisor, encaminhando: bool = False, tentativa: int = 1
+    texto: str,
+    clausulas: list[ClausulaRecuperada],
+    decisor: Decisor,
+    encaminhando: bool = False,
+    tentativa: int = 1,
+    cortada: bool = False,
 ) -> ResultadoGuardrail:
-    motivo = conferir_citacoes(texto, clausulas, encaminhando)
+    motivo = conferir_citacoes(texto, clausulas, encaminhando, cortada)
     if motivo:
         return ResultadoGuardrail(aprovado=False, motivo=motivo, tentativas=tentativa)
     por_id = {c.id: c for c in clausulas}

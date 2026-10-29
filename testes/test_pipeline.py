@@ -68,6 +68,12 @@ def test_citacao_real_mas_nao_recuperada_tambem_e_barrada():
     assert conferir_citacoes("Não cobre [cl. CG-8.2.a].", clausulas, encaminhando=False)
 
 
+def test_resposta_cortada_e_barrada():
+    clausulas = rag.buscar_para_turno("o que o plano total cobre?", None, None)
+    assert conferir_citacoes("O TOTAL cobre [cl. PLANO-TOTAL].", clausulas, False, cortada=True)
+    assert conferir_citacoes("O TOTAL cobre [cl. PLANO-TOT", clausulas, False)
+
+
 def test_resposta_sem_citacao_so_passa_quando_encaminha():
     assert conferir_citacoes("Cobre tudo.", [], encaminhando=False)
     assert conferir_citacoes("Um gerente vai continuar.", [], encaminhando=True) is None

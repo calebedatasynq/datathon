@@ -1,4 +1,4 @@
-"""Fase 4: as três personas recebem resposta coerente com o plano e com cláusula citada."""
+"""As três personas recebem resposta coerente com o plano, com cláusula citada e completa."""
 
 import json
 import unicodedata
@@ -22,35 +22,54 @@ def decisor():
 
 
 @pytest.fixture(scope="module", params=list(PERSONAS))
-def resultado(request, decisor):
+def resultado(request, decisor, tmp_path_factory):
     plano = request.param
-    return plano, turno(PERSONAS[plano]["cliente_id"], MENSAGENS[plano], decisor)
+    log = tmp_path_factory.mktemp("log") / "turnos.jsonl"
+    return plano, turno(PERSONAS[plano]["cliente_id"], MENSAGENS[plano], decisor, log)
 
 
-def test_resposta_cita_so_clausulas_recuperadas(resultado):
-    _, r = resultado
-    recuperadas = {c.id for c in r["clausulas"]}
-    assert r["redacao"].citacoes, r["redacao"].texto
-    assert set(r["redacao"].citacoes) <= recuperadas, r["redacao"].texto
+def test_resposta_aprovada_e_cita_so_clausulas_do_turno(resultado):
+    _, e = resultado
+    assert e.guardrail.aprovado and not e.requer_humano, e.resposta
+    recuperadas = {c.id for c in e.clausulas}
+    from agente.redator import citacoes
+
+    assert citacoes(e.resposta) and set(citacoes(e.resposta)) <= recuperadas
 
 
 def test_resposta_fala_do_plano_calculado(resultado):
-    _, r = resultado
-    assert _normal(r["atualizado"].plano.value) in _normal(r["redacao"].texto)
+    _, e = resultado
+    assert _normal(e.perfil_atualizado.plano.value) in _normal(e.resposta)
 
 
 def test_no_maximo_uma_pergunta(resultado):
-    _, r = resultado
-    assert r["redacao"].texto.count("?") <= 1
+    _, e = resultado
+    assert e.resposta.count("?") <= 1
 
 
 def test_fronteira_muda_de_plano_com_a_confirmacao(resultado):
-    plano, r = resultado
+    plano, e = resultado
     if plano != "PRATICO":
         pytest.skip("só a persona de fronteira tem pergunta pendente")
-    assert (r["atualizado"].plano_anterior, r["atualizado"].plano) == ("PRATICO", "TOTAL")
+    assert (e.perfil_atualizado.plano_anterior, e.perfil_atualizado.plano) == ("PRATICO", "TOTAL")
+    assert e.plano_personalizado.plano_base == "TOTAL"
 
 
-def test_pedido_fora_da_cobertura_e_recusado_com_a_exclusao(decisor):
-    r = turno(PERSONAS["TOTAL"]["cliente_id"], "Se um hacker sequestrar meus sistemas com ransomware, o seguro paga?", decisor)
-    assert "CG-8.2.a" in r["redacao"].citacoes, r["redacao"].texto
+def test_cibernetico_e_tratado_como_incluido(decisor, tmp_path):
+    e = turno(
+        PERSONAS["ESSENCIAL"]["cliente_id"],
+        "Se um hacker sequestrar meus sistemas com ransomware, o seguro ajuda?",
+        decisor,
+        tmp_path / "t.jsonl",
+    )
+    from agente.redator import citacoes
+
+    assert "SITE-CIBERNETICA" in citacoes(e.resposta), e.resposta
+    assert "CG-8.2.a" not in citacoes(e.resposta)
+
+
+def test_enchente_continua_recusada(decisor, tmp_path):
+    e = turno(PERSONAS["TOTAL"]["cliente_id"], "A enchente alagou a loja, o seguro paga?", decisor, tmp_path / "t.jsonl")
+    from agente.redator import citacoes
+
+    assert "CG-8.1.l" in citacoes(e.resposta), e.resposta

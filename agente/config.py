@@ -33,6 +33,8 @@ MARGEM_PERGUNTA = float(os.getenv("MARGEM_PERGUNTA", "0.30"))
 
 # Base de conhecimento (RAG)
 CLAUSULAS = RAIZ / "conhecimento" / "clausulas.jsonl"
+# Fontes públicas curadas que não estão nas Condições Gerais v1.1 (ex.: cobertura cibernética de 2026).
+FONTES_PRODUTO = RAIZ / "conhecimento" / "fontes_produto.jsonl"
 CATALOGO = RAIZ / "Seguro_Empresarial_Teste_Comum" / "catalogo_coberturas_fixas_planos.csv"
 DIR_BANCO_VETORIAL = RAIZ / "conhecimento" / "banco_vetorial"
 COLECAO_VETORIAL = "clausulas_cg"

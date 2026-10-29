@@ -10,9 +10,11 @@ from pathlib import Path
 
 from agente import config, log, rag
 from agente.contratos import ClausulaRecuperada, EstadoTurno, Perfil
+from agente.dados_base import get_estabelecimento
 from agente.decisor import Decisor, confirmacao_aplicavel, criar_decisor, decidir_turno
 from agente.guardrail import conferir
 from agente.perfil import get_perfil_cliente
+from agente.personalizacao import personalizar
 from agente.redator import Redacao, montar_entrada, redigir
 from agente.regras import aplicar_confirmacao
 
@@ -35,12 +37,13 @@ def identificar_objecao(mensagem: str, decisor: Decisor) -> dict | None:
     return objecoes[resposta.valor]
 
 
-def _clausulas_da_objecao(objecao: dict, perfil: Perfil, ja_tem: set[str]) -> list[ClausulaRecuperada]:
+def _clausulas_extras(ids: list[str], perfil: Perfil, ja_tem: set[str]) -> list[ClausulaRecuperada]:
+    """Cláusulas que o turno precisa poder citar além das recuperadas (objeção, adicionais)."""
     return [
         ClausulaRecuperada(
             **rag.por_id()[i].model_dump(), pontuacao=0.0, no_plano=perfil.plano in rag.por_id()[i].planos
         )
-        for i in objecao["clausulas"]
+        for i in dict.fromkeys(ids)
         if i not in ja_tem
     ]
 
@@ -58,6 +61,7 @@ class Conversa:
     ):
         self.cliente_id = cliente_id
         self.perfil = get_perfil_cliente(cliente_id)
+        self.estabelecimento = get_estabelecimento(cliente_id)
         self.decisor = decisor or criar_decisor()
         self.redigir = redigir_fn
         self.arquivo_log = arquivo_log
@@ -96,12 +100,14 @@ class Conversa:
         respondida = perfil.perguntas_pendentes[0] if confirmacao else None
         atualizado, perfil_novo = aplicar_confirmacao(perfil, confirmacao)
         estado.perfil_atualizado = atualizado
+        personalizado = personalizar(perfil_novo, self.estabelecimento)
+        estado.plano_personalizado = personalizado
         marcar("regras")
 
         # 3. recuperar
         clausulas = rag.buscar_para_turno(mensagem, atualizado.plano, perfil.segmento)
-        if objecao:
-            clausulas += _clausulas_da_objecao(objecao, perfil_novo, {c.id for c in clausulas})
+        extras_ids = [c.clausulas[0] for c in personalizado.adicionais] + (objecao["clausulas"] if objecao else [])
+        clausulas += _clausulas_extras(extras_ids, perfil_novo, {c.id for c in clausulas})
         estado.clausulas = clausulas
         marcar("recuperar")
 
@@ -117,11 +123,12 @@ class Conversa:
             objecao,
             self.historico[-HISTORICO_MAXIMO:],
             respondida,
+            personalizado,
         )
         redacao = self.redigir(entrada)
         tokens["redator"] = [redacao.tokens]
         marcar("redigir")
-        guardrail = conferir(redacao.texto, clausulas, self.decisor, encaminhando, tentativa=1)
+        guardrail = conferir(redacao.texto, clausulas, self.decisor, encaminhando, 1, redacao.cortada)
         tokens["guardrail"] = [self.decisor.ultima_execucao.get("tokens")] if guardrail.verificacoes else []
         marcar("conferir")
         if not guardrail.aprovado:
@@ -132,7 +139,7 @@ class Conversa:
             )
             tokens["redator"].append(redacao.tokens)
             marcar("reescrever")
-            guardrail = conferir(redacao.texto, clausulas, self.decisor, encaminhando, tentativa=2)
+            guardrail = conferir(redacao.texto, clausulas, self.decisor, encaminhando, 2, redacao.cortada)
             if guardrail.verificacoes:
                 tokens["guardrail"].append(self.decisor.ultima_execucao.get("tokens"))
             marcar("conferir_2")

@@ -54,6 +54,47 @@ class Perfil(BaseModel):
     """Entrada exata do motor; regras.py altera e chama score_empresa de novo."""
 
 
+class CoberturaRecomendada(BaseModel):
+    """Uma linha do template_coberturas_times.csv. Faixa em reais; regra determinística."""
+
+    cobertura: str
+    origem: str
+    """"plano" (fixa do plano base) ou "adicional" (incluída pela necessidade do cliente)."""
+    faixa_valor_min: float
+    faixa_valor_max: float
+    confianca: str
+    """ALTA, MEDIA ou BAIXA."""
+    dados_utilizados: str
+    regra_calculo: str
+    justificativa: str
+    informacao_a_confirmar: str | None = None
+    clausulas: list[str]
+    """Cláusulas das Condições Gerais que sustentam a cobertura (citáveis)."""
+
+
+class PlanoPersonalizado(BaseModel):
+    """Plano base do motor + coberturas adicionais + faixa por cobertura. Uma linha do template_resultado."""
+
+    imovel_id: str
+    empresa_id: str
+    plano_base: Plano | None
+    elegivel: str
+    """SIM ou A_CONFIRMAR (nunca NAO automático)."""
+    motivo_elegibilidade: str | None = None
+    tipo_localizacao: str
+    relacao_imovel: str
+    coberturas: list[CoberturaRecomendada]
+    confianca_geral: str
+    justificativa: str
+    perguntas_confirmacao: list[str]
+    dados_a_conferir: list[str] = Field(default_factory=list)
+    """Inconsistências financeiras do cadastro (não usar esses números como certos)."""
+
+    @property
+    def adicionais(self) -> list[CoberturaRecomendada]:
+        return [c for c in self.coberturas if c.origem == "adicional"]
+
+
 class Decisao(BaseModel):
     """Uma resposta tipada do Decisor, sempre com probabilidade."""
 
@@ -132,6 +173,7 @@ class EstadoTurno(BaseModel):
     decisoes: Decisoes = Field(default_factory=Decisoes)
     perfil_atualizado: PerfilAtualizado | None = None
     clausulas: list[ClausulaRecuperada] = Field(default_factory=list)
+    plano_personalizado: PlanoPersonalizado | None = None
     resposta: str | None = None
     guardrail: ResultadoGuardrail | None = None
     requer_humano: bool = False
