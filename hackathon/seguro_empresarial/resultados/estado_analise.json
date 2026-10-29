@@ -1,0 +1,11 @@
+{
+  "variaveis_examinadas": 62,
+  "cenarios_demonstrados": 23,
+  "treino_linhas": 2390,
+  "avaliacao_linhas": 588,
+  "empresas_sobrepostas": 0,
+  "modelo_treinado": false,
+  "motivo": "Ausência de plano de referência por estabelecimento",
+  "limites_score_estimados": false,
+  "melhor_modelo_identificado": false
+}

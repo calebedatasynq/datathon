@@ -1,0 +1,36 @@
+{
+  "variaveis_numericas": [
+    "funcionarios_estimados_empresa",
+    "estoque_medio_estimado",
+    "valor_bens_ponderado_estabelecimento"
+  ],
+  "medianas": [
+    6.0,
+    25700.0,
+    131575.0
+  ],
+  "medias_log1p": [
+    2.090135772782966,
+    10.102767825413773,
+    11.774504398967514
+  ],
+  "desvios_log1p": [
+    0.9046646004797493,
+    1.7594636346908485,
+    1.3528137825976125
+  ],
+  "pesos": [
+    2.9169895933151757,
+    1.3951985931875512,
+    1.0123019913128937
+  ],
+  "limiares_z": [
+    -1.3204957352224693,
+    4.142976555466792
+  ],
+  "limiares_score": [
+    0.21073582787904,
+    0.9843725670088532
+  ],
+  "formula": "x_j=(log(1+valor_j)-media_log_j)/desvio_log_j; z=sum(beta_j*x_j); score=1/(1+exp(-z))"
+}

@@ -1,0 +1,62 @@
+{
+  "natureza": "CONCORDANCIA COM CRITERIOS DO PROTOTIPO NA BASE MOCK",
+  "modelo": "patrimonio_emprego",
+  "alpha": 0.1,
+  "variaveis": [
+    "funcionarios_estimados_empresa",
+    "estoque_medio_estimado",
+    "valor_bens_ponderado_estabelecimento"
+  ],
+  "cortes": [
+    0.21073582787904,
+    0.9843725670088532
+  ],
+  "hash_modelo": "112042196a6f0d84a2eccf8beb6fe6a72ad045c0334db142151fc5bd54000a05",
+  "hash_protocolo": "3c5455357701b4abbaff8b56b7fa4c17fbcde124cc7e7b1b6f9db57840429f98",
+  "n_desenvolvimento": 2978,
+  "n_teste": 144,
+  "empresas_teste": 120,
+  "cv_escolhido": {
+    "dobra": 1.0,
+    "acuracia": 0.8415003817041873,
+    "acuracia_balanceada": 0.8369240684591862,
+    "macro_f1": 0.8373977502044605,
+    "log_loss": 0.3759492639272879,
+    "erro_ordinal": 0.1584996182958126,
+    "brier_multiclasse": 0.2335292477306843,
+    "corte1": 0.20232424899501236,
+    "corte2": 0.9814961261788594
+  },
+  "teste": {
+    "acuracia": 0.8055555555555556,
+    "acuracia_balanceada": 0.7759455015268969,
+    "macro_f1": 0.7855920415401308,
+    "log_loss": 0.38479090064742333,
+    "erro_ordinal": 0.19444444444444445,
+    "brier_multiclasse": 0.257279851757515
+  },
+  "baseline_frequencias_treino": {
+    "acuracia": 0.4583333333333333,
+    "acuracia_balanceada": 0.3333333333333333,
+    "macro_f1": 0.20952380952380953,
+    "log_loss": 1.0625909773117717,
+    "erro_ordinal": 0.7847222222222222,
+    "brier_multiclasse": 0.6419111954948181
+  },
+  "distribuicao_referencia_treino": {
+    "ESSENCIAL": 1336,
+    "PRATICO": 923,
+    "TOTAL": 719
+  },
+  "distribuicao_referencia_teste": {
+    "ESSENCIAL": 66,
+    "PRATICO": 43,
+    "TOTAL": 35
+  },
+  "hash_teste": "dcbe5df7ceffd640482edb9ae49fefc99a9b23ca43a31073956184cb0a46575d",
+  "elegibilidade": "NAO_AVALIADA",
+  "ic95_acuracia_teste_bootstrap_empresa": [
+    0.7361045597484277,
+    0.8680783045977012
+  ]
+}

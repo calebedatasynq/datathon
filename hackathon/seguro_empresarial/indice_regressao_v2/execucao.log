@@ -1,0 +1,44 @@
+8_variaveis 0.1 pseudo-R2 preditivo CV 0.645225
+8_variaveis 1.0 pseudo-R2 preditivo CV 0.645772
+8_variaveis 10.0 pseudo-R2 preditivo CV 0.644432
+9_variaveis 0.1 pseudo-R2 preditivo CV 0.644363
+9_variaveis 1.0 pseudo-R2 preditivo CV 0.644934
+9_variaveis 10.0 pseudo-R2 preditivo CV 0.643726
+10_variaveis 0.1 pseudo-R2 preditivo CV 0.644231
+10_variaveis 1.0 pseudo-R2 preditivo CV 0.644804
+10_variaveis 10.0 pseudo-R2 preditivo CV 0.643602
+    iteracao  n_variaveis  alpha  log_loss_cv  pseudo_r2_preditivo_cv  acuracia_cv  macro_f1_cv  pseudo_r2_mcfadden_treino  acuracia_treino  n_coeficientes_apos_codificacao
+ 8_variaveis            8    1.0     0.378808                0.645772     0.834788     0.829891                   0.648767         0.837475                               17
+ 9_variaveis            9    1.0     0.379705                0.644934     0.833109     0.828294                   0.648850         0.837811                               18
+10_variaveis           10    1.0     0.379844                0.644804     0.832774     0.827911                   0.649022         0.836803                               19
+{
+  "versao": "ordinal_mock_v2",
+  "selecionado": "8_variaveis",
+  "n_variaveis": 8,
+  "variaveis": [
+    "funcionarios_estimados_empresa",
+    "estoque_medio_estimado",
+    "valor_bens_ponderado_estabelecimento",
+    "faturamento_mensal_empresa",
+    "quantidade_estabelecimentos_empresa",
+    "grupo_atividade",
+    "tipo_unidade",
+    "area_m2"
+  ],
+  "alpha": 1.0,
+  "cortes": [
+    0.2841272318707447,
+    0.9896828745948337
+  ],
+  "treino": 2978,
+  "teste": 144,
+  "metricas_teste": {
+    "log_loss": 0.3914672571320163,
+    "log_loss_nulo": 1.0625909773117717,
+    "indice_1_menos_LL_LL0": 0.6315917737958008,
+    "acuracia": 0.7916666666666666,
+    "macro_f1": 0.7695221445221446
+  },
+  "bootstrap_validos": 100,
+  "limite": "Concordância com referências construídas; teste já consultado na v1. Pseudo-R2 não é porcentagem de variância explicada."
+}

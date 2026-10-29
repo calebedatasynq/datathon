@@ -1,0 +1,75 @@
+[
+  {
+    "variavel": "funcionarios_estimados_empresa",
+    "termos": [
+      "num__funcionarios_estimados_empresa"
+    ],
+    "media_abs_contribuicao_z": 2.537662513274677,
+    "fracao_ausente": 0.0
+  },
+  {
+    "variavel": "estoque_medio_estimado",
+    "termos": [
+      "num__estoque_medio_estimado"
+    ],
+    "media_abs_contribuicao_z": 1.051477436033147,
+    "fracao_ausente": 0.0
+  },
+  {
+    "variavel": "valor_bens_ponderado_estabelecimento",
+    "termos": [
+      "num__valor_bens_ponderado_estabelecimento"
+    ],
+    "media_abs_contribuicao_z": 0.8368359601960917,
+    "fracao_ausente": 0.0
+  },
+  {
+    "variavel": "faturamento_mensal_empresa",
+    "termos": [
+      "num__faturamento_mensal_empresa"
+    ],
+    "media_abs_contribuicao_z": 0.08653526152784055,
+    "fracao_ausente": 0.0
+  },
+  {
+    "variavel": "quantidade_estabelecimentos_empresa",
+    "termos": [
+      "num__quantidade_estabelecimentos_empresa"
+    ],
+    "media_abs_contribuicao_z": 0.12823801564926288,
+    "fracao_ausente": 0.0
+  },
+  {
+    "variavel": "grupo_atividade",
+    "termos": [
+      "cat__grupo_atividade_CLINICA",
+      "cat__grupo_atividade_ELETRONICOS",
+      "cat__grupo_atividade_ESCOLA_CURSO",
+      "cat__grupo_atividade_ESCRITORIO",
+      "cat__grupo_atividade_FARMACIA",
+      "cat__grupo_atividade_MERCADO",
+      "cat__grupo_atividade_OFICINA",
+      "cat__grupo_atividade_RESTAURANTE",
+      "cat__grupo_atividade_VAREJO_MODA"
+    ],
+    "media_abs_contribuicao_z": 0.2360780352132703,
+    "fracao_ausente": 0.0
+  },
+  {
+    "variavel": "tipo_unidade",
+    "termos": [
+      "cat__tipo_unidade_MATRIZ"
+    ],
+    "media_abs_contribuicao_z": 0.19130993415395536,
+    "fracao_ausente": 0.0
+  },
+  {
+    "variavel": "area_m2",
+    "termos": [
+      "num__area_m2",
+      "num__missingindicator_area_m2"
+    ],
+    "media_abs_contribuicao_z": 0.03604120376668186,
+    "fracao_ausente": 0.6171927468099395
+  }
+]

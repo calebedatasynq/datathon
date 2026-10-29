@@ -1,0 +1,26 @@
+{
+  "desenvolvimento": {
+    "template_resultado_times.csv": {
+      "sha256_original": "31f756cf1f2708a80052874d54a8270a85b53caa2d6ed0d14621527b97792fac",
+      "linhas_preenchidas": 2978,
+      "cabecalho_preservado": true
+    },
+    "template_coberturas_times.csv": {
+      "sha256_original": "43ae394507c120a5df25d7cca6b9dc8e8b6d675fde407a550775e30020fc0a2a",
+      "linhas_preenchidas": 24356,
+      "cabecalho_preservado": true
+    }
+  },
+  "teste_comum": {
+    "template_resultado_times.csv": {
+      "sha256_original": "15fe6d28d49d8e28c0de339256a236ff0f345cafca73ec756b9df79a7092096c",
+      "linhas_preenchidas": 144,
+      "cabecalho_preservado": true
+    },
+    "template_coberturas_times.csv": {
+      "sha256_original": "43ae394507c120a5df25d7cca6b9dc8e8b6d675fde407a550775e30020fc0a2a",
+      "linhas_preenchidas": 1165,
+      "cabecalho_preservado": true
+    }
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "data": "2026-10-28",
+  "verificacoes": {
+    "arquivos_preservados": true,
+    "sem_empresa_compartilhada": true,
+    "oito_variaveis": true,
+    "144_scores_reproduzidos": true,
+    "144_referencias_reproduzidas": true,
+    "144_planos_reproduzidos": true,
+    "acuracia_confere": true,
+    "log_loss_confere": true,
+    "formula_confere": true,
+    "27_ajustes_completos": true,
+    "r2_treino_formula": true,
+    "r2_validacao_formula": true,
+    "selecao_por_cv": true,
+    "notebook_executado_sem_erros": true
+  },
+  "conclusao": "CONSISTENCIA TECNICA VERIFICADA PARA APRESENTACAO DO EXPERIMENTO MOCK; NAO VALIDACAO COMERCIAL"
+}

@@ -1,0 +1,198 @@
+{
+  "versao_preparacao": "1.0",
+  "python": "3.12.14",
+  "pandas": "3.1.0",
+  "modelo_treinado": false,
+  "bases": {
+    "desenvolvimento": {
+      "fontes": {
+        "empresas": {
+          "arquivo": "/home/lucas/Documentos/hackathon/seguro_empresarial/dados/originais/Seguro_Empresarial_Desenvolvimento/empresas.csv",
+          "sha256": "470f5bf17c33a4dab1c36877ff9b8bed31ba4ea9ff054b50aec52f2f1d611345",
+          "linhas": 2500
+        },
+        "enderecos_estabelecimentos": {
+          "arquivo": "/home/lucas/Documentos/hackathon/seguro_empresarial/dados/originais/Seguro_Empresarial_Desenvolvimento/enderecos_estabelecimentos.csv",
+          "sha256": "a3d173691af21a1891e9445c4448449bac8c45d51ceb737ec40b662b2e86e381",
+          "linhas": 2978
+        },
+        "sinais_financeiros_operacionais": {
+          "arquivo": "/home/lucas/Documentos/hackathon/seguro_empresarial/dados/originais/Seguro_Empresarial_Desenvolvimento/sinais_financeiros_operacionais.csv",
+          "sha256": "48f5a7a2c2f0e331ffbbd68b2bd741f1a8d75445e37d4e3b5fcd73657a17bc2b",
+          "linhas": 2978
+        },
+        "bens_cadastrados": {
+          "arquivo": "/home/lucas/Documentos/hackathon/seguro_empresarial/dados/originais/Seguro_Empresarial_Desenvolvimento/bens_cadastrados.csv",
+          "sha256": "8a648196897c1a03f099bff7e6d7893346895be9884b2aa511e51eb717608555",
+          "linhas": 10508
+        },
+        "template_resultado_times": {
+          "arquivo": "/home/lucas/Documentos/hackathon/seguro_empresarial/dados/originais/Seguro_Empresarial_Desenvolvimento/template_resultado_times.csv",
+          "sha256": "31f756cf1f2708a80052874d54a8270a85b53caa2d6ed0d14621527b97792fac",
+          "linhas": 2978
+        }
+      },
+      "arquivo_saida": "/home/lucas/Documentos/hackathon/seguro_empresarial/dados/preparados/base_desenvolvimento.csv",
+      "linhas": 2978,
+      "empresas": 2500,
+      "colunas": 25,
+      "candidatas_iniciais": [
+        "grupo_atividade",
+        "faturamento_mensal_empresa",
+        "funcionarios_estimados_empresa",
+        "quantidade_estabelecimentos_empresa",
+        "tipo_unidade",
+        "area_m2",
+        "estoque_medio_estimado",
+        "valor_bens_ponderado_estabelecimento"
+      ],
+      "candidatas_condicionais": [
+        "possui_termo_loja",
+        "possui_termo_galeria"
+      ],
+      "auxiliares": [
+        "origem_area",
+        "confianca_area",
+        "endereco_cnpj_compativel",
+        "situacao_imovel_cadastral",
+        "material_parede_externa_cadastrado",
+        "area_ausente",
+        "origem_faturamento",
+        "confianca_faturamento",
+        "quantidade_bens_cadastrados",
+        "proporcao_bens_baixa_confianca",
+        "bens_sem_cadastro"
+      ],
+      "rotulos_plano_preenchidos": 0,
+      "area_ausente": 1838,
+      "bens_sem_cadastro": 0,
+      "ausentes_por_candidata": {
+        "grupo_atividade": 0,
+        "faturamento_mensal_empresa": 0,
+        "funcionarios_estimados_empresa": 0,
+        "quantidade_estabelecimentos_empresa": 0,
+        "tipo_unidade": 0,
+        "area_m2": 1838,
+        "estoque_medio_estimado": 0,
+        "valor_bens_ponderado_estabelecimento": 0,
+        "possui_termo_loja": 0,
+        "possui_termo_galeria": 0
+      },
+      "correlacoes_pearson_absolutas_ge_0_8": [
+        {
+          "variavel_1": "faturamento_mensal_empresa",
+          "variavel_2": "funcionarios_estimados_empresa",
+          "pearson": 0.935232
+        }
+      ],
+      "grupo_atividade": {
+        "CLINICA": 322,
+        "OFICINA": 309,
+        "FARMACIA": 305,
+        "MERCADO": 304,
+        "RESTAURANTE": 304,
+        "ESCRITORIO": 300,
+        "BELEZA": 297,
+        "ELETRONICOS": 289,
+        "ESCOLA_CURSO": 274,
+        "VAREJO_MODA": 274
+      },
+      "verificacoes": "Chaves, referências empresa-imóvel, junções, domínios e não-negatividade conferidos."
+    },
+    "teste_comum": {
+      "fontes": {
+        "empresas": {
+          "arquivo": "/home/lucas/Documentos/hackathon/seguro_empresarial/dados/originais/Seguro_Empresarial_Teste_Comum/empresas.csv",
+          "sha256": "f108cb3d225e2e19a850f61837863b297509e44e5b3dca32750ee5fb0529cfe6",
+          "linhas": 120
+        },
+        "enderecos_estabelecimentos": {
+          "arquivo": "/home/lucas/Documentos/hackathon/seguro_empresarial/dados/originais/Seguro_Empresarial_Teste_Comum/enderecos_estabelecimentos.csv",
+          "sha256": "1cafe9b45d215e2b0d649833a0c371e236b9befc08c50484537eb6e27b36c086",
+          "linhas": 144
+        },
+        "sinais_financeiros_operacionais": {
+          "arquivo": "/home/lucas/Documentos/hackathon/seguro_empresarial/dados/originais/Seguro_Empresarial_Teste_Comum/sinais_financeiros_operacionais.csv",
+          "sha256": "2a75fd426b1a396cdbdf878fb3d01d3b869546004924c4bc8810e6a1a960542b",
+          "linhas": 144
+        },
+        "bens_cadastrados": {
+          "arquivo": "/home/lucas/Documentos/hackathon/seguro_empresarial/dados/originais/Seguro_Empresarial_Teste_Comum/bens_cadastrados.csv",
+          "sha256": "8207f96766c27480568881151b53b82a43a91183419f1395a4c710de4c842e9f",
+          "linhas": 513
+        },
+        "template_resultado_times": {
+          "arquivo": "/home/lucas/Documentos/hackathon/seguro_empresarial/dados/originais/Seguro_Empresarial_Teste_Comum/template_resultado_times.csv",
+          "sha256": "15fe6d28d49d8e28c0de339256a236ff0f345cafca73ec756b9df79a7092096c",
+          "linhas": 144
+        }
+      },
+      "arquivo_saida": "/home/lucas/Documentos/hackathon/seguro_empresarial/dados/preparados/base_teste_comum.csv",
+      "linhas": 144,
+      "empresas": 120,
+      "colunas": 25,
+      "candidatas_iniciais": [
+        "grupo_atividade",
+        "faturamento_mensal_empresa",
+        "funcionarios_estimados_empresa",
+        "quantidade_estabelecimentos_empresa",
+        "tipo_unidade",
+        "area_m2",
+        "estoque_medio_estimado",
+        "valor_bens_ponderado_estabelecimento"
+      ],
+      "candidatas_condicionais": [
+        "possui_termo_loja",
+        "possui_termo_galeria"
+      ],
+      "auxiliares": [
+        "origem_area",
+        "confianca_area",
+        "endereco_cnpj_compativel",
+        "situacao_imovel_cadastral",
+        "material_parede_externa_cadastrado",
+        "area_ausente",
+        "origem_faturamento",
+        "confianca_faturamento",
+        "quantidade_bens_cadastrados",
+        "proporcao_bens_baixa_confianca",
+        "bens_sem_cadastro"
+      ],
+      "rotulos_plano_preenchidos": 0,
+      "area_ausente": 87,
+      "bens_sem_cadastro": 0,
+      "ausentes_por_candidata": {
+        "grupo_atividade": 0,
+        "faturamento_mensal_empresa": 0,
+        "funcionarios_estimados_empresa": 0,
+        "quantidade_estabelecimentos_empresa": 0,
+        "tipo_unidade": 0,
+        "area_m2": 87,
+        "estoque_medio_estimado": 0,
+        "valor_bens_ponderado_estabelecimento": 0,
+        "possui_termo_loja": 0,
+        "possui_termo_galeria": 0
+      },
+      "correlacoes_pearson_absolutas_ge_0_8": [
+        {
+          "variavel_1": "faturamento_mensal_empresa",
+          "variavel_2": "funcionarios_estimados_empresa",
+          "pearson": 0.941555
+        }
+      ],
+      "grupo_atividade": {
+        "RESTAURANTE": 25,
+        "FARMACIA": 17,
+        "CLINICA": 16,
+        "ESCOLA_CURSO": 15,
+        "BELEZA": 14,
+        "MERCADO": 13,
+        "OFICINA": 13,
+        "ELETRONICOS": 12,
+        "VAREJO_MODA": 10,
+        "ESCRITORIO": 9
+      },
+      "verificacoes": "Chaves, referências empresa-imóvel, junções, domínios e não-negatividade conferidos."
+    }
+  }
+}
